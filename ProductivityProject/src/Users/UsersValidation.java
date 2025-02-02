@@ -1,14 +1,87 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Users;
 
-/**
- *
- * @author Admin
- */
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.nio.file.Paths;
+
 public class UsersValidation {
-    
+    static int option() {
+        int value;
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            try {
+                value = input.nextInt();
+
+                if (value == 1 || value == 2) {
+                    return value;
+                } else {
+                    System.out.println("Error: [Opción no válida]");
+                    System.out.print("- Ingrese el valor correcto: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: [Solo se admiten valores numericos enteros]");
+                System.out.print("- Ingrese el valor correcto: ");
+                input.nextLine();
+            }
+        }
+    }    
+    static boolean checkChars(String value) {
+        String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
+        for (int i = 0; i < value.length(); i++) {
+            for (int j = 0; j < unsupported.length(); j++) {
+                if (unsupported.charAt(j) == value.charAt(i)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    static String username() {
+        String value;
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            value = input.next();
+            if (userExists(value)) {
+                System.out.println("Error: [Nombre de usuario ya en uso]");
+                System.out.print("- Ingrese otro nombre de usuario: ");
+            } else if (checkChars(value)) {
+                return value;
+            } else {
+                System.out.println("Error: [Caracter invalido encontrado]");
+                System.out.print("- Ingrese un nombre correcto: ");
+            }
+        }
+    }
+    static void saveUser(String username, String password) {
+        Scanner input = new Scanner(System.in);
+        try {
+            String path = Paths.get(".").toRealPath().toString() + "/src/Users/users.txt";
+            File file = new File(path);
+            file.createNewFile();
+            FileWriter writer = new FileWriter(path, true);
+            writer.write(String.format("%-20s  %-20s\n", username, password));
+            writer.close();
+            System.out.println("Usuario Creado!");
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    private static boolean userExists(String username) {
+        try {
+            String path = Paths.get("").toRealPath().toString() + "/src/Users/users.txt";
+            Scanner file = new Scanner(new File(path));
+            while (file.hasNextLine()) {
+                if (file.next().equals(username)) {
+                    return true;
+                }
+                file.nextLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return false;
+    }
 }
