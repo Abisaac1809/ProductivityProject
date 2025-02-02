@@ -5,7 +5,7 @@ public class UsersMain {
         int option = UsersDevelopment.loginMenu();
         String username = "";
         if (option == 1) {
-            System.out.println("iniciaste sesion");
+            username = UsersDevelopment.signin();
         } else if (option == 2) {
             username = UsersDevelopment.signup();
         }
