@@ -1,10 +1,9 @@
 # project's build folder
-./ProductivityProject/build/
 /ProductivityProject/build/
 /ProductivityProject/dist/
 
 # users file from the users module
-./ProductivityProject/src/Users/users.txt
+/ProductivityProject/src/Users/users.txt
 
 # habits files from the habits module
-./ProductivityProject/src/Habits/HabitsDataBase/*.txt
+/ProductivityProject/src/Habits/HabitsDataBase/*.txt
