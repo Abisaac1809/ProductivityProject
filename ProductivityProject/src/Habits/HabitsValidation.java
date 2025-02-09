@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class HabitsValidation {
     
@@ -109,23 +110,29 @@ public class HabitsValidation {
     }
     
     
-    public static boolean userHasHabits(String route)  {
+    private static void createArchive(String route) throws IOException {
+        if (route != null) {
+            try(BufferedWriter fileWriter = new BufferedWriter(new FileWriter(route))) {   
+            }
+        }
+    }
+    
+    public static boolean userHasHabits(String route) throws IOException  {
         
         if (route != null) {
             try (Scanner fileReader = new Scanner(new File(route))) {
                 return fileReader.hasNext();
             }
             catch (FileNotFoundException e) {
-                System.out.println("¡Lo sentimos!, ha ocurrido un error");
-                System.out.println("Error: [No se ha encontrado el archivo]");
-                return false;
+                createArchive(route);
+                return true;
             }
         }
         return false;
     }
     
 
-        public static int determineRows(String route) {
+    public static int determineRows(String route) {
             
         if (route != null) { 
             int count = 0;
@@ -150,11 +157,19 @@ public class HabitsValidation {
         
         if (route != null && habitsVector != null && minutesVector != null
             && habitsVector.length == minutesVector.length) {
+            String line = ""; 
             int i = 0;
             try (Scanner fileReader = new Scanner(new File(route))){
-                while (fileReader.hasNextLine()) {
-                    habitsVector[i] = fileReader.next();
-                    minutesVector[i] = fileReader.nextInt();
+                while (fileReader.hasNextLine() && i < habitsVector.length ) {
+                    
+                    line = fileReader.nextLine();
+                    Scanner lineReader = new Scanner(line);
+                    lineReader.useDelimiter("#");
+                    
+                    while(lineReader.hasNext()){
+                        habitsVector[i] = lineReader.next();
+                        minutesVector[i] = lineReader.nextInt();
+                    }
                     i++;
                 }
             }
@@ -164,6 +179,9 @@ public class HabitsValidation {
             }
         }
     }
+
+    public HabitsValidation() {
+    }
     
     
     public static void saveData(String route, String[] habitsVector, int[] minutesVector) throws IOException {
@@ -172,7 +190,7 @@ public class HabitsValidation {
             String line = "";
             try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(route))) {
                 for (int i = 0; i < habitsVector.length; i++) {
-                    line = String.format("%s %d", habitsVector[i], minutesVector[i]);
+                    line = String.format("%s#%d", habitsVector[i], minutesVector[i]);
                     fileWriter.write(line);
                     if (i != (habitsVector.length - 1)) {
                         fileWriter.newLine();
