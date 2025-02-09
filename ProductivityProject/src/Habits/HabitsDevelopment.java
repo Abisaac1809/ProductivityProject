@@ -39,7 +39,7 @@ public class HabitsDevelopment {
         if (route != null && habitsVector != null && minutesVector != null) {
             int opcion = 0;
         
-            System.out.printf("%30s", "Gestión de Hábitos\n\n");
+            System.out.printf("\n%30s", "Gestión de Hábitos\n\n");
             System.out.println("1. Mostrar Hábitos Fijados");
             System.out.println("2. Fijar Hábito");
             System.out.println("3. Eliminar Hábito");
@@ -82,7 +82,7 @@ public class HabitsDevelopment {
         
             appendHabit(habitsVector, minutesVector, newHabitsVector, newMinutesVector, newHabit, newMinutes);
             Habits.HabitsValidation.saveData(route, newHabitsVector, newMinutesVector);
-
+            
             newHabitsVector = null;
             newMinutesVector = null;
         }
@@ -105,7 +105,8 @@ public class HabitsDevelopment {
             }
         
         newHabitsVector[newHabitsVector.length - 1] = newHabit;
-        newMinutesVector[newMinutesVector.length - 1] = newMinutes;   
+        newMinutesVector[newMinutesVector.length - 1] = newMinutes; 
+        System.out.printf("Se ha fijado el hábito: %s", newHabit);
         }
     }
     
@@ -113,12 +114,17 @@ public class HabitsDevelopment {
     private static void showHabits(String[] habitsVector, int[] minutesVector) {
         
         if (habitsVector != null && minutesVector != null) {
-            System.out.printf("%30s\n\n", "Hábitos Fijados");
-            System.out.printf("%-40s %-40s\n", "Hábito", "Minutos");
+            if (habitsVector.length == 0) {
+                System.out.println("\nTodavía no has fijado ningún hábito\n");
+            }
+            else {
+                System.out.printf("%30s\n\n", "Hábitos Fijados");
+                System.out.printf("%-40s %-40s\n", "Hábito", "Minutos");
         
-            for (int i = 0; i < habitsVector.length; i++) {
-                System.out.printf("%-40s %-40d\n", habitsVector[i], minutesVector[i]);
-            }   
+                for (int i = 0; i < habitsVector.length; i++) {
+                    System.out.printf("%-40s %-40d\n", habitsVector[i], minutesVector[i]);
+                }     
+            }  
         }
     }
     
