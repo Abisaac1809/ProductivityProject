@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class UsersDevelopment {
     static int loginMenu() {
         int option = 0;
-        Scanner input = new Scanner(System.in);
         System.out.println("1. Iniciar Sesión");
         System.out.println("2. Registrarse");
         System.out.print("- Ingrese su opción: ");
@@ -23,7 +22,6 @@ public class UsersDevelopment {
         return username;
     }
     static String signin() {
-        Scanner input = new Scanner(System.in);
         System.out.print("- Nombre de usuario: ");
         String username = UsersValidation.username(true);
         UsersValidation.checkPassword(username);
