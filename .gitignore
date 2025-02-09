@@ -1,2 +1,4 @@
 # project's build folder
 ./ProductivityProject/build/
+/ProductivityProject/build/
+/ProductivityProject/dist/
