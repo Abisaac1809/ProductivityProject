@@ -18,7 +18,6 @@ public class UsersDevelopment {
         System.out.print("- Contraseña: ");
         String password = input.next();
         UsersValidation.saveUser(username, UsersValidation.encrypt(password));
-        input.close();
         return username;
     }
     static String signin() {
