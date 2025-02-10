@@ -8,6 +8,8 @@ import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HabitsValidation {
     
@@ -22,6 +24,30 @@ public class HabitsValidation {
                     System.out.print(text);
                     number = input.nextInt();
                     if (number > 0) {
+                        return number;
+                    }
+                    System.out.println("Error: [Opcion no válida]\n");
+                }
+                catch (InputMismatchException e) {
+                    System.out.println("Error: [No se pueden usar caracteres]\n");
+                    input.nextLine();
+                }
+            }
+        }
+        return 0;
+        
+    }
+    public static int validateInt(String text, int min, int max) {
+        
+        if (text != null) {
+            Scanner input = new Scanner(System.in);
+            int number = 0;
+        
+            while (true) {
+                try {
+                    System.out.print(text);
+                    number = input.nextInt();
+                    if (number >= min && number <= max) {
                         return number;
                     }
                     System.out.println("Error: [Opcion no válida]\n");
@@ -117,14 +143,16 @@ public class HabitsValidation {
         }
     }
     
-    public static boolean userHasHabits(String route) throws IOException  {
+    
+    public static boolean userHasHabits(String habitsRoute, String performanceRoute) throws IOException  {
         
-        if (route != null) {
-            try (Scanner fileReader = new Scanner(new File(route))) {
+        if (habitsRoute != null && performanceRoute != null) {
+            try (Scanner fileReader = new Scanner(new File(habitsRoute))) {
                 return fileReader.hasNext();
             }
             catch (FileNotFoundException e) {
-                createArchive(route);
+                createArchive(habitsRoute);
+                createArchive(performanceRoute);
                 return true;
             }
         }
@@ -153,22 +181,22 @@ public class HabitsValidation {
     }
     
     
-    public static void fillVectors(String route, String[] habitsVector, int[] minutesVector) {
+    public static void getDailyHabits(String route, String[] dailyHabits, int[] dailyHabitMinutes) {
         
-        if (route != null && habitsVector != null && minutesVector != null
-            && habitsVector.length == minutesVector.length) {
+        if (route != null && dailyHabits != null && dailyHabitMinutes != null
+            && dailyHabits.length == dailyHabitMinutes.length) {
             String line = ""; 
             int i = 0;
             try (Scanner fileReader = new Scanner(new File(route))){
-                while (fileReader.hasNextLine() && i < habitsVector.length ) {
+                while (fileReader.hasNextLine() && i < dailyHabits.length ) {
                     
                     line = fileReader.nextLine();
                     Scanner lineReader = new Scanner(line);
                     lineReader.useDelimiter("#");
                     
                     while(lineReader.hasNext()){
-                        habitsVector[i] = lineReader.next();
-                        minutesVector[i] = lineReader.nextInt();
+                        dailyHabits[i] = lineReader.next();
+                        dailyHabitMinutes[i] = lineReader.nextInt();
                     }
                     i++;
                 }
@@ -179,20 +207,41 @@ public class HabitsValidation {
             }
         }
     }
-
-    public HabitsValidation() {
+    
+    
+    public static void getHabitTimeSpentDaily(String route, int[][][] habitTimeSpentDaily){
+        
+        if (route != null && habitTimeSpentDaily != null) {
+            int i = 0;
+            
+            try(Scanner fileReader = new Scanner(new File(route))){
+                while (fileReader.hasNextLine()) {
+                    for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {
+                        for (int k = 0; k < habitTimeSpentDaily[i][j].length; k++) {
+                            habitTimeSpentDaily[i][j][k] = fileReader.nextInt();
+                        }
+                    }
+                    fileReader.nextLine();
+                    if (!fileReader.hasNextInt()) return;
+                    i++;
+                }
+            } catch (FileNotFoundException ex) {
+                System.out.println("¡Lo sentimos!, ha ocurrido un error");
+                System.out.println("Error: [No se ha encontrado el archivo]");
+            }
+        }
     }
     
     
-    public static void saveData(String route, String[] habitsVector, int[] minutesVector) throws IOException {
+    public static void saveHabits(String route, String[] dailyHabits, int[] dailyHabitMinutes) throws IOException {
         
-        if (route != null && habitsVector != null && minutesVector != null) {
+        if (route != null && dailyHabits != null && dailyHabitMinutes != null) {
             String line = "";
             try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(route))) {
-                for (int i = 0; i < habitsVector.length; i++) {
-                    line = String.format("%s#%d", habitsVector[i], minutesVector[i]);
+                for (int i = 0; i < dailyHabits.length; i++) {
+                    line = String.format("%s#%d", dailyHabits[i], dailyHabitMinutes[i]);
                     fileWriter.write(line);
-                    if (i != (habitsVector.length - 1)) {
+                    if (i != (dailyHabits.length - 1)) {
                         fileWriter.newLine();
                     }
                 }
@@ -203,4 +252,43 @@ public class HabitsValidation {
             }
         }  
     }
+    
+    
+    public static void savePerformance(String route, int[][][] habitTimeSpentDaily) throws IOException {
+        
+        if (route != null && habitTimeSpentDaily != null) {
+            
+            try(BufferedWriter fileWriter = new BufferedWriter(new FileWriter(route))) {
+                for (int i = 0; i < habitTimeSpentDaily.length; i++) {
+                    for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {
+                        for (int k = 0; k < habitTimeSpentDaily[i][j].length; k++) {
+                            fileWriter.write(String.format("%s ", habitTimeSpentDaily[i][j][k]));
+                        }
+                        fileWriter.newLine();
+                    }
+                    fileWriter.newLine();
+                }
+            }
+            catch(FileNotFoundException e) {
+                System.out.println("¡Lo sentimos!, ha ocurrido un error");
+                System.out.println("Error: [No se ha podido guardar los datos en el archivo]");    
+            }
+        }
+    }
+    
+    
+    public static int numberOfHabit(String text, String[] dailyHabits) {
+        if (dailyHabits != null) {
+            int habitPosition = 0;
+        
+            System.out.println("\nHábitos Fijados");
+            for (int i = 0; i < dailyHabits.length; i++) {
+                System.out.printf("%d. %s\n", (i+1), dailyHabits[i]);
+            }
+            habitPosition = validateInt(text, 1, dailyHabits.length + 1);
+        
+            return (habitPosition - 1);
+        }    
+        return 0;
+    }    
 }

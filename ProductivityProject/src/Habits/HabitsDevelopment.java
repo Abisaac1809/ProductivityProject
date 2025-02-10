@@ -1,176 +1,156 @@
 package Habits;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 
 public class HabitsDevelopment {
     
-    public static void HabitsManagment(String user) throws IOException{
+    public static void habitsManagmentMenu(String habitsRoute, String performanceRoute, String[] dailyHabits,
+                                            int[] dailyHabitMinutes, int[][][] habitTimeSpentDaily) throws IOException {
         
-        if (user != null) {
-            String userRoute = "";
-            String route = "";
-            int rows = 0;
-            String[] habitsVector;
-            int[] minutesVector;
-        
-            userRoute = "//src//Habits//HabitsDataBase//Habits." + user + ".txt";
-            route = Paths.get("").toAbsolutePath().toString() + userRoute;
-            rows = (Habits.HabitsValidation.userHasHabits(route)) ? (Habits.HabitsValidation.determineRows(route)) : 0;      
-        
-            habitsVector = new String[rows];
-            minutesVector = new int[rows];
-        
-            Habits.HabitsValidation.initializeVector(habitsVector);
-            Habits.HabitsValidation.initializeVector(minutesVector);
+        if (habitsRoute != null && performanceRoute != null && dailyHabits != null && dailyHabitMinutes != null
+            && habitTimeSpentDaily != null) {
             
-            Habits.HabitsValidation.fillVectors(route, habitsVector, minutesVector);
-        
-            habitsManagmentMenu(route, habitsVector, minutesVector);
-        
-            habitsVector = null;
-            minutesVector = null;
-        }
-    }
-    
-    
-    private static void habitsManagmentMenu(String route, String[] habitsVector, int[] minutesVector) throws IOException {
-        
-        if (route != null && habitsVector != null && minutesVector != null) {
             int opcion = 0;
         
             System.out.printf("\n%30s", "Gestión de Hábitos\n\n");
             System.out.println("1. Mostrar Hábitos Fijados");
             System.out.println("2. Fijar Hábito");
             System.out.println("3. Eliminar Hábito");
+            System.out.println("4. Registrar progreso");
         
-            opcion = Habits.HabitsValidation.validateInt("Ingrese la opción: ");
+            opcion = Habits.HabitsValidation.validateInt("Ingrese la opción: ", 1, 4);
         
             switch(opcion) {
                 case 1:
-                    showHabits(habitsVector, minutesVector);
+                    showHabits(dailyHabits, dailyHabitMinutes);
                     break;
             
                 case 2: 
-                    addHabit(route, habitsVector, minutesVector);
+                    addHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
                     break;
                 
                 case 3:
-                    deleteHabit(route, habitsVector, minutesVector);
+                    deleteHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
                     break;
     
+                case 4:
+                    registerHabit(performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
+                    break;
             }
         }
     }
     
-    private static void addHabit(String route, String[] habitsVector, int[] minutesVector) throws IOException {
+    
+    private static void showHabits(String[] dailyHabits, int[] dailyHabitMinutes) {
         
-        if (route != null && habitsVector != null && minutesVector != null) {
-            String newHabit = "";
-            int newMinutes = 0;
-            String[] newHabitsVector;
-            int[] newMinutesVector;
-        
-            newHabit = Habits.HabitsValidation.validateString("Ingresa el nuevo hábito: ");
-            newMinutes = Habits.HabitsValidation.validateInt("Ingresa los minutos que quieres realizar: ");
-        
-            newHabitsVector = new String[habitsVector.length + 1];
-            newMinutesVector = new int[minutesVector.length + 1];
-        
-            Habits.HabitsValidation.initializeVector(newHabitsVector);
-            Habits.HabitsValidation.initializeVector(newMinutesVector);
-        
-            appendHabit(habitsVector, minutesVector, newHabitsVector, newMinutesVector, newHabit, newMinutes);
-            Habits.HabitsValidation.saveData(route, newHabitsVector, newMinutesVector);
+        if (dailyHabits != null && dailyHabitMinutes != null) {
             
-            newHabitsVector = null;
-            newMinutesVector = null;
-        }
-
-    }
-    
-    
-    private static void appendHabit(String[] habitsVector, int[] minutesVector,
-                                    String[] newHabitsVector, int[] newMinutesVector,
-                                    String newHabit, int newMinutes){
-        
-        if (habitsVector != null && minutesVector != null
-            && newHabitsVector != null && newMinutesVector != null
-            && newHabit != null && newMinutes > 0) {
-            
-                 
-            for (int i = 0; i < (newHabitsVector.length - 1); i++) {
-                newHabitsVector[i] = habitsVector[i];
-                newMinutesVector[i] = minutesVector[i];
-            }
-        
-        newHabitsVector[newHabitsVector.length - 1] = newHabit;
-        newMinutesVector[newMinutesVector.length - 1] = newMinutes; 
-        System.out.printf("Se ha fijado el hábito: %s", newHabit);
-        }
-    }
-    
-    
-    private static void showHabits(String[] habitsVector, int[] minutesVector) {
-        
-        if (habitsVector != null && minutesVector != null) {
-            if (habitsVector.length == 0) {
+            if (dailyHabits.length == 0) {
+                
                 System.out.println("\nTodavía no has fijado ningún hábito\n");
             }
             else {
+                
                 System.out.printf("%30s\n\n", "Hábitos Fijados");
                 System.out.printf("%-40s %-40s\n", "Hábito", "Minutos");
         
-                for (int i = 0; i < habitsVector.length; i++) {
-                    System.out.printf("%-40s %-40d\n", habitsVector[i], minutesVector[i]);
+                for (int i = 0; i < dailyHabits.length; i++) {
+                    System.out.printf("%-40s %-40d\n", dailyHabits[i], dailyHabitMinutes[i]);
                 }     
             }  
         }
     }
     
     
-    private static void deleteHabit(String route, String[] habitsVector, int[] minutesVector) throws IOException {
+    private static void addHabit(String habitsRoute, String performanceRoute, String[] dailyHabits,
+                                 int[] dailyHabitMinutes, int[][][] habitTimeSpentDaily) throws IOException {
         
-        if (route != null && habitsVector != null && minutesVector != null) {
-            String habit = "";
+        if (habitsRoute != null && dailyHabits != null && dailyHabitMinutes != null) {
+            
+            String newHabit = "";
+            int newMinutes = 0;
+            String[] newDailyHabits;
+            int[] newDailyHabitMinutes;
+            int[][][] newHabitTimeSpentDaily;
+        
+            newHabit = Habits.HabitsValidation.validateString("Ingresa el nuevo hábito: ");
+            newMinutes = Habits.HabitsValidation.validateInt("Ingresa los minutos que quieres realizar: ");
+        
+            newDailyHabits = new String[dailyHabits.length + 1];
+            newDailyHabitMinutes = new int[dailyHabitMinutes.length + 1];
+            newHabitTimeSpentDaily = new int[12][31][dailyHabits.length + 1];
+        
+            Habits.HabitsValidation.initializeVector(newDailyHabits);
+            Habits.HabitsValidation.initializeVector(newDailyHabitMinutes);
+            Habits.HabitsValidation.initializeArray(newHabitTimeSpentDaily);
+        
+            Habits.HabitsHelpers.appendHabit(dailyHabits, dailyHabitMinutes, newDailyHabits, newDailyHabitMinutes, newHabit, newMinutes);
+            Habits.HabitsHelpers.appendHabitInPerformance(habitTimeSpentDaily, newHabitTimeSpentDaily);
+            
+            Habits.HabitsValidation.saveHabits(habitsRoute, newDailyHabits, newDailyHabitMinutes);
+            Habits.HabitsValidation.savePerformance(performanceRoute, newHabitTimeSpentDaily);
+            
+            newDailyHabits = null;
+            newDailyHabitMinutes = null;
+            newHabitTimeSpentDaily = null;
+        }
+
+    }
+    
+    
+    private static void deleteHabit(String habitsRoute, String performanceRoute, String[] dailyHabits,
+                                    int[] dailyHabitMinutes, int [][][] habitTimeSpentDaily) throws IOException {
+        
+        if (habitsRoute != null && dailyHabits != null && dailyHabitMinutes != null) {
+            
             String[] newHabitsVector;
+            int habitPosition = 0;
             int[] newMinutesVector;
+            int[][][] newHabitTimeSpentDaily;
         
-            habit = Habits.HabitsValidation.validateString("Ingresa el hábito que deseas eliminar: ");
+            habitPosition = Habits.HabitsValidation.numberOfHabit("Ingresa el hábito que deseas eliminar: ", dailyHabits);
         
-            newHabitsVector = new String[habitsVector.length - 1];
-            newMinutesVector = new int[minutesVector.length - 1];
+            newHabitsVector = new String[dailyHabits.length - 1];
+            newMinutesVector = new int[dailyHabitMinutes.length - 1];
+            newHabitTimeSpentDaily = new int[12][31][dailyHabits.length - 1];
         
             Habits.HabitsValidation.initializeVector(newHabitsVector);
             Habits.HabitsValidation.initializeVector(newMinutesVector);
+            Habits.HabitsValidation.initializeArray(newHabitTimeSpentDaily);
         
-            popHabit(habit, habitsVector, minutesVector, newHabitsVector, newMinutesVector);
-            Habits.HabitsValidation.saveData(route, newHabitsVector, newMinutesVector);
+            Habits.HabitsHelpers.popHabit(habitPosition, dailyHabits, dailyHabitMinutes, newHabitsVector, newMinutesVector);
+            Habits.HabitsHelpers.popHabitInPerformance(habitPosition, dailyHabits, habitTimeSpentDaily, newHabitTimeSpentDaily);
+            
+            Habits.HabitsValidation.saveHabits(habitsRoute, newHabitsVector, newMinutesVector);
+            Habits.HabitsValidation.savePerformance(performanceRoute, newHabitTimeSpentDaily);
         
             newHabitsVector = null;
             newMinutesVector = null;
+            newHabitTimeSpentDaily = null;
         }
     }
     
     
-    private static void popHabit(String habit, String[] habitsVector, int[] minutesVector,
-                                 String[] newHabitsVector, int[] newMinutesVector) {
+    public static void registerHabit(String route, String[] dailyHabits, int[] dailyHabitMinutes,
+                                     int[][][] habitTimeSpentDaily) throws IOException {
         
-        if (habit != null && habitsVector != null && minutesVector != null
-            && newHabitsVector != null && newMinutesVector!= null) {
-            int i = 0;
-            int j = 0;
-            while (i < habitsVector.length) {
-                if (habit.equals(habitsVector[i])) {
-                    i++;
-                }
-                else {
-                    newHabitsVector[j] = habitsVector[i];
-                    newMinutesVector[j] = minutesVector[i];
-                    i++;
-                    j++;  
-                }
-            }
+        if (route != null && dailyHabits != null && dailyHabitMinutes != null
+            && habitTimeSpentDaily != null && dailyHabits.length == dailyHabitMinutes.length) {
+            
+            int day = 0;
+            int month = 0;
+            int habitPosition = 0;
+            int minutes = 0;
+            int[] date = Habits.HabitsHelpers.getDate();
+           
+            day = date[0] - 1;
+            month = date[1] - 1;
+            habitPosition = HabitsValidation.numberOfHabit("Ingresa el hábito que deseas registrar: ",dailyHabits);
+            minutes = Habits.HabitsValidation.validateInt("Ingresa los minutos que realizaste: ", 1, 1440);
+            
+            habitTimeSpentDaily[month][day][habitPosition] += minutes;
+            Habits.HabitsValidation.savePerformance(route, habitTimeSpentDaily);
+            System.out.println("Se ha registrado tu progreso correctamente");
         }
     }
 }
