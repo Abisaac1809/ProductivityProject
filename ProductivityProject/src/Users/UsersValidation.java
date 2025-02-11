@@ -9,9 +9,8 @@ import java.util.Scanner;
 import java.nio.file.Paths;
 
 public class UsersValidation {
-    static int option() {
+    static int option(Scanner input) {
         int value;
-        Scanner input = new Scanner(System.in);
         while (true) {
             try {
                 value = input.nextInt();
@@ -40,9 +39,8 @@ public class UsersValidation {
         }
         return true;
     }
-    static String username(boolean isLogin) {
+    static String username(boolean isLogin, Scanner input) {
         String value;
-        Scanner input = new Scanner(System.in);
         while (true) {
             value = input.next();
             if (userExists(value) && !isLogin) {
@@ -59,8 +57,7 @@ public class UsersValidation {
             }
         }
     }
-    static void saveUser(String username, String password) {
-        Scanner input = new Scanner(System.in);
+    static void saveUser(String username, String password, Scanner input) {
         try {
             String path = Paths.get(".").toRealPath().toString() + "/src/Users/users.txt";
             File file = new File(path);
@@ -79,22 +76,23 @@ public class UsersValidation {
             Scanner file = new Scanner(new File(path));
             while (file.hasNextLine()) {
                 if (file.next().equals(username)) {
+                    file.close();
                     return true;
                 }
                 file.nextLine();
             }
+            file.close();
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
         return false;
     }
-    static void checkPassword(String username) {
+    static void checkPassword(String username, Scanner input) {
         while (true) {
             try {
                 String path = Paths.get("").toRealPath().toString() + "/src/Users/users.txt";
                 Scanner file = new Scanner(new File(path));
                 String p = "";
-                Scanner input = new Scanner(System.in);
                 System.out.print("- Contraseña: ");
                 String password = encrypt(input.next());
                 while (file.hasNextLine()) {
@@ -104,10 +102,12 @@ public class UsersValidation {
                     file.nextLine();
                 }
                 if (p.equals(password)) {
+                    file.close();
                     return;
                 } else {
                     System.out.println("Error: [Contraseña inválida]");
                 }
+                file.close();
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
             }
