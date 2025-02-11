@@ -17,6 +17,9 @@ public class UsersDevelopment {
         System.out.print("- Contraseña: ");
         String password = input.next();
         UsersValidation.saveUser(username, UsersValidation.encrypt(password), input);
+        UsersValidation.createFinancesFile(username);
+        UsersValidation.createHabitsFile(username);
+        // TODO: create tasks file
         return username;
     }
     static String signin(Scanner input) {

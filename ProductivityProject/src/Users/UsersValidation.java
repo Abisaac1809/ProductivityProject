@@ -161,4 +161,25 @@ public class UsersValidation {
         }
         return encryp;
     }
+    static void createFinancesFile(String username) {
+        try {
+            String path1 = Paths.get(".").toRealPath().toString() + "/src/Finances/" + username + "finances1.txt";
+            String path2 = Paths.get(".").toRealPath().toString() + "/src/Finances/" + username + "finances2.txt";
+            File file1 = new File(path1);
+            file1.createNewFile();
+            File file2 = new File(path2);
+            file2.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    static void createHabitsFile(String username) {
+        try {
+            String path = Paths.get(".").toRealPath().toString() + "/src/Habits/HabitsDataBase/Habits." + username + ".txt";
+            File file = new File(path);
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 }

@@ -15,6 +15,7 @@ public class Main {
         while (option != 5) {
             if (option == 1) FinanceMain.main(username);
             if (option == 2) HabitsMain.HabitsMain(username);
+            // TODO: add tasks main implementation
             if (option == 4) {
                 System.out.println("");
                 username = UsersMain.main(input);
