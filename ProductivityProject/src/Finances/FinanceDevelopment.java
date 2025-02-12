@@ -6,7 +6,7 @@ public class FinanceDevelopment {
     static void fundefault(String file1, String file2) throws IOException{
         boolean flag1 = FinanceValidation.itExist(file1);
         boolean flag2 = FinanceValidation.itExist(file2);
-        
+        System.out.println(flag1);
         if(!flag1){
             FinanceValidation.fileCreate(file1);
         }
