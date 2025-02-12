@@ -7,9 +7,6 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class HabitsValidation {
     
@@ -130,6 +127,17 @@ public class HabitsValidation {
                     for (int k = 0; k < array[i][j].length; k++) {
                         array[i][j][k] = 0;
                     }
+                }
+            }
+        }
+    }
+    
+    public static void initializeArray(int[][] array) {
+        
+        if (array != null) {
+            for (int i = 0; i < array.length; i++) {
+                for (int j = 0; j < array[i].length; j++) {
+                    array[i][j] = 0;
                 }
             }
         }
@@ -277,18 +285,20 @@ public class HabitsValidation {
     }
     
     
-    public static int numberOfHabit(String text, String[] dailyHabits) {
-        if (dailyHabits != null) {
-            int habitPosition = 0;
+    public static int chosePosition(String[] options) {
         
-            System.out.println("\nHábitos Fijados");
-            for (int i = 0; i < dailyHabits.length; i++) {
-                System.out.printf("%d. %s\n", (i+1), dailyHabits[i]);
+        if (options != null) {
+            
+            int position = 0;
+        
+            System.out.println("\nOpciones:\n");
+            for (int i = 0; i < options.length; i++) {
+                System.out.printf("%d. %s\n", (i+1), options[i]);
             }
-            habitPosition = validateInt(text, 1, dailyHabits.length + 1);
+            position = validateInt("Elige una opción: ", 1, options.length + 1);
         
-            return (habitPosition - 1);
+            return (position - 1);
         }    
         return 0;
-    }    
+    }   
 }
