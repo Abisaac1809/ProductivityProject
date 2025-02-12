@@ -40,7 +40,7 @@ public class FinanceValidation {
                 return amount;
             }
             catch(InputMismatchException ime){
-                System.out.print("Error: Ingrese solo numeros");
+                System.out.print("Error: Ingrese solo numeros\n");
                 enter.nextLine();
             }
         }
