@@ -54,7 +54,7 @@ public class FinanceValidation {
     
     static void fileCreate(String file) throws IOException{
         try{
-            String dfault= "0.0";
+            String dfault= "0.00";
             String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
             File newfile = new File(path);
             newfile.createNewFile();
