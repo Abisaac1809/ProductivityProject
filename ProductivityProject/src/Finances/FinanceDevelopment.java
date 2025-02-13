@@ -17,7 +17,7 @@ public class FinanceDevelopment {
     
     static double menufinance(String file1) throws IOException{
         double num =FinanceValidation.fileHeadReading(file1);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.print("-------Finanzas-------\n");
         System.out.println("\nSu saldo es de: "+numd+"\n");
@@ -37,7 +37,7 @@ public class FinanceDevelopment {
         double add =0;
         String text = "Ingrese el saldo a agregar: ";
         double num =FinanceValidation.fileHeadReading(file1);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
         System.out.println("\nSaldo disponible: "+numd);
@@ -54,7 +54,7 @@ public class FinanceDevelopment {
         double add =0;
         String text = "Ingrese cuanto saldo quitar: ";
         double num =FinanceValidation.fileHeadReading(file1);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
         System.out.println("\nSaldo disponible: "+numd);
