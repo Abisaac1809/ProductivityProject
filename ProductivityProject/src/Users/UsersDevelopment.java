@@ -16,7 +16,7 @@ public class UsersDevelopment {
         String username = UsersValidation.username(false, input);
         System.out.print("- Contraseña: ");
         String password = input.next();
-        UsersValidation.saveUser(username, UsersValidation.encrypt(password), input);
+        UsersValidation.saveUser(username, UsersValidation.encrypt(password));
         UsersValidation.createFinancesFile(username);
         UsersValidation.createHabitsFile(username);
         // TODO: create tasks file

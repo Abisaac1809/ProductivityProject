@@ -28,7 +28,7 @@ public class UsersValidation {
             }
         }
     }    
-    static boolean checkChars(String value) {
+    private static boolean checkChars(String value) {
         String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
         for (int i = 0; i < value.length(); i++) {
             for (int j = 0; j < unsupported.length(); j++) {
@@ -57,7 +57,7 @@ public class UsersValidation {
             }
         }
     }
-    static void saveUser(String username, String password, Scanner input) {
+    static void saveUser(String username, String password) {
         try {
             String path = Paths.get(".").toRealPath().toString() + "/src/Users/users.txt";
             File file = new File(path);
