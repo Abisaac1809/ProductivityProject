@@ -28,7 +28,7 @@ public class UsersValidation {
             }
         }
     }    
-    static boolean checkChars(String value) {
+    private static boolean checkChars(String value) {
         String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
         for (int i = 0; i < value.length(); i++) {
             for (int j = 0; j < unsupported.length(); j++) {
@@ -57,7 +57,7 @@ public class UsersValidation {
             }
         }
     }
-    static void saveUser(String username, String password, Scanner input) {
+    static void saveUser(String username, String password) {
         try {
             String path = Paths.get(".").toRealPath().toString() + "/src/Users/users.txt";
             File file = new File(path);
@@ -73,15 +73,17 @@ public class UsersValidation {
     private static boolean userExists(String username) {
         try {
             String path = Paths.get("").toRealPath().toString() + "/src/Users/users.txt";
-            Scanner file = new Scanner(new File(path));
-            while (file.hasNextLine()) {
-                if (file.next().equals(username)) {
-                    file.close();
+            File file = new File(path);
+            file.createNewFile();
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                if (fileScanner.next().equals(username)) {
+                    fileScanner.close();
                     return true;
                 }
-                file.nextLine();
+                fileScanner.nextLine();
             }
-            file.close();
+            fileScanner.close();
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }

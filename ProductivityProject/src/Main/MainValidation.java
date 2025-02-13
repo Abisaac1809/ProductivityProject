@@ -4,9 +4,8 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class MainValidation {
-    static int option() {
+    static int option(Scanner input) {
         int value;
-        Scanner input = new Scanner(System.in);
         while (true) {
             try {
                 value = input.nextInt();

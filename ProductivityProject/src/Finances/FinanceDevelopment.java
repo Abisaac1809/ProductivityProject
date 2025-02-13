@@ -1,45 +1,53 @@
 package Finances;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class FinanceDevelopment {
-    static void fundefault(String file1, String file2) throws IOException{
-        boolean flag1 = FinanceValidation.itExist(file1);
-        boolean flag2 = FinanceValidation.itExist(file2);
-        
-        if(!flag1){
-            FinanceValidation.fileCreate(file1);
-        }
-        if(!flag2){
-            FinanceValidation.fileCreate(file2);
-        }
+    static void funDefault(String file1, String file2) throws IOException{
+        FinanceValidation.fileCreate(file1);
+        FinanceValidation.fileCreate(file2);
     }
     
-    static int menufinance(String file1) throws IOException{
+    static double menuFinance(String file1) throws IOException{
         double num =FinanceValidation.fileHeadReading(file1);
-        System.out.println(num);
-        int option = 0;
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String numd = df.format(num);
+        System.out.print("-------Finanzas-------\n");
+        System.out.println("\nSu saldo es de: "+numd+"\n");
+        double option = 0;
         System.out.println("1. Añadir saldo");
         System.out.println("2. Restar saldo");
+        System.out.println("3. Regresar al menú principal\n");
+        System.out.print("-Ingrese su opción: ");
         option = FinanceValidation.options();
         return option;
     }
     static void addAmount(String file1) throws IOException{
-        int add =0;
-        String text = "Ingrese el saldo a agregar";
-        int num =FinanceValidation.fileHeadReading(file1);
-        System.out.println("Saldo disponible: "+num);
+        FinanceValidation.fileCreate(file1);
+        double add =0;
+        String text = "Ingrese el saldo a agregar (Se tomará el valor absoluto): ";
+        double num =FinanceValidation.fileHeadReading(file1);
+        System.out.println(num);
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String numd = df.format(num);
+        System.out.println("-----------------------");
+        System.out.println("\nSaldo disponible: "+numd);
         add=FinanceValidation.valEntry(text);
         num+=add;
-        FinanceValidation.fileWriter1(file1, add);
+        FinanceValidation.fileWriter1(file1, num);
     }
     
     static void subtractAmount(String file1) throws IOException{
-        int add =0;
-        String text = "Ingrese cuanto saldo quitar";
-        int num =FinanceValidation.fileHeadReading(file1);
-        System.out.println("Saldo disponible: "+num);
-        add=FinanceValidation.valEntry(add,text);
-        num-=add;
-        FinanceValidation.fileWriter1(file1, add);
+        FinanceValidation.fileCreate(file1);
+        double subtract =0;
+        String text = "Ingrese cuanto saldo quitar: ";
+        double num =FinanceValidation.fileHeadReading(file1);
+        DecimalFormat df = new DecimalFormat("#0.00");
+        String numd = df.format(num);
+        System.out.println("-----------------------");
+        System.out.println("\nSaldo disponible: "+numd);
+        subtract=FinanceValidation.valEntry(num,text);
+        num-=subtract;
+        FinanceValidation.fileWriter1(file1, num);
     }
 }

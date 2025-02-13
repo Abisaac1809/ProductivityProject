@@ -7,13 +7,14 @@ import java.util.Scanner;
 import java.util.InputMismatchException;
 
 public class FinanceValidation {
-    static int valEntry(int balance,String text){
-        int amount;
+    static double valEntry(double balance,String text){
+        double amount;
         Scanner enter =new Scanner(System.in);
         while(true){
             try{
                 System.out.println(text);
-                amount=enter.nextInt();
+                amount=enter.nextDouble();
+                amount=Math.abs(amount);
                 if(amount>balance){
                     System.out.println("Error: No tienes suficiente dinero si quieres pagar esa deuda");
                 }
@@ -23,101 +24,101 @@ public class FinanceValidation {
             }
             catch(InputMismatchException ime){
                 System.out.println("Error: Por favor, ingrese un numero");
-                enter.next();
+                enter.nextLine();
             }
         }
     }
     
-    static int valEntry(String text){
-        int amount;
+    static double valEntry(String text){
+        double amount;
         Scanner enter=new Scanner(System.in);
         while(true){
             try{
                 System.out.println(text);
-                amount=enter.nextInt();
+                amount=enter.nextDouble();
+                amount=Math.abs(amount);
                 return amount;
             }
             catch(InputMismatchException ime){
-                System.out.println("Error: Ingrese solo numeros");
+                System.out.print("Error: Ingrese solo numeros\n");
+                enter.nextLine();
             }
         }
     }
     
-    static boolean itExist(String file1) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file1;
-        File file = new File(path);
-        return file.exists();
-    }
-    
-    static void fileCreate(String file) throws IOException{
+    static void fileCreate(String file) {
         try{
+            String dfault= "0.00";
             String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
             File newfile = new File(path);
-            newfile.createNewFile();
-            FileWriter writer = new FileWriter(path);
-            writer.write(0);
-            writer.close();
+            if(newfile.createNewFile()){
+                FileWriter writer = new FileWriter(path);
+                writer.write(dfault);
+                writer.close();
+            }
         } catch(IOException i){
-            
+            System.out.println("Error: "+i.getMessage());
         }
     }
     
-    static int fileHeadReading(String file) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
-        Scanner read = new Scanner(path);
-        int num = read.nextInt();
+    static double fileHeadReading(String file) {
+        double num=0.00;
+        try{
+            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            File arch = new File(path);
+            Scanner read = new Scanner(arch);
+            num = Double.parseDouble(read.next());
+            read.close();
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
+        }
         return num;
     }
     
-    static int cantReg(String file) throws IOException{
+    private static int cantReg(String file) {
         int cr =0;
+        try{
         String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
-        Scanner read = new Scanner(path);
+        File arch = new File(path);
+        Scanner read = new Scanner(arch);
         while (read.hasNextLine()){
             read.nextLine();
             cr++;
         }
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
+        }
         return cr;
     }
     
-    static void fileWriter1(String file, int add) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
-        File oldfile = new File(path);
-        Scanner read = new Scanner(oldfile);
-        int num = read.nextInt();
-        int cr=cantReg(file);
-        String x = add+"";
-        String[] concept = new String[cr-1];
-        double[] mun = new double[cr-1];
-        for(int i=0; i<cr;i++){
-            mun[i]=read.nextDouble();
-            concept[i]=read.next();
+    static void fileWriter1(String file, double add) throws IOException{
+        try{
+            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            File file1 = new File(path);
+            file1.createNewFile();
+            FileWriter writer = new FileWriter(file1,false);
+            writer.write(Double.toString(add));
+            writer.close();
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
         }
-        oldfile.delete();
-        File newfile = new File(path);
-        newfile.createNewFile();
-        FileWriter writer = new FileWriter(newfile,true);
-        for(int i=0; i<=cr;i++){
-            if(i==0){
-                writer.write(x);
-            }else{
-                String n=mun[i]+"";
-                writer.write("\n");
-                writer.write(n+" "+concept[i]);
-            }
-        }
-        writer.close();
     }
     
-    static int options(){
+    static double options(){
         Scanner input = new Scanner(System.in);
-        int option=0;
+        double option=0;
         while(true){
             try{
-                option=input.nextInt();
-                return option;
+                option=input.nextDouble();
+                if(option==1 || option == 2 || option ==3){
+                    return option;
+                }else{
+                    System.out.println("Error: Opcion no valida");
+                    System.out.print("-Ingrese su opcion:");
+                }
             } catch(InputMismatchException e){
-                System.out.println("Por favor ingrese un caracter válido");
+                System.out.println("Error: Por favor ingrese un caracter válido");
+                input.nextLine();
             }
         }
     }

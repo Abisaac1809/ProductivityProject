@@ -11,7 +11,7 @@ public class Main {
         System.out.println("---PRODUCTIVITY PROJECT---\n");
         Scanner input = new Scanner(System.in);
         String username = UsersMain.main(input);
-        int option = MainDevelopment.mainMenu(username);
+        int option = MainDevelopment.mainMenu(username, input);
         while (option != 5) {
             if (option == 1) FinanceMain.main(username);
             if (option == 2) HabitsMain.HabitsMain(username);
@@ -20,7 +20,7 @@ public class Main {
                 System.out.println("");
                 username = UsersMain.main(input);
             }
-            option = MainDevelopment.mainMenu(username);
+            option = MainDevelopment.mainMenu(username, input);
         }
         System.out.println("\n---PROGRAMA CERRADO---");
         input.close();
