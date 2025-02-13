@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class FinanceDevelopment {
-    static void fundefault(String file1, String file2) throws IOException{
+    static void funDefault(String file1, String file2) throws IOException{
         boolean flag1 = FinanceValidation.itExist(file1);
         boolean flag2 = FinanceValidation.itExist(file2);
         System.out.println(flag1);
@@ -15,7 +15,7 @@ public class FinanceDevelopment {
         }
     }
     
-    static double menufinance(String file1) throws IOException{
+    static double menuFinance(String file1) throws IOException{
         double num =FinanceValidation.fileHeadReading(file1);
         DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
