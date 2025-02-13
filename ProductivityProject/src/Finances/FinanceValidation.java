@@ -46,36 +46,38 @@ public class FinanceValidation {
         }
     }
     
-    static boolean itExist(String file1) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file1;
-        File file = new File(path);
-        return file.exists();
-    }
-    
-    static void fileCreate(String file) throws IOException{
+    static void fileCreate(String file) {
         try{
             String dfault= "0.00";
             String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
             File newfile = new File(path);
-            newfile.createNewFile();
-            FileWriter writer = new FileWriter(path);
-            writer.write(dfault);
-            writer.close();
+            if(newfile.createNewFile()){
+                FileWriter writer = new FileWriter(path);
+                writer.write(dfault);
+                writer.close();
+            }
         } catch(IOException i){
-            
+            System.out.println("Error: "+i.getMessage());
         }
     }
     
-    static double fileHeadReading(String file) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
-        File arch = new File(path);
-        Scanner read = new Scanner(arch);
-        double num = Double.parseDouble(read.next());
+    static double fileHeadReading(String file) {
+        double num=0.00;
+        try{
+            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            File arch = new File(path);
+            Scanner read = new Scanner(arch);
+            num = Double.parseDouble(read.next());
+            read.close();
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
+        }
         return num;
     }
     
-    static int cantReg(String file) throws IOException{
+    private static int cantReg(String file) {
         int cr =0;
+        try{
         String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
         File arch = new File(path);
         Scanner read = new Scanner(arch);
@@ -83,39 +85,44 @@ public class FinanceValidation {
             read.nextLine();
             cr++;
         }
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
+        }
         return cr;
     }
     
     static void fileWriter1(String file, double add) throws IOException{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
-        File oldfile = new File(path);
-        Scanner read = new Scanner(oldfile);
-        double num = Double.parseDouble(read.next());
-        int cr=cantReg(file);
-        int i=0;
-        String x = Double.toString(add);
-        String[] concept = new String[cr-1];
-        double[] mun = new double[cr-1];
-        while(read.hasNext()){
-            mun[i]=read.nextInt();
-            concept[i]=read.next();
-            i++;
-        }
-        oldfile.delete();
-        read.close();
-        File newfile = new File(path);
-        newfile.createNewFile();
-        FileWriter writer = new FileWriter(newfile,false);
-        for(int j=0; j<cr;j++){
-            if(j==0){
-                writer.write(x);
-            }else{
-                String n=mun[j]+"";
-                writer.write("\n");
-                writer.write(n+" "+concept[j]);
+        try{
+            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            File file1 = new File(path);
+            Scanner read = new Scanner(file1);
+            double num = Double.parseDouble(read.next());
+            int cr=cantReg(file);
+            int i=0;
+            String x = Double.toString(add);
+            String[] concept = new String[cr-1];
+            double[] mun = new double[cr-1];
+            while(read.hasNext()){
+                mun[i]=read.nextInt();
+                concept[i]=read.next();
+                i++;
             }
+            read.close();
+            file1.createNewFile();
+            FileWriter writer = new FileWriter(file1,false);
+            for(int j=0; j<cr;j++){
+                if(j==0){
+                    writer.write(x);
+                }else{
+                    String n=mun[j]+"";
+                    writer.write("\n");
+                    writer.write(n+" "+concept[j]);
+                }
+            }
+            writer.close();
+        }catch(IOException i){
+            System.out.println("Error: "+i.getMessage());
         }
-        writer.close();
     }
     
     static double options(){
