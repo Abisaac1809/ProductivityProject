@@ -4,15 +4,8 @@ import java.text.DecimalFormat;
 
 public class FinanceDevelopment {
     static void funDefault(String file1, String file2) throws IOException{
-        boolean flag1 = FinanceValidation.itExist(file1);
-        boolean flag2 = FinanceValidation.itExist(file2);
-        System.out.println(flag1);
-        if(!flag1){
-            FinanceValidation.fileCreate(file1);
-        }
-        if(!flag2){
-            FinanceValidation.fileCreate(file2);
-        }
+        FinanceValidation.fileCreate(file1);
+        FinanceValidation.fileCreate(file2);
     }
     
     static double menuFinance(String file1) throws IOException{
@@ -30,13 +23,11 @@ public class FinanceDevelopment {
         return option;
     }
     static void addAmount(String file1) throws IOException{
-        boolean flag = FinanceValidation.itExist(file1);
-        if(!flag){
-            FinanceValidation.fileCreate(file1);
-        }
+        FinanceValidation.fileCreate(file1);
         double add =0;
-        String text = "Ingrese el saldo a agregar: ";
+        String text = "Ingrese el saldo a agregar (Se tomará el valor absoluto): ";
         double num =FinanceValidation.fileHeadReading(file1);
+        System.out.println(num);
         DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
@@ -47,10 +38,7 @@ public class FinanceDevelopment {
     }
     
     static void subtractAmount(String file1) throws IOException{
-        boolean flag = FinanceValidation.itExist(file1);
-        if(!flag){
-            FinanceValidation.fileCreate(file1);
-        }
+        FinanceValidation.fileCreate(file1);
         double add =0;
         String text = "Ingrese cuanto saldo quitar: ";
         double num =FinanceValidation.fileHeadReading(file1);
