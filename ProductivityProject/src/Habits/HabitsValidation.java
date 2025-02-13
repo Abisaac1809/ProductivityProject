@@ -10,30 +10,6 @@ import java.io.IOException;
 
 public class HabitsValidation {
     
-    public static int validateInt(String text) {
-        
-        if (text != null) {
-            Scanner input = new Scanner(System.in);
-            int number = 0;
-        
-            while (true) {
-                try {
-                    System.out.print(text);
-                    number = input.nextInt();
-                    if (number > 0) {
-                        return number;
-                    }
-                    System.out.println("Error: [Opcion no válida]\n");
-                }
-                catch (InputMismatchException e) {
-                    System.out.println("Error: [No se pueden usar caracteres]\n");
-                    input.nextLine();
-                }
-            }
-        }
-        return 0;
-        
-    }
     public static int validateInt(String text, int min, int max) {
         
         if (text != null) {
@@ -78,10 +54,7 @@ public class HabitsValidation {
             }    
         }
         return null;
-        
-        
     }
-    
     
     private static boolean checkChars(String value) {
         
@@ -97,12 +70,10 @@ public class HabitsValidation {
             return true;
         }
         return false;
-        
     }
     
     
     public static void initializeVector(int[] vector) {
-        
         if (vector != null) {
             for (int i = 0; i < vector.length; i++) {
                 vector[i] = 0;
@@ -111,7 +82,6 @@ public class HabitsValidation {
     }
     
     public static void initializeVector(String[] vector) {
-        
         if (vector != null) {
             for (int i = 0; i < vector.length; i++) {
                 vector[i] = "e";
@@ -146,7 +116,12 @@ public class HabitsValidation {
     
     private static void createArchive(String route) throws IOException {
         if (route != null) {
-            try(BufferedWriter fileWriter = new BufferedWriter(new FileWriter(route))) {   
+            try {
+                File file = new File(route);
+                file.createNewFile();
+            }
+            catch (IOException e) {
+                System.out.println("Error: [" + e.getMessage() + "]");
             }
         }
     }
@@ -193,6 +168,7 @@ public class HabitsValidation {
         
         if (route != null && dailyHabits != null && dailyHabitMinutes != null
             && dailyHabits.length == dailyHabitMinutes.length) {
+            
             String line = ""; 
             int i = 0;
             try (Scanner fileReader = new Scanner(new File(route))){
@@ -256,7 +232,7 @@ public class HabitsValidation {
             }
             catch(FileNotFoundException e) {  
                 System.out.println("¡Lo sentimos!, ha ocurrido un error");
-                System.out.println("Error: [No se ha podido guardar los datos en el archivo]");
+                System.out.println("Error: [No se ha encontrado el archivo]");
             }
         }  
     }
@@ -279,7 +255,7 @@ public class HabitsValidation {
             }
             catch(FileNotFoundException e) {
                 System.out.println("¡Lo sentimos!, ha ocurrido un error");
-                System.out.println("Error: [No se ha podido guardar los datos en el archivo]");    
+                System.out.println("Error: [No se ha encontrado el archivo]");    
             }
         }
     }

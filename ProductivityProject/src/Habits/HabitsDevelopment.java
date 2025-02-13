@@ -22,29 +22,13 @@ public class HabitsDevelopment {
             System.out.println("6. Salir");
         
             opcion = Habits.HabitsValidation.validateInt("Ingrese la opción: ", 1, 6);
-        
-            switch(opcion) {
-                case 1:
-                    showHabits(dailyHabits, dailyHabitMinutes);
-                    break;
             
-                case 2: 
-                    addHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
-                    break;
-                
-                case 3:
-                    deleteHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
-                    break;
-    
-                case 4:
-                    registerHabit(performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
-                    break;
-                case 5:
-                    monthlyHabitTracker(dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
-                    break;
-                case 6:
-                    break;
-            }
+            if (opcion == 1) showHabits(dailyHabits, dailyHabitMinutes);
+            if (opcion == 2) addHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
+            if (opcion == 3) deleteHabit(habitsRoute, performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
+            if (opcion == 4) registerHabit(performanceRoute, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
+            if (opcion == 5) monthlyHabitTracker(dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
+            if (opcion == 6);
         }
         else {
             System.out.println("\n¡Lo sentimos!. Esta función no está disponible en estos momentos");
@@ -91,7 +75,7 @@ public class HabitsDevelopment {
             int[][][] newHabitTimeSpentDaily;
         
             newHabit = Habits.HabitsValidation.validateString("Ingresa el nuevo hábito: ").toUpperCase();
-            newMinutes = Habits.HabitsValidation.validateInt("Ingresa los minutos que quieres realizar: ");
+            newMinutes = Habits.HabitsValidation.validateInt("Ingresa los minutos que quieres realizar: ", 1,  1440);
         
             newDailyHabits = new String[dailyHabits.length + 1];
             newDailyHabitMinutes = new int[dailyHabitMinutes.length + 1];
@@ -174,7 +158,7 @@ public class HabitsDevelopment {
             
             habitTimeSpentDaily[month][day][habitPosition] += minutes;
             Habits.HabitsValidation.savePerformance(route, habitTimeSpentDaily);
-            System.out.println("Se ha registrado tu progreso correctamente");
+            System.out.println("Se ha registrado tu progreso");
             
             date = null;
         }
