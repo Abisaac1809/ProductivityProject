@@ -39,15 +39,15 @@ public class FinanceDevelopment {
     
     static void subtractAmount(String file1) throws IOException{
         FinanceValidation.fileCreate(file1);
-        double add =0;
+        double subtract =0;
         String text = "Ingrese cuanto saldo quitar: ";
         double num =FinanceValidation.fileHeadReading(file1);
         DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
         System.out.println("\nSaldo disponible: "+numd);
-        add=FinanceValidation.valEntry(num,text);
-        num-=add;
+        subtract=FinanceValidation.valEntry(num,text);
+        num-=subtract;
         FinanceValidation.fileWriter1(file1, num);
     }
 }
