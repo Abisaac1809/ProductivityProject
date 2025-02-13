@@ -95,30 +95,9 @@ public class FinanceValidation {
         try{
             String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
             File file1 = new File(path);
-            Scanner read = new Scanner(file1);
-            double num = Double.parseDouble(read.next());
-            int cr=cantReg(file);
-            int i=0;
-            String x = Double.toString(add);
-            String[] concept = new String[cr-1];
-            double[] mun = new double[cr-1];
-            while(read.hasNext()){
-                mun[i]=read.nextInt();
-                concept[i]=read.next();
-                i++;
-            }
-            read.close();
             file1.createNewFile();
             FileWriter writer = new FileWriter(file1,false);
-            for(int j=0; j<cr;j++){
-                if(j==0){
-                    writer.write(x);
-                }else{
-                    String n=mun[j]+"";
-                    writer.write("\n");
-                    writer.write(n+" "+concept[j]);
-                }
-            }
+            writer.write(Double.toString(add));
             writer.close();
         }catch(IOException i){
             System.out.println("Error: "+i.getMessage());
