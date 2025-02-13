@@ -25,7 +25,6 @@ public class HabitsHelpers {
         }
     }
         
-        
     public static void appendHabitInPerformance(int[][][] habitTimeSpentDaily, int[][][] newHabitTimeSpentDaily) {
         
         if (habitTimeSpentDaily != null && newHabitTimeSpentDaily != null) {
@@ -108,11 +107,12 @@ public class HabitsHelpers {
         date[1] = scanner.nextInt();
         date[2] = scanner.nextInt();
         
+        localTime = null;
+        formater = null;
         scanner.close();
         
         return date;
     }
-    
     
     public static int[] getMonthsDays() {
         int year = 0;
@@ -175,7 +175,6 @@ public class HabitsHelpers {
             printLine(43 + (3 * completedDays.length));    
         }   
     }
-    
     
     private static void printLine (int numberOfCharacters) {
         
