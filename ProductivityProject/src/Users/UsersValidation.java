@@ -73,15 +73,17 @@ public class UsersValidation {
     private static boolean userExists(String username) {
         try {
             String path = Paths.get("").toRealPath().toString() + "/src/Users/users.txt";
-            Scanner file = new Scanner(new File(path));
-            while (file.hasNextLine()) {
-                if (file.next().equals(username)) {
-                    file.close();
+            File file = new File(path);
+            file.createNewFile();
+            Scanner fileScanner = new Scanner(file);
+            while (fileScanner.hasNextLine()) {
+                if (fileScanner.next().equals(username)) {
+                    fileScanner.close();
                     return true;
                 }
-                file.nextLine();
+                fileScanner.nextLine();
             }
-            file.close();
+            fileScanner.close();
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
