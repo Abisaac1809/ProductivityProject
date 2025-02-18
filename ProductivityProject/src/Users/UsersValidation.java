@@ -209,12 +209,30 @@ public class UsersValidation {
                 String path = Paths.get("").toRealPath().toString() + "/src/Users/session.txt";
                 File file = new File(path);
                 FileWriter writer = new FileWriter(file,false);
-                writer.write(username);
+                writer.write(encrypt(username));
                 writer.close();
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
+    }
+    private static String getUserEncrypted(String usernameEncrypted) {
+        String username = "";
+        try {
+            String path = Paths.get("").toRealPath().toString() + "/src/Users/users.txt";
+            Scanner file = new Scanner(new File(path));
+            while (file.hasNextLine()) {
+                String user = file.next();
+                if (encrypt(user).equals(usernameEncrypted)) {
+                    file.close();
+                    return user;
+                }
+            }
+            file.close();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return username;
     }
     static String getSession() {
         try {
@@ -222,7 +240,10 @@ public class UsersValidation {
             Scanner file = new Scanner(new File(path));
             String username = "";
             if (file.hasNextLine()) {
-                username = file.next();
+                String userSession = file.next();
+                username = getUserEncrypted(userSession);
+            } else {
+                System.out.println("ERROR: [Sesion del usuario invalida!]");
             }
             file.close();
             return username;
