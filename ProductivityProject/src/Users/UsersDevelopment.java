@@ -7,6 +7,8 @@ public class UsersDevelopment {
         int option = 0;
         System.out.println("1. Iniciar Sesión");
         System.out.println("2. Registrarse");
+        System.out.println("---------------------");
+        System.out.println("3. Salir del Programa");
         System.out.print("- Ingrese su opción: ");
         option = UsersValidation.option(input);
         return option;
@@ -20,12 +22,14 @@ public class UsersDevelopment {
         UsersValidation.createFinancesFile(username);
         UsersValidation.createHabitsFile(username);
         // TODO: create tasks file
+        UsersValidation.createSessionFile(username);
         return username;
     }
     static String signin(Scanner input) {
         System.out.print("- Nombre de usuario: ");
         String username = UsersValidation.username(true, input);
         UsersValidation.checkPassword(username, input);
+        UsersValidation.createSessionFile(username);
         return username;
     }
 }

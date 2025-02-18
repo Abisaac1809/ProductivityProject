@@ -15,7 +15,7 @@ public class UsersValidation {
             try {
                 value = input.nextInt();
 
-                if (value == 1 || value == 2) {
+                if (value >= 1 && value <= 3) {
                     return value;
                 } else {
                     System.out.println("Error: [Opción no válida]");
@@ -201,6 +201,33 @@ public class UsersValidation {
             } catch (IOException e) {
                 System.out.println("Error: " + e.getMessage());
             }
+        }
+    }
+    static void createSessionFile(String username) {
+        if (username != null) {
+            try {
+                String path = Paths.get("").toRealPath().toString() + "/src/Users/session.txt";
+                File file = new File(path);
+                FileWriter writer = new FileWriter(file,false);
+                writer.write(username);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }
+    static String getSession() {
+        try {
+            String path = Paths.get("").toRealPath().toString() + "/src/Users/session.txt";
+            Scanner file = new Scanner(new File(path));
+            String username = "";
+            if (file.hasNextLine()) {
+                username = file.next();
+            }
+            file.close();
+            return username;
+        } catch (IOException e) {
+            return "";
         }
     }
 }

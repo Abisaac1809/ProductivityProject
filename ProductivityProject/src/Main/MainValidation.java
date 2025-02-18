@@ -1,6 +1,9 @@
 package Main;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.InputMismatchException;
 
 public class MainValidation {
@@ -21,6 +24,15 @@ public class MainValidation {
                 System.out.print("- Ingrese el valor correcto: ");
                 input.nextLine();
             }
+        }
+    }
+    static void logout() {
+        try {
+            String path = Paths.get("").toRealPath().toString() + "/src/Users/session.txt";
+            File file = new File(path);
+            file.delete();
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
