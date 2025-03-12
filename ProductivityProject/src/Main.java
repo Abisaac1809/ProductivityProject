@@ -1,4 +1,3 @@
-package Main;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("---PRODUCTIVITY PROJECT---\n");
         Scanner input = new Scanner(System.in);
-        MainDevelopment.mainMenu(input);
+        Development.mainMenu(input);
         System.out.println("\n---PROGRAMA CERRADO---");
         input.close();
     }

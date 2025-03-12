@@ -1,4 +1,3 @@
-package Main;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -6,7 +5,7 @@ import Users.UsersMain;
 import Finances.FinanceMain;
 import Habits.HabitsMain;
 
-public class MainDevelopment {
+public class Development {
     static void mainMenu(Scanner input) throws IOException {
         int option = 0;
         if (input != null) {
@@ -21,13 +20,13 @@ public class MainDevelopment {
                     System.out.println("4. Cerrar Sesión");
                     System.out.println("5. Salir del Programa");
                     System.out.print("\n- Ingrese su opción: ");
-                    option = MainValidation.option(input);
+                    option = Validation.option(input);
                     if (option == 1) FinanceMain.main(username);
                     if (option == 2) HabitsMain.HabitsMain(username);
                     // TODO: add tasks main implementation
                     if (option == 4) {
                         System.out.println("");
-                        MainValidation.logout();
+                        Validation.logout();
                         username = UsersMain.main(input);
                     }
                 }

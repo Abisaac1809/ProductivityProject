@@ -1,12 +1,10 @@
-package Main;
-
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
 
-public class MainValidation {
+public class Validation {
     static int option(Scanner input) {
         int value;
         while (true) {
