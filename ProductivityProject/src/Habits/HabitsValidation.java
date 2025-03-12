@@ -32,7 +32,6 @@ public class HabitsValidation {
             }
         }
         return 0;
-        
     }
     
     
@@ -126,7 +125,7 @@ public class HabitsValidation {
         }
     }
     
-    
+    //Xxx
     public static boolean userHasHabits(String habitsRoute, String performanceRoute) throws IOException  {
         
         if (habitsRoute != null && performanceRoute != null) {

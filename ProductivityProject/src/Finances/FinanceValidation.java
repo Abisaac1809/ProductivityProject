@@ -67,6 +67,7 @@ public class FinanceValidation {
             String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
+            System.out.println("x");
             num = Double.parseDouble(read.next());
             read.close();
         }catch(IOException i){
