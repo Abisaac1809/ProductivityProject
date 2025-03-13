@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileManager {
-    private static void createArchive(String route) throws IOException {
+    public static void createArchive(String route) throws IOException {
         if (route != null) {
             try {
                 File file = new File(route);

@@ -25,7 +25,7 @@ public class HabitsMain {
             performanceUserRoute = "//src//Storage//HabitsFiles//Performance." + user + ".txt";
             performanceRoute = Paths.get("").toAbsolutePath().toString() + performanceUserRoute;
             
-            rows = (Habits.HabitsValidation.userHasHabits(habitsRoute, performanceRoute)) ? (Validations.FileManager.determineRows(habitsRoute)) : 0;      
+            rows = (Validations.HabitsValidations.userHasHabits(habitsRoute, performanceRoute)) ? (Validations.FileManager.determineRows(habitsRoute)) : 0;      
         
             dailyHabits = new String[rows];
             routes = new String[2];

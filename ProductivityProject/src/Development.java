@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import Users.UsersMain;
 import Finances.FinanceMain;
-import Habits.HabitsMain;
+import Process.HabitsMain;
 
 public class Development {
     static void mainMenu(Scanner input) throws IOException {

@@ -47,7 +47,11 @@ public class HabitsFunctionalities {
         
             newHabit = Validations.DataValidatior.validateString("Ingresa el nuevo hábito: ").toUpperCase();
             newMinutes = Validations.DataValidatior.validateInt("Ingresa los minutos que quieres realizar: ", 1,  1440);
-        
+            
+            if (Validations.HabitsValidations.habitNameExist(dailyHabits, 0, newHabit)) {
+                System.out.println("\nError: [El hábito " + newHabit + " ya existe]\n");
+                return;   
+            }
             newDailyHabits = new String[dailyHabits.length + 1];
             newDailyHabitMinutes = new int[dailyHabitMinutes.length + 1];
             newHabitTimeSpentDaily = new int[12][31][dailyHabits.length + 1];

@@ -27,9 +27,7 @@ public class DataValidatior {
             }
         }
         return 0;
-        
     }
-    
     
     public static String validateString(String text) {
         
@@ -42,7 +40,7 @@ public class DataValidatior {
                 System.out.print(text);
                 newText = input.nextLine();
             
-                if (checkChars(newText)) {
+                if (stringCharByChar(newText, 0)) {
                     return newText;
                 }
                 System.out.println("Error: [Uso de caracteres no soportados]\n");
@@ -50,21 +48,24 @@ public class DataValidatior {
         }
         return null;
     }
-    
-    private static boolean checkChars(String value) {
-        
-        if (value != null) {
-            String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
-            for (int i = 0; i < value.length(); i++) {
-                for (int j = 0; j < unsupported.length(); j++) {
-                    if (unsupported.charAt(j) == value.charAt(i)) {
-                        return false;
-                    }
-                }
-            }
+   
+    private static boolean stringCharByChar(String text, int index) {
+        if (index == text.length()) {
             return true;
         }
-        return false;
+        else {
+            return checkChar(text, text.charAt(index), index);
+        }
+    }
+    
+    private static boolean checkChar(String text, char x, int index) {
+        String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
+        for (int i = 0; i < unsupported.length(); i++) {
+            if (unsupported.charAt(i)== x) {
+                return false;
+            }
+        }
+        return stringCharByChar(text, index + 1);
     }
     
     public static int chosePosition(String[] options) {
