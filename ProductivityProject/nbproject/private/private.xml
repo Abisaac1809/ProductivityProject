@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Finances/FinanceValidation.java</file>
-            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Finances/FinanceMain.java</file>
-            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Finances/FinanceDevelopment.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Validations/DataValidatior.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Composables/FinanceFileWriter.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Storage/FinanceFiles/Finances.Jose.txt</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Validations/HabitsValidations.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Users/UsersMain.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Process/FinanceDevelopment.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Process/HabitsFunctionalities.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Process/FinanceMain.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Helpers/FinanceFileReader.java</file>
+            <file>file:/C:/Users/josea/Documents/UJAP/4to%20Semestre/Algoritmos%20y%20Estructuras/Proyecto/ProductivityProject-main/ProductivityProject/ProductivityProject/src/Validations/FinanceValidation.java</file>
         </group>
     </open-files>
 </project-private>

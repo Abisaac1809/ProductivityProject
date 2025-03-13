@@ -1,0 +1,5 @@
+710.0
+70.0 luz
+10.0 chicle
+80.0 gas
+50.0 comida

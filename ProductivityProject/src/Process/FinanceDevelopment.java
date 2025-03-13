@@ -61,7 +61,7 @@ public class FinanceDevelopment {
             System.out.println("1. Añadir saldo");
             System.out.println("2. Restar saldo");
             System.out.println("3. Agregar Deuda");
-            System.out.println("4. Quitar/Pagar Deuda");
+            System.out.println("4. Pagar Deuda");
             System.out.println("5. Mostrar Deudas");
             System.out.println("6. Regresar al menú principal\n");
             System.out.print("-Ingrese su opción: ");
@@ -139,13 +139,14 @@ public class FinanceDevelopment {
             System.out.println("Monto:                Concepto:");
             Scanner read = null;
             String[] content = new String[2];
-            for(int i=0;i<debts.size()-1;i++){
+            for(int i=0;i<debts.size()/2;i++){
                 String text = debts.get(i);
                 read = new Scanner (text).useDelimiter(" ");
                 content[0] = read.next();
                 content[1] = read.next();
                 System.out.printf("%8s %20s",content[0],content[1]+"\n");
             }
+            debts.removeAll(debts);
             read.close();
         }
     }

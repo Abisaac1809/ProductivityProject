@@ -1,0 +1,2 @@
+proyecto,entregar proyecto,No Hecha
+comida,preparar comida,No Hecha

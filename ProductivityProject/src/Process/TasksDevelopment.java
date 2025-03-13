@@ -1,10 +1,11 @@
-package Tasks;
+package Process;
 
+import Validations.TasksValidation;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TasksDevelopment {
-    static void menu(Scanner input, String username) {
+    public static void menu(Scanner input, String username) {
         if (input != null && username != null) {
             int option = 0;
             while (option != 4) {

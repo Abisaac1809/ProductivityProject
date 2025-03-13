@@ -1,4 +1,4 @@
-package Tasks;
+package Validations;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TasksValidation {
-    static int option(Scanner input, int min, int max) {
+    public static int option(Scanner input, int min, int max) {
         int value;
         while (true) {
             try {
@@ -29,10 +29,10 @@ public class TasksValidation {
             }
         }
     }    
-    static ArrayList<String[]> getTasks(String username) {
+    public static ArrayList<String[]> getTasks(String username) {
         ArrayList<String[]> tasks = new ArrayList<String[]>();
         try {
-            String path = Paths.get(".").toRealPath().toString() + "/src/Tasks/" + username + ".tasks.txt";
+            String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TaskFiles/" + username + ".tasks.txt";
             Scanner archivo = new Scanner(new File(path));
             while (archivo.hasNextLine()) {
                 tasks.add(archivo.nextLine().split(","));
@@ -44,7 +44,7 @@ public class TasksValidation {
         }
         return tasks;
     }
-    static String title(Scanner input) {
+    public static String title(Scanner input) {
         while (true) {
             input.nextLine();
             String value = input.nextLine();
@@ -57,7 +57,7 @@ public class TasksValidation {
             }
         }
     }
-    static String description(Scanner input) {
+    public static String description(Scanner input) {
         while (true) {
             String value = input.nextLine();
             if (value.length() <= 50) {
@@ -69,9 +69,9 @@ public class TasksValidation {
             input.nextLine();
         }
     }
-    static void updateFile(ArrayList<String[]> tasks, Scanner input, String username) {
+    public static void updateFile(ArrayList<String[]> tasks, Scanner input, String username) {
         try {
-            String path = Paths.get(".").toRealPath().toString() + "/src/Tasks/" + username + ".tasks.txt";
+            String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TaskFiles/" + username + ".tasks.txt";
             File file = new File(path);
             file.createNewFile();
             FileWriter writer = new FileWriter(path);
@@ -83,13 +83,13 @@ public class TasksValidation {
             System.out.println("Error: " + e.getMessage());
         }
     }
-    static int getField(Scanner input) {
+    public static int getField(Scanner input) {
         System.out.println("1. Titulo");
         System.out.println("2. Estado");
         System.out.print("- Ingrese el campo: ");
         return option(input, 1, 2);
     }
-    static String estatus(Scanner input) {
+    public static String estatus(Scanner input) {
         while (true) {
             input.nextLine();
             String value = input.nextLine();
@@ -101,7 +101,7 @@ public class TasksValidation {
             }
         }
     }
-    static ArrayList<String[]> findTasksTitle(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
+    public static ArrayList<String[]> findTasksTitle(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
@@ -110,7 +110,7 @@ public class TasksValidation {
         }
         return findTasksTitle(tasks, query, finded, i + 1);
     }
-    static ArrayList<String[]> findTasksStatus(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
+    public static ArrayList<String[]> findTasksStatus(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
