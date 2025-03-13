@@ -90,9 +90,11 @@ public class FinanceValidation {
                 content[0]=Line.next();
                 content[1]=Line.next();
                 if(content[1].equals(text)){
+                    content=null;
                     return false;
                 }
             }
+            content=null;
             return true;
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
@@ -167,9 +169,11 @@ public class FinanceValidation {
                         System.out.println(debts.get(i));
                         debts.remove(i);
                         read.close();
+                        content=null;
                         return c-d;
                     }else{
                         System.out.println("Error: No hay suficiente saldo para pagar esa deuda");
+                        content=null;
                         return c;
                     }
                 }
@@ -193,22 +197,26 @@ public class FinanceValidation {
             FileWriter writer = new FileWriter(file1,false);
             writer.write(Double.toString(add));
             writer.close();
-            fileWriter1(file1, debts,i);
+            fileWriter1(file1, debts,i,0);
             debts.removeAll(debts);
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
         }
     }
     
-    static void fileWriter1(File file, ArrayList<String> debts,int i){
+    static void fileWriter1(File file, ArrayList<String> debts,int i,int j){
         try{
+            if(j==i){
+                return;
+            }else{
             File file1 = file;
             file1.createNewFile();
             FileWriter writer2 = new FileWriter(file1,true);
-            for(int j=0;j<i;j++){
-                writer2.write("\n"+debts.get(j));
-            }
+            writer2.write("\n"+debts.get(j));
             writer2.close();
+            fileWriter1(file,debts,i,j+1);
+            }
+            
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
         }
