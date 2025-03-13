@@ -1,12 +1,15 @@
-package Finances;
+package Process;
+import Validations.FinanceValidation;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Helpers.FinanceFileReader;
+import Validations.FinanceValidation;
 
 public class FinanceDevelopment {
     
-    static void menu(String username,ArrayList<String> debts){
+    public static void menu(String username,ArrayList<String> debts){
         try{
         double option=0;
         if (username != null) {
@@ -15,7 +18,7 @@ public class FinanceDevelopment {
             FinanceDevelopment.funDefault(file1, file2);
             System.out.println("\n");
             while(option>=0 && option<=5){
-                FinanceValidation.fileBodyReading(file1, debts);
+                FinanceFileReader.fileBodyReading(file1, debts);
                 option=FinanceDevelopment.menuFinance(file1);
                 if(option==1){
                     FinanceDevelopment.addAmount(file1,debts);
@@ -39,17 +42,17 @@ public class FinanceDevelopment {
         }
     }
     
-    static void funDefault(String file1, String file2) throws IOException{
+    public static void funDefault(String file1, String file2) throws IOException{
         if (file1 != null && file2 != null) {
-            FinanceValidation.fileCreate(file1);
-            FinanceValidation.fileCreate(file2);
+            FinanceFileReader.fileCreate(file1);
+            FinanceFileReader.fileCreate(file2);
         }
     }
     
-    static double menuFinance(String file1) throws IOException{
+    public static double menuFinance(String file1) throws IOException{
         double option = 0;
         if (file1 != null) {
-            double num =FinanceValidation.fileHeadReading(file1);
+            double num =FinanceFileReader.fileHeadReading(file1);
             DecimalFormat df = new DecimalFormat("#0.00");
             String numd = df.format(num);
             System.out.print("-------Finanzas-------\n");
@@ -65,12 +68,12 @@ public class FinanceDevelopment {
         }
         return option;
     }
-    static void addAmount(String file1,ArrayList<String> debts) throws IOException{
+    public static void addAmount(String file1,ArrayList<String> debts) throws IOException{
         if (file1 != null) {
-            FinanceValidation.fileCreate(file1);
+            FinanceFileReader.fileCreate(file1);
             double add =0;
             String text = "Ingrese el saldo a agregar (Se tomará el valor absoluto): ";
-            double num =FinanceValidation.fileHeadReading(file1);
+            double num =FinanceFileReader.fileHeadReading(file1);
             System.out.println(num);
             DecimalFormat df = new DecimalFormat("#0.00");
             String numd = df.format(num);
@@ -79,16 +82,16 @@ public class FinanceDevelopment {
             add=FinanceValidation.valEntry(text);
             num+=add;
             int i=debts.size();
-            FinanceValidation.fileWriter1(file1, num,debts,i);
+            FinanceFileReader.fileWriter1(file1, num,debts,i);
         }
     }
     
-    static void subtractAmount(String file1,ArrayList<String> debts) throws IOException{
+    public static void subtractAmount(String file1,ArrayList<String> debts) throws IOException{
         if (file1 != null) {
-            FinanceValidation.fileCreate(file1);
+            FinanceFileReader.fileCreate(file1);
             double subtract =0;
             String text = "Ingrese cuanto saldo quitar: ";
-            double num =FinanceValidation.fileHeadReading(file1);
+            double num =FinanceFileReader.fileHeadReading(file1);
             DecimalFormat df = new DecimalFormat("#0.00");
             String numd = df.format(num);
             System.out.println("-----------------------");
@@ -96,14 +99,14 @@ public class FinanceDevelopment {
             subtract=FinanceValidation.valEntry(num,text);
             num-=subtract;
             int i=debts.size();
-            FinanceValidation.fileWriter1(file1, num,debts,i);
+            FinanceFileReader.fileWriter1(file1, num,debts,i);
         }
     }
     
-    static void addDebt(String file1,ArrayList<String> debts){
+    public static void addDebt(String file1,ArrayList<String> debts){
         if (file1 != null) {
-            FinanceValidation.fileCreate(file1);
-            double num =FinanceValidation.fileHeadReading(file1);
+            FinanceFileReader.fileCreate(file1);
+            double num =FinanceFileReader.fileHeadReading(file1);
             String text = "Ingrese el monto de su deuda: ";
             double debt = FinanceValidation.valEntry(text);
             text="ingrese el concepto de esta deuda";
@@ -111,26 +114,26 @@ public class FinanceDevelopment {
             String adding=Double.toString(debt)+" "+concept;
             debts.add(adding);
             int i = debts.size();
-            FinanceValidation.fileWriter1(file1, num,debts,i);
+            FinanceFileReader.fileWriter1(file1, num,debts,i);
         }
     }
     
-    static void subtractDebt(String file1,ArrayList<String> debts){
+    public static void subtractDebt(String file1,ArrayList<String> debts){
         if (file1 != null) {
-            FinanceValidation.fileCreate(file1);
+            FinanceFileReader.fileCreate(file1);
             double num;
             String text = "Ingrese el concepto de la deuda a pagar: ";
             String debt = FinanceValidation.valConcept(text,file1,false);
             int i=debts.size();
-            num=FinanceValidation.debtSearching(file1, debts, debt);
+            num=FinanceFileReader.debtSearching(file1, debts, debt);
             i=debts.size();
-            FinanceValidation.fileWriter1(file1, num,debts,i);
+            FinanceFileReader.fileWriter1(file1, num,debts,i);
         }
     }
     
-    static void showDebts(String username, String file1,ArrayList<String> debts){
+    public static void showDebts(String username, String file1,ArrayList<String> debts){
         if (file1 != null) {
-            FinanceValidation.fileBodyReading(file1, debts);
+            FinanceFileReader.fileBodyReading(file1, debts);
             System.out.println("-----------------------\nDeudas de "+username+": ");
             System.out.println("Monto:                Concepto:");
             Scanner read = null;
@@ -143,7 +146,6 @@ public class FinanceDevelopment {
                 System.out.printf("%8s %20s",content[0],content[1]+"\n");
             }
             read.close();
-            Scanner input = new Scanner (System.in);
         }
     }
 }

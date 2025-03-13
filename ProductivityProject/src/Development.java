@@ -2,7 +2,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 import Users.UsersMain;
-import Finances.FinanceMain;
+import Process.FinanceMain;
 import Process.HabitsMain;
 
 public class Development {

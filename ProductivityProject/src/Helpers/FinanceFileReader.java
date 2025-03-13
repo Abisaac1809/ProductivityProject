@@ -1,85 +1,16 @@
-package Finances;
+package Helpers;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
-public class FinanceValidation {
-    static double valEntry(double balance,String text){
-        double amount;
-        Scanner enter =new Scanner(System.in);
-        while(true){
-            try{
-                System.out.println(text);
-                amount=enter.nextDouble();
-                amount=Math.abs(amount);
-                if(amount>balance){
-                    System.out.println("Error: No tienes suficiente dinero si quieres retirar ese monto");
-                }
-                else{
-                    return amount;
-                }
-            }
-            catch(InputMismatchException ime){
-                System.out.println("Error: Por favor, ingrese un numero");
-                enter.nextLine();
-            }
-        }
-    }
-    
-    static double valEntry(String text){
-        double amount;
-        Scanner enter=new Scanner(System.in);
-        while(true){
-            try{
-                System.out.println(text);
-                amount=enter.nextDouble();
-                amount=Math.abs(amount);
-                return amount;
-            }
-            catch(InputMismatchException ime){
-                System.out.print("Error: Ingrese solo numeros\n");
-                enter.nextLine();
-            }
-        }
-    }
-    
-    static String valConcept(String text,String file,boolean flag){
-        String concept;
-        Scanner enter=new Scanner(System.in);
-        while(true){
-            try{
-                System.out.println(text);
-                concept=enter.nextLine().replace(" ", "_");
-                concept=concept.toLowerCase();
-                if(flag==true){
-                    if(searchInFile(concept,file)){
-                        return concept;
-                    }else{
-                        System.out.println("Error: Concepto ya usado");
-                    }
-                }
-                if(flag==false){
-                    if(!searchInFile(concept,file)){
-                        return concept;
-                    }else{
-                        System.out.println("Error: Concepto no encontrado");
-                    }
-                }
-            }
-            catch(InputMismatchException ime){
-                System.out.print("Error: "+ime.getMessage());
-                enter.nextLine();
-            }
-        }
-    }
-    
-    static boolean searchInFile(String text, String file){
+public class FinanceFileReader {
+    public static boolean searchInFile(String text, String file){
         try{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+        String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             read.nextLine();
@@ -102,10 +33,10 @@ public class FinanceValidation {
         return true;
     }
     
-    static void fileCreate(String file) {
+    public static void fileCreate(String file) {
         try{
             String dfault= "0.00";
-            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File newfile = new File(path);
             if(newfile.createNewFile()){
                 FileWriter writer = new FileWriter(path);
@@ -117,10 +48,10 @@ public class FinanceValidation {
         }
     }
     
-    static double fileHeadReading(String file) {
+    public static double fileHeadReading(String file) {
         double num=0.00;
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             num = Double.parseDouble(read.next());
@@ -131,9 +62,9 @@ public class FinanceValidation {
         return num;
     }
     
-    static void fileBodyReading(String file,ArrayList<String> debts) {
+    public static void fileBodyReading(String file,ArrayList<String> debts) {
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             if(read.hasNextLine()){
@@ -149,9 +80,9 @@ public class FinanceValidation {
         }
     }
     
-    static double debtSearching(String file,ArrayList<String> debts,String text) {
+    public static double debtSearching(String file,ArrayList<String> debts,String text) {
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             Double c = Double.parseDouble(read.next());
@@ -189,9 +120,9 @@ public class FinanceValidation {
     
 
     
-    static void fileWriter1(String file, double add,ArrayList<String> debts,int i){
+    public static void fileWriter1(String file, double add,ArrayList<String> debts,int i){
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Finances/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
             File file1 = new File(path);
             file1.createNewFile();
             FileWriter writer = new FileWriter(file1,false);
@@ -204,7 +135,7 @@ public class FinanceValidation {
         }
     }
     
-    static void fileWriter1(File file, ArrayList<String> debts,int i,int j){
+    public static void fileWriter1(File file, ArrayList<String> debts,int i,int j){
         try{
             if(j==i){
                 return;
@@ -219,25 +150,6 @@ public class FinanceValidation {
             
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
-        }
-    }
-    
-    static double options(){
-        Scanner input = new Scanner(System.in);
-        double option=0;
-        while(true){
-            try{
-                option=input.nextDouble();
-                if(option==1 || option == 2 || option ==3 || option == 4 || option == 5 || option == 6){
-                    return option;
-                }else{
-                    System.out.println("Error: Opcion no valida");
-                    System.out.print("-Ingrese su opcion:");
-                }
-            } catch(InputMismatchException e){
-                System.out.println("Error: Por favor ingrese un caracter válido");
-                input.nextLine();
-            }
         }
     }
 }
