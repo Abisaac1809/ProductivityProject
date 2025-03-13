@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import Helpers.FinanceFileReader;
 import Validations.FinanceValidation;
+import Composables.FinanceFileWriter;
 
 public class FinanceDevelopment {
     
@@ -44,8 +45,8 @@ public class FinanceDevelopment {
     
     public static void funDefault(String file1, String file2) throws IOException{
         if (file1 != null && file2 != null) {
-            FinanceFileReader.fileCreate(file1);
-            FinanceFileReader.fileCreate(file2);
+            FinanceFileWriter.fileCreate(file1);
+            FinanceFileWriter.fileCreate(file2);
         }
     }
     
@@ -70,7 +71,7 @@ public class FinanceDevelopment {
     }
     public static void addAmount(String file1,ArrayList<String> debts) throws IOException{
         if (file1 != null) {
-            FinanceFileReader.fileCreate(file1);
+            FinanceFileWriter.fileCreate(file1);
             double add =0;
             String text = "Ingrese el saldo a agregar (Se tomará el valor absoluto): ";
             double num =FinanceFileReader.fileHeadReading(file1);
@@ -82,13 +83,13 @@ public class FinanceDevelopment {
             add=FinanceValidation.valEntry(text);
             num+=add;
             int i=debts.size();
-            FinanceFileReader.fileWriter1(file1, num,debts,i);
+            FinanceFileWriter.fileWriter1(file1, num,debts,i);
         }
     }
     
     public static void subtractAmount(String file1,ArrayList<String> debts) throws IOException{
         if (file1 != null) {
-            FinanceFileReader.fileCreate(file1);
+            FinanceFileWriter.fileCreate(file1);
             double subtract =0;
             String text = "Ingrese cuanto saldo quitar: ";
             double num =FinanceFileReader.fileHeadReading(file1);
@@ -99,13 +100,13 @@ public class FinanceDevelopment {
             subtract=FinanceValidation.valEntry(num,text);
             num-=subtract;
             int i=debts.size();
-            FinanceFileReader.fileWriter1(file1, num,debts,i);
+            FinanceFileWriter.fileWriter1(file1, num,debts,i);
         }
     }
     
     public static void addDebt(String file1,ArrayList<String> debts){
         if (file1 != null) {
-            FinanceFileReader.fileCreate(file1);
+            FinanceFileWriter.fileCreate(file1);
             double num =FinanceFileReader.fileHeadReading(file1);
             String text = "Ingrese el monto de su deuda: ";
             double debt = FinanceValidation.valEntry(text);
@@ -114,20 +115,20 @@ public class FinanceDevelopment {
             String adding=Double.toString(debt)+" "+concept;
             debts.add(adding);
             int i = debts.size();
-            FinanceFileReader.fileWriter1(file1, num,debts,i);
+            FinanceFileWriter.fileWriter1(file1, num,debts,i);
         }
     }
     
     public static void subtractDebt(String file1,ArrayList<String> debts){
         if (file1 != null) {
-            FinanceFileReader.fileCreate(file1);
+            FinanceFileWriter.fileCreate(file1);
             double num;
             String text = "Ingrese el concepto de la deuda a pagar: ";
             String debt = FinanceValidation.valConcept(text,file1,false);
             int i=debts.size();
             num=FinanceFileReader.debtSearching(file1, debts, debt);
             i=debts.size();
-            FinanceFileReader.fileWriter1(file1, num,debts,i);
+            FinanceFileWriter.fileWriter1(file1, num,debts,i);
         }
     }
     
