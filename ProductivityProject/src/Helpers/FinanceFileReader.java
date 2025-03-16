@@ -52,13 +52,11 @@ public class FinanceFileReader {
             String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
-            if(read.hasNextLine()){
                 read.nextLine();
                 while(read.hasNextLine()){
                     String text=read.nextLine();
                     debts.add(text);
                 }
-            }
             read.close();
         }catch(IOException i){
             System.out.println("Error: "+i.getMessage());

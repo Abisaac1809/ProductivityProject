@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class TasksFunctionalities {
     static void menu(Scanner input, String username) {
+
         if (input != null && username != null) {
             int option = 0;
             while (option != 4) {

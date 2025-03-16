@@ -53,6 +53,9 @@ public class FinanceValidation {
                 concept=concept.toLowerCase();
                 if(flag==true){
                     if(FinanceFileReader.searchInFile(concept,file)){
+                        if(concept.equals("")){
+                            concept="deuda";
+                        }
                         return concept;
                     }else{
                         System.out.println("Error: Concepto ya usado");

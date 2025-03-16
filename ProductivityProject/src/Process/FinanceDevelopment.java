@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Helpers.FinanceFileReader;
-import Validations.FinanceValidation;
 import Composables.FinanceFileWriter;
 
 public class FinanceDevelopment {
@@ -61,7 +60,7 @@ public class FinanceDevelopment {
             System.out.println("1. Añadir saldo");
             System.out.println("2. Restar saldo");
             System.out.println("3. Agregar Deuda");
-            System.out.println("4. Quitar/Pagar Deuda");
+            System.out.println("4. Pagar Deuda");
             System.out.println("5. Mostrar Deudas");
             System.out.println("6. Regresar al menú principal\n");
             System.out.print("-Ingrese su opción: ");
@@ -146,6 +145,7 @@ public class FinanceDevelopment {
                 content[1] = read.next();
                 System.out.printf("%8s %20s",content[0],content[1]+"\n");
             }
+            debts.removeAll(debts);
             read.close();
         }
     }

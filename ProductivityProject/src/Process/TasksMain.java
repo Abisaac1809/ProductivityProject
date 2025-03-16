@@ -1,5 +1,6 @@
 package Process;
 
+import Process.TasksFunctionalities;
 import java.util.Scanner;
 
 public class TasksMain {

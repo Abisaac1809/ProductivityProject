@@ -3,7 +3,6 @@ package Process;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import Process.Initializer;
 
 public class Dates {
     public static int[] getDate(){
