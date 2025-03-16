@@ -10,7 +10,7 @@ public class FinanceFileWriter {
     public static void fileCreate(String file) {
         try{
             String dfault= "0.00";
-            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File newfile = new File(path);
             if(newfile.createNewFile()){
                 FileWriter writer = new FileWriter(path);
@@ -24,7 +24,7 @@ public class FinanceFileWriter {
     
     public static void fileWriter1(String file, double add,ArrayList<String> debts,int i){
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File file1 = new File(path);
             file1.createNewFile();
             FileWriter writer = new FileWriter(file1,false);

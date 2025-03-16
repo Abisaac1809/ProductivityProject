@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class FinanceFileReader {
     public static boolean searchInFile(String text, String file){
         try{
-        String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+        String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             read.nextLine();
@@ -36,7 +36,7 @@ public class FinanceFileReader {
     public static double fileHeadReading(String file) {
         double num=0.00;
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             num = Double.parseDouble(read.next());
@@ -49,7 +49,7 @@ public class FinanceFileReader {
     
     public static void fileBodyReading(String file,ArrayList<String> debts) {
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             if(read.hasNextLine()){
@@ -67,7 +67,7 @@ public class FinanceFileReader {
     
     public static double debtSearching(String file,ArrayList<String> debts,String text) {
         try{
-            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinanceFiles/"+file;
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
             Scanner read = new Scanner(arch);
             Double c = Double.parseDouble(read.next());

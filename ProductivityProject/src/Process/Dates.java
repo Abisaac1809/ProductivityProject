@@ -3,13 +3,14 @@ package Process;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import Process.Initializer;
 
 public class Dates {
     public static int[] getDate(){
         String stringDate = "";
         int[] date;
         date = new int[3];
-        Habits.HabitsValidation.initializeVector(date);
+        Initializer.initializeVector(date);
         LocalDateTime localTime = LocalDateTime.now();
         DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         

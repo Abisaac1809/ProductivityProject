@@ -1,4 +1,4 @@
-package Users;
+package Process;
 
 public class Encrypt {
     private static boolean arrayContains(String value, String[] array) {
@@ -18,7 +18,7 @@ public class Encrypt {
         }
         return index;
     }
-    static String encrypt(String word) {
+    public static String encrypt(String word) {
         String encryp = "";
         if (word != null) {
             String symb[] = {".",",","*","!","@","#", "?", "/", ";", ":", "$", "%", "&", "(", ")", "[", "]", "{", "}", "'", "\"", "=", "+", "-", "_" };

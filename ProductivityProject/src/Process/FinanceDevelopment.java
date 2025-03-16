@@ -14,8 +14,8 @@ public class FinanceDevelopment {
         try{
         double option=0;
         if (username != null) {
-            String file1 = "Finances."+username+".txt";
-            String file2 = "History."+username+".txt";
+            String file1 = username+"finances1.txt";
+            String file2 = username+"finances2.txt";
             FinanceDevelopment.funDefault(file1, file2);
             System.out.println("\n");
             while(option>=0 && option<=5){
@@ -139,7 +139,7 @@ public class FinanceDevelopment {
             System.out.println("Monto:                Concepto:");
             Scanner read = null;
             String[] content = new String[2];
-            for(int i=0;i<debts.size()-1;i++){
+            for(int i=0;i<debts.size()/2;i++){
                 String text = debts.get(i);
                 read = new Scanner (text).useDelimiter(" ");
                 content[0] = read.next();

@@ -26,7 +26,7 @@ public class Validation {
     }
     static void logout() {
         try {
-            String path = Paths.get("").toRealPath().toString() + "/src/Users/session.txt";
+            String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/session.txt";
             File file = new File(path);
             file.delete();
         } catch (IOException e) {

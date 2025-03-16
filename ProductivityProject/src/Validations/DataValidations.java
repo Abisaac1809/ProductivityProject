@@ -1,10 +1,9 @@
 package Validations;
 
-import static Habits.HabitsValidation.validateInt;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class DataValidatior {
+public class DataValidations {
     public static int validateInt(String text, int min, int max) {
         
         if (text != null) {
@@ -29,6 +28,45 @@ public class DataValidatior {
         return 0;
     }
     
+    public static int option(Scanner input) {
+        int value;
+        while (true) {
+            try {
+                value = input.nextInt();
+
+                if (value >= 1 && value <= 3) {
+                    return value;
+                } else {
+                    System.out.println("Error: [Opción no válida]");
+                    System.out.print("- Ingrese el valor correcto: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: [Solo se admiten valores numericos enteros]");
+                System.out.print("- Ingrese el valor correcto: ");
+                input.nextLine();
+            }
+        }
+    }    
+    public static int option(Scanner input, int min, int max) {
+        int value;
+        while (true) {
+            try {
+                value = input.nextInt();
+
+                if (value >= min && value <= max) {
+                    return value;
+                } else {
+                    System.out.println("Error: [Opción no válida]");
+                    System.out.print("- Ingrese el valor correcto: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: [Solo se admiten valores numericos enteros]");
+                System.out.print("- Ingrese el valor correcto: ");
+                input.nextLine();
+            }
+        }
+    }    
+    
     public static String validateString(String text) {
         
         if (text != null) {
@@ -49,7 +87,7 @@ public class DataValidatior {
         return null;
     }
    
-    private static boolean stringCharByChar(String text, int index) {
+    public static boolean stringCharByChar(String text, int index) { 
         if (index == text.length()) {
             return true;
         }
@@ -59,7 +97,7 @@ public class DataValidatior {
     }
     
     private static boolean checkChar(String text, char x, int index) {
-        String unsupported = "1234567890.,?/:;'!@#$%^&*()[]{}\\|=-+_~";
+        String unsupported = "1234567890.,?1234567890/:;'!@#$%^&*()[]{}\\|=-+_~";
         for (int i = 0; i < unsupported.length(); i++) {
             if (unsupported.charAt(i)== x) {
                 return false;

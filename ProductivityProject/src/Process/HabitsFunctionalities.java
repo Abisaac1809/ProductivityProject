@@ -1,6 +1,5 @@
 package Process;
 
-import Habits.HabitsValidation;
 import java.io.IOException;
 
 public class HabitsFunctionalities {
@@ -19,7 +18,7 @@ public class HabitsFunctionalities {
             System.out.println("------------------------------");
             System.out.println("6. Salir");
         
-            opcion = Habits.HabitsValidation.validateInt("Ingrese la opción: ", 1, 6);
+            opcion = Validations.DataValidations.validateInt("Ingrese la opción: ", 1, 6);
             
             if (opcion == 1) Helpers.HabitsDisplay.showHabits(dailyHabits, dailyHabitMinutes);
             if (opcion == 2) addHabit(routes, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily);
@@ -45,8 +44,8 @@ public class HabitsFunctionalities {
             int[] newDailyHabitMinutes;
             int[][][] newHabitTimeSpentDaily;
         
-            newHabit = Validations.DataValidatior.validateString("Ingresa el nuevo hábito: ").toUpperCase();
-            newMinutes = Validations.DataValidatior.validateInt("Ingresa los minutos que quieres realizar: ", 1,  1440);
+            newHabit = Validations.DataValidations.validateString("Ingresa el nuevo hábito: ").toUpperCase();
+            newMinutes = Validations.DataValidations.validateInt("Ingresa los minutos que quieres realizar: ", 1,  1440);
             
             if (Validations.HabitsValidations.habitNameExist(dailyHabits, 0, newHabit)) {
                 System.out.println("\nError: [El hábito " + newHabit + " ya existe]\n");
@@ -86,7 +85,7 @@ public class HabitsFunctionalities {
             int[] newMinutesVector;
             int[][][] newHabitTimeSpentDaily;
         
-            habitPosition = Validations.DataValidatior.chosePosition(dailyHabits);
+            habitPosition = Validations.DataValidations.chosePosition(dailyHabits);
         
             newHabitsVector = new String[dailyHabits.length - 1];
             newMinutesVector = new int[dailyHabitMinutes.length - 1];
@@ -125,8 +124,8 @@ public class HabitsFunctionalities {
            
             day = date[0] - 1;
             month = date[1] - 1;
-            habitPosition = Validations.DataValidatior.chosePosition(dailyHabits);
-            minutes = Validations.DataValidatior.validateInt("Ingresa los minutos que realizaste: ", 1, 1440);
+            habitPosition = Validations.DataValidations.chosePosition(dailyHabits);
+            minutes = Validations.DataValidations.validateInt("Ingresa los minutos que realizaste: ", 1, 1440);
             
             habitTimeSpentDaily[month][day][habitPosition] += minutes;
             Composables.HabitsFileWriter.savePerformance(route, habitTimeSpentDaily);
@@ -153,7 +152,7 @@ public class HabitsFunctionalities {
                                "Septiembre", "Octubre", "Noviembre", "Diciembre"};
             
             monthsDays = Dates.getMonthsDays();
-            monthPosition = Validations.DataValidatior.chosePosition(months);
+            monthPosition = Validations.DataValidations.chosePosition(months);
             month = months[monthPosition];
             monthLastDay = monthsDays[monthPosition];
             

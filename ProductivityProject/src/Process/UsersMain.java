@@ -1,18 +1,18 @@
-package Users;
+package Process;
 
 import java.util.Scanner;
 
 public class UsersMain {
     public static String main(Scanner input) {
-        String username = UsersValidation.getSession();
+        String username = Helpers.UsersFileReader.getSession();
         if (input != null) {
             if (username == "") {
-                int option = UsersDevelopment.loginMenu(input);
+                int option = UsersFunctionalities.loginMenu(input);
                 username = "";
                 if (option == 1) {
-                    username = UsersDevelopment.signin(input);
+                    username = UsersFunctionalities.signin(input);
                 } else if (option == 2) {
-                    username = UsersDevelopment.signup(input);
+                    username = UsersFunctionalities.signup(input);
                 }
             }
         }

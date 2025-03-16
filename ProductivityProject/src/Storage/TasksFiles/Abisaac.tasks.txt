@@ -1,0 +1,2 @@
+Estudiar,estudiar programacion,No Hecha
+estudiar,hacer tarea,No Hecha
