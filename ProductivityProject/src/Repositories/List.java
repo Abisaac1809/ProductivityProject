@@ -7,7 +7,7 @@ public class List<T> {
 		return elements[index];
 	}
 	public void add(T element) {
-		T[] modifiedElements = (T[]) new Object[0];
+		T[] modifiedElements = (T[]) new Object[this.elements.length + 1];
 		for (int i = 0; i < elements.length; i++) {
 			modifiedElements[i] = this.elements[i];
 		}
@@ -18,5 +18,19 @@ public class List<T> {
 	}
 	public int size() {
 		return this.elements.length;
+	}
+	public void remove(int index) {
+		T[] modifiedElements = (T[]) new Object[this.elements.length - 1];
+		this.elements[index] = null;
+		for (int i = 0; i < modifiedElements.length; i++) {
+			if (this.elements[i] != null) {
+				modifiedElements[i] = this.elements[i];
+			}
+		}
+		this.elements = modifiedElements;
+		modifiedElements = null;
+	}
+	public void removeAll() {
+		this.elements = (T[]) new Object[0];
 	}
 }
