@@ -4,17 +4,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
+import Repositories.Task;
+import Repositories.List;
 
 public class TasksFileReader {
-    public static ArrayList<String[]> getTasks(String username) {
-        ArrayList<String[]> tasks = new ArrayList<String[]>();
+    public static List<Task> getTasks(String username) {
+		List<Task> tasks = new List<Task>();
         try {
             String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TasksFiles/" + username + ".tasks.txt";
             Scanner archivo = new Scanner(new File(path));
             while (archivo.hasNextLine()) {
-                tasks.add(archivo.nextLine().split(","));
+				String[] fields = archivo.nextLine().split(",");
+				Task task = new Task(fields[0], fields[1], fields[2]);
+                tasks.add(task);
             }
             archivo.close();
         } catch (FileNotFoundException e) {
@@ -24,21 +27,21 @@ public class TasksFileReader {
         return tasks;
     }
 
-    public static ArrayList<String[]> findTasksTitle(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
+    public static List<Task> findTasksTitle(List<Task> tasks, String query, List<Task> finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
-        if (tasks.get(i)[0].equals(query)) {
+        if (tasks.get(i).getTitle().equals(query)) {
             finded.add(tasks.get(i));
         }
         return findTasksTitle(tasks, query, finded, i + 1);
     }
     
-    public static ArrayList<String[]> findTasksStatus(ArrayList<String[]> tasks, String query, ArrayList<String[]> finded, int i) {
+    public static List<Task> findTasksStatus(List<Task> tasks, String query, List<Task> finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
-        if (tasks.get(i)[2].equals(query)) {
+        if (tasks.get(i).getStatus().equals(query)) {
             finded.add(tasks.get(i));
         }
         return findTasksStatus(tasks, query, finded, i + 1);
