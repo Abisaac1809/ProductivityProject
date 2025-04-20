@@ -22,9 +22,11 @@ public class List<T> {
 	public void remove(int index) {
 		T[] modifiedElements = (T[]) new Object[this.elements.length - 1];
 		this.elements[index] = null;
-		for (int i = 0; i < modifiedElements.length; i++) {
+                int k=0;
+		for (int i = 0; i < elements.length; i++) {
 			if (this.elements[i] != null) {
-				modifiedElements[i] = this.elements[i];
+				modifiedElements[k] = this.elements[i];
+                                k++;
 			}
 		}
 		this.elements = modifiedElements;

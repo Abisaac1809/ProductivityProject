@@ -1,10 +1,10 @@
 package Composables;
 
+import Repositories.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 public class FinanceFileWriter {
     public static void fileCreate(String file) {
@@ -22,7 +22,7 @@ public class FinanceFileWriter {
         }
     }
     
-    public static void fileWriter1(String file, double add,ArrayList<String> debts,int i){
+    public static void fileWriter1(String file, double add,List<String> debts,int i){
         try{
             String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File file1 = new File(path);
@@ -31,13 +31,13 @@ public class FinanceFileWriter {
             writer.write(Double.toString(add));
             writer.close();
             fileWriter1(file1, debts,i,0);
-            debts.removeAll(debts);
+            debts.removeAll();
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
         }
     }
     
-    public static void fileWriter1(File file, ArrayList<String> debts,int i,int j){
+    public static void fileWriter1(File file, List<String> debts,int i,int j){
         try{
             if(j==i){
                 return;

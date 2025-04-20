@@ -26,22 +26,7 @@ public class FinanceValidation {
         }
     }
     
-    public static double valEntry(String text){
-        double amount;
-        Scanner enter=new Scanner(System.in);
-        while(true){
-            try{
-                System.out.println(text);
-                amount=enter.nextDouble();
-                amount=Math.abs(amount);
-                return amount;
-            }
-            catch(InputMismatchException ime){
-                System.out.print("Error: Ingrese solo numeros\n");
-                enter.nextLine();
-            }
-        }
-    }
+    
     
     public static String valConcept(String text,String file,boolean flag){
         String concept;
@@ -53,9 +38,6 @@ public class FinanceValidation {
                 concept=concept.toLowerCase();
                 if(flag==true){
                     if(FinanceFileReader.searchInFile(concept,file)){
-                        if(concept.equals("")){
-                            concept="deuda";
-                        }
                         return concept;
                     }else{
                         System.out.println("Error: Concepto ya usado");
