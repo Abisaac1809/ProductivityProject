@@ -38,8 +38,9 @@ public class FileManager {
     
     public void createFile(String fileName) throws IOException {
         if (fileName == null || fileName.trim().isEmpty()) {
-            throw new IllegalArgumentException("No se ha ingresado el nombre del archivo");
+            throw new IllegalArgumentException("El nombre del archivo es inválido");
         }
+        
         String routeOfNewFile = getFileRouteByName(fileName);
         File newFile = new File(routeOfNewFile);
         newFile.createNewFile();

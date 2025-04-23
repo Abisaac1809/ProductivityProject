@@ -1,6 +1,7 @@
 
 package Process;
 
+import Repositories.FileManager;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -14,16 +15,22 @@ public class HabitsMain {
             String habitsRoute = "";
             String performanceRoute = "";
             String performanceUserRoute = "";
+            
             int rows = 0;
             String[] dailyHabits;
             String[] routes;
             int[] dailyHabitMinutes;
             int[][][] habitTimeSpentDaily;
-        
+            
+            
             habitsUserRoute = "//src//Storage//HabitsFiles//Habits." + user + ".txt";
             habitsRoute = Paths.get("").toAbsolutePath().toString() + habitsUserRoute;
             performanceUserRoute = "//src//Storage//HabitsFiles//Performance." + user + ".txt";
             performanceRoute = Paths.get("").toAbsolutePath().toString() + performanceUserRoute;
+            
+            // nuevo
+            String route = Paths.get("").toAbsolutePath().toString();
+            FileManager habitsFileManager = new FileManager(route);
             
             rows = (Validations.HabitsValidations.userHasHabits(habitsRoute, performanceRoute)) ? (Validations.FileManager.determineRows(habitsRoute)) : 0;      
         
