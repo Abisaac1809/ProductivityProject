@@ -1,37 +1,47 @@
 package Repositories;
 
 public class Node<T> {
-    private T data;
-    private Node nextNode;
-    private Node previusNode;
-    
-    public Node(T element, Node next){
-        data=element;
-        nextNode=next;
-    }
-    
-    //setters
-    
-    public void setPrevius(Node element){
-        previusNode = element;
-    }
-    
-    public void setNext(Node element){
-        nextNode = element;
-    }
-    
-    //getters
-    
-    public T getData(){
-        return data;
-    }
-    
-    public Node getNext(){
-        return nextNode;
-    }
-    
-    public Node getPrevius(){
-        return previusNode;
-    }
-    
+	private T data;
+	private Node<T> nextNode;
+
+	public Node(T element) {
+		if (element == null) {
+			throw new IllegalArgumentException("- NodeError: el elemento a agregar no puede ser nulo");
+		}
+		data = element;
+		nextNode = null;
+	}
+
+	// only use this constructor if you want to copy a node
+	// public Node(Node<T> node) {
+	// if (node == null) {
+	// throw new IllegalArgumentException("- NodeError: el elemento a agregar no
+	// puede ser nulo");
+	// }
+	// data = node.getData();
+	// nextNode = node.getNext();
+	// }
+
+	public void setData(T element) {
+		if (element == null) {
+			throw new IllegalArgumentException("- NodeError: el elemento a agregar no puede ser nulo");
+		} else if (element.equals(data)) {
+			throw new IllegalArgumentException(
+					"- NodeError: el elemento a agregar no puede ser igual al elemento actual");
+		}
+		data = element;
+	}
+
+	public void setNext(Node<T> element) {
+		nextNode = element;
+	}
+
+	public T getData() {
+		return data;
+	}
+
+	public Node<T> getNext() {
+		return nextNode;
+	}
+
 }
