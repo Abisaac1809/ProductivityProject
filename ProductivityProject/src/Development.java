@@ -23,7 +23,7 @@ public class Development {
                     System.out.println("6. Salir del Programa");
                     System.out.print("\n- Ingrese su opción: ");
                     option = Validation.option(input);
-                    if (option == 1) FinanceMain.main(username);
+                    if (option == 1) FinanceMain.main(username, input);
                     if (option == 2) HabitsMain.HabitsMain(username);
                     if (option == 3) TasksMain.main(username, input);
                     if (option == 4) {

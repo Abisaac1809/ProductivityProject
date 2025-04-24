@@ -73,8 +73,8 @@ public class FinanceValidation {
         }
     }
     
-    public static double options(){
-        Scanner lectop = new Scanner(System.in);
+    public static double options(Scanner lectop){
+    //Scanner lectop = new Scanner(System.in);
         double option=0;
         while(true){
             try{

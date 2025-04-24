@@ -70,7 +70,7 @@ public class FinanceDevelopment {
         System.out.println("5. Mostrar Deudas");
         System.out.println("6. Regresar al menú principal y guardar\n");
         System.out.print("-Ingrese su opción: ");
-        option = FinanceValidation.options();
+        option = FinanceValidation.options(input);
         return option;
     }
     public static void addAmount(Finance userMoney) throws IOException{

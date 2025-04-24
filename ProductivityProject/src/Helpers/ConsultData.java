@@ -2,17 +2,40 @@ package Helpers;
 
 import Repositories.FileManager;
 import Repositories.Finance;
-import Repositories.MissingArgumentException;
+import Repositories.Queue;
+import Repositories.Stack;
 import Validations.DataValidations;
 import Validations.FinanceValidation;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ConsultData<t>{
+    
+    public static void stacking (Queue cola, Stack pila){
+        int i = cola.getSize();
+        for(int j=0; j<i;j++){
+            pila.top(cola.getFront());
+            cola.cutNode();
+        }
+    }
+    
+    public static void showStack(Stack pila) throws IOException{
+        LocalDateTime actualDateTime = LocalDateTime.now();
+        String path=Paths.get(".").toRealPath().toString()+"/src/Storage/"+"datosusuario_" + actualDateTime+"_serial"+Math.random();
+        File file = new File(path);
+        FileWriter writer = new FileWriter(file,false);
+        int i=pila.getSize();
+        for(int j=0; j<i;i++){
+            String data=pila.getTop().toString();
+            System.out.println(data);
+            writer.write(data);
+        }
+    }
     
     public static Finance financeSearchMenu(Scanner lectura, String username){
         try {
