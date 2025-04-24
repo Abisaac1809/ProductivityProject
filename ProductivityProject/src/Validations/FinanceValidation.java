@@ -74,11 +74,11 @@ public class FinanceValidation {
     }
     
     public static double options(){
-        Scanner input = new Scanner(System.in);
+        Scanner lectop = new Scanner(System.in);
         double option=0;
         while(true){
             try{
-                option=input.nextDouble();
+                option=lectop.nextDouble();
                 if(option==1 || option == 2 || option ==3 || option == 4 || option == 5 || option == 6){
                     return option;
                 }else{
@@ -87,7 +87,7 @@ public class FinanceValidation {
                 }
             } catch(InputMismatchException e){
                 System.out.println("Error: Por favor ingrese un caracter válido");
-                input.nextLine();
+                lectop.nextLine();
             }
         }
     }

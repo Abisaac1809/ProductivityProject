@@ -22,7 +22,7 @@ public class FinanceFileWriter {
         }
     }
     
-    public static void fileWriter1(String file, double add,List<String> debts,int i){
+    public static void fileWriter1(String file, double add,List<Double> debts,List<String> title, int i){
         try{
             String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File file1 = new File(path);
@@ -30,14 +30,14 @@ public class FinanceFileWriter {
             FileWriter writer = new FileWriter(file1,false);
             writer.write(Double.toString(add));
             writer.close();
-            fileWriter1(file1, debts,i,0);
+            fileWriter1(file1, debts, title,i,0);
             debts.removeAll();
         }catch(IOException e){
             System.out.println("Error: "+e.getMessage());
         }
     }
     
-    public static void fileWriter1(File file, List<String> debts,int i,int j){
+    public static void fileWriter1(File file, List<Double> debts, List<String> title, int i,int j){
         try{
             if(j==i){
                 return;
@@ -45,9 +45,9 @@ public class FinanceFileWriter {
             File file1 = file;
             file1.createNewFile();
             FileWriter writer2 = new FileWriter(file1,true);
-            writer2.write("\n"+debts.get(j));
+            writer2.write("\n"+debts.get(j)+" "+title.get(j));
             writer2.close();
-            fileWriter1(file,debts,i,j+1);
+            fileWriter1(file,debts,title,i,j+1);
             }
             
         }catch(IOException e){

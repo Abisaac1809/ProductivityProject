@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class ConsultData<t>{
     
-    public static void financeSearchMenu(Scanner lectura, String username){
+    public static Finance financeSearchMenu(Scanner lectura, String username){
         try {
             String file = username+"finances1.txt";
             String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/";
@@ -23,7 +23,7 @@ public class ConsultData<t>{
                     int option = 0;
                     if (lectura != null) {
                         if (username != "") {
-                            while (option != 5 && username != "") {
+                            do {
                                 System.out.printf("\n-----------------------\n\n");
                                 System.out.println("Que dato desea buscar?");
                                 System.out.println("1. Saldo");
@@ -50,12 +50,16 @@ public class ConsultData<t>{
                                     String concept = FinanceValidation.valConcept(text, files, true);
                                     userMoney.setTitle(getFinanceDebtsTitle(archive, file, lectura, concept));
                                 }
-                            }
+                                if(option==4){
+                                    return userMoney;
+                                }
+                            }while (option != 4 && username != ""); 
                         }
                     }
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        return null;
     }
     
     public static double getFinanceBalance(FileManager archive,String file, Scanner lectura) throws FileNotFoundException{
@@ -102,8 +106,8 @@ public class ConsultData<t>{
                 }
             }
             sep.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ConsultData.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
         }
         return "";
     }

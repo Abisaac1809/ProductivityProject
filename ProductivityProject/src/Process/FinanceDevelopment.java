@@ -5,10 +5,12 @@ import java.text.DecimalFormat;
 import Helpers.FinanceFileReader;
 import Composables.FinanceFileWriter;
 import Repositories.Finance;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class FinanceDevelopment {
     
-    public static void menu(String username, Finance userMoney){
+    public static void menu(String username, Finance userMoney, Scanner input){
         try{
         double option=0;
         if (username != null) {
@@ -16,10 +18,10 @@ public class FinanceDevelopment {
             String file2 = username+"finances2.txt";
             FinanceDevelopment.funDefault(file1, file2);
             userMoney.setMoney(FinanceFileReader.fileHeadReading(file1));
-            FinanceFileReader.fileBodyReading(file1, userMoney);
+            FinanceFileReader.fileBodyReading(input, file1, userMoney);
             System.out.println("\n");
             while(option>=0 && option<=6){
-                option=FinanceDevelopment.menuFinance(userMoney);
+                option=FinanceDevelopment.menuFinance(userMoney, input);
                 if(option==1){
                     FinanceDevelopment.addAmount(userMoney);
                 }
@@ -35,6 +37,11 @@ public class FinanceDevelopment {
                 if(option==5){
                     FinanceDevelopment.showDebts(username,userMoney);
                 }
+                if(option==6){
+                    String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file1;
+                    FinanceFileWriter.fileWriter1(path, userMoney.getMoney(), userMoney.getDebtsList(), userMoney.getTitlesList(),userMoney.debtLength());
+                    return;
+                }
             }
         }
         }catch(IOException e){
@@ -49,7 +56,7 @@ public class FinanceDevelopment {
         }
     }
     
-    public static double menuFinance(Finance userMoney) throws IOException{
+    public static double menuFinance(Finance userMoney, Scanner input) throws IOException{
         double option = 0;
         double num = userMoney.getMoney();
         DecimalFormat df = new DecimalFormat("#0.00");

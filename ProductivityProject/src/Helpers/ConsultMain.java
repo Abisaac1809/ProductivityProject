@@ -1,6 +1,8 @@
 package Helpers;
 
 import Process.*;
+import Repositories.Node;
+import Repositories.Queue;
 import Validations.DataValidations;
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ public class ConsultMain<T> {
     public void consultMenu(String user, Scanner input){
         int option = 0;
         if (input != null) {
+            Queue cola = new Queue();
             String username = user;
             if (username != "") {
                 while (option != 5 && username != "") {
@@ -21,7 +24,7 @@ public class ConsultMain<T> {
                     System.out.println("4. Regresar al menu principal");
                     System.out.print("\n- Ingrese su opción: ");
                     option = DataValidations.option(input);
-                    if (option == 1) ConsultData.financeSearchMenu(input, username);
+                    if (option == 1) cola.addNode(new Node(ConsultData.financeSearchMenu(input, username)));
                     if (option == 2) ;
                     if (option == 3) ;
                 }

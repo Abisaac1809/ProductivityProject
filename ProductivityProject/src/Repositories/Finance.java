@@ -74,6 +74,14 @@ public class Finance {
         title.add(text);
     }
     
+    public List<Double> getDebtsList(){
+        return debt;
+    }
+    
+    public List<String> getTitlesList(){
+        return title;
+    }
+    
     //Utilitarias
     
     public double valEntry(String text){

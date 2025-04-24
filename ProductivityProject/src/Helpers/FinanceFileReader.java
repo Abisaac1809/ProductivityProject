@@ -68,22 +68,22 @@ public class FinanceFileReader {
         return num;
     }
     
-    public static void fileBodyReading(String file,Finance userMoney) {
+    public static void fileBodyReading(Scanner input, String file,Finance userMoney) {
         if(file!=null){
         try{
             String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
             File arch = new File(path);
-            Scanner read = new Scanner(arch);
-            Scanner sep = null;
-            read.nextLine();
-            while(read.hasNextLine()){
-                String text=read.nextLine();
-                sep = new Scanner(text).useDelimiter(" ");
-                userMoney.loadDebt(Double.parseDouble(sep.next()));
-                userMoney.loadTitle(sep.next());
+            Scanner read2 = new Scanner(arch);
+            read2.nextLine();
+            Scanner sepa = input;
+            while(read2.hasNextLine()){
+                String text=read2.nextLine();
+                sepa = new Scanner(text).useDelimiter(" ");
+                userMoney.loadDebt(Double.parseDouble(sepa.next()));
+                userMoney.loadTitle(sepa.next());
             }
-            sep.close();
-            read.close();
+            sepa.close();
+            read2.close();
         }catch(IOException i){
             System.out.println("Error: "+i.getMessage());
         }}
