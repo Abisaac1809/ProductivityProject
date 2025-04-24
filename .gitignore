@@ -3,10 +3,4 @@
 /ProductivityProject/dist/
 
 # users file from the users module
-/ProductivityProject/src/Users/*.txt
-
-# habits files from the habits module
-/ProductivityProject/src/Habits/HabitsDataBase/*.txt
-
-# finances files
-/ProductivityProject/src/Finances/*.txt
+/ProductivityProject/src/Storage/**/*.txt

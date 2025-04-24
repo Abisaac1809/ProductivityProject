@@ -1,27 +1,23 @@
 package Helpers;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import Repositories.Task;
+import Repositories.FileManager;
 import Repositories.List;
 
 public class TasksFileReader {
-    public static List<Task> getTasks(String username) {
+    public static List<Task> getTasks(String username, FileManager fileManager) {
 		List<Task> tasks = new List<Task>();
         try {
-            String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TasksFiles/" + username + ".tasks.txt";
-            Scanner archivo = new Scanner(new File(path));
+            Scanner archivo = fileManager.getFile(username + ".tasks.txt");
             while (archivo.hasNextLine()) {
 				String[] fields = archivo.nextLine().split(",");
 				Task task = new Task(fields[0], fields[1], fields[2]);
                 tasks.add(task);
             }
             archivo.close();
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
+        } catch (FileNotFoundException | IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
         return tasks;

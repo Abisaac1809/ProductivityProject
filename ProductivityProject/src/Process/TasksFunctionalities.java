@@ -2,8 +2,10 @@ package Process;
 
 import java.util.Scanner;
 
+import Repositories.FileManager;
 import Repositories.List;
 import Repositories.Task;
+import Validations.TasksValidations;
 
 public class TasksFunctionalities {
 	static void menu(Scanner input, String username) {
@@ -18,16 +20,17 @@ public class TasksFunctionalities {
 				System.out.println("4. Menu Principal");
 				System.out.print("\n- Ingrese su opción: ");
 				option = Validations.DataValidations.option(input, 1, 4);
-				List<Task> tasks = Helpers.TasksFileReader.getTasks(username);
+				FileManager fileManager = TasksValidations.getFileManager(username);
+				List<Task> tasks = Helpers.TasksFileReader.getTasks(username, fileManager);
 				if (option == 1)
-					createTask(input, username, tasks);
+					createTask(input, username, tasks, fileManager);
 				if (option == 2)
-					searchTask(input, username, tasks);
+					searchTask(input, username, tasks, fileManager);
 			}
 		}
 	}
 
-	private static void createTask(Scanner input, String username, List<Task> tasks) {
+	private static void createTask(Scanner input, String username, List<Task> tasks, FileManager fileManager) {
 		if (input != null && username != null && tasks != null) {
 			System.out.print("- Ingrese el titulo de la tarea: ");
 			String title = Validations.TasksValidations.title(input);
@@ -35,11 +38,11 @@ public class TasksFunctionalities {
 			String description = Validations.TasksValidations.description(input);
 			Task task = new Task(title, description, "No Hecha");
 			tasks.add(task);
-			Composables.TasksFileWriter.updateFile(tasks, input, username);
+			Composables.TasksFileWriter.updateFile(tasks, username, fileManager);
 		}
 	}
 
-	private static void searchTask(Scanner input, String username, List<Task> tasks) {
+	private static void searchTask(Scanner input, String username, List<Task> tasks, FileManager fileManager) {
 		if (input != null && username != null && tasks != null) {
 			int field = Validations.TasksValidations.getField(input);
 			List<Task> finded = new List<Task>();

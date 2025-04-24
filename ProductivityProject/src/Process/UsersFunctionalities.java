@@ -20,7 +20,7 @@ public class UsersFunctionalities {
         String password = input.next();
         Composables.UsersFileWriter.saveUser(username, Encrypt.encrypt(password));
         Validations.FileManager.createHabitsFile(username);
-        
+		Composables.TasksFileWriter.createTaskFile(username);
         Validations.FileManager.createSessionFile(username);
         return username;
     }

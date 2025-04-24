@@ -1,28 +1,30 @@
 package Composables;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
+import Repositories.FileManager;
 import Repositories.List;
 import Repositories.Task;
 
 public class TasksFileWriter {
-	public static void updateFile(List<Task> tasks, Scanner input, String username) {
+	public static void updateFile(List<Task> tasks, String username, FileManager fileManager) {
 		try {
-			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TasksFiles/" + username + ".tasks.txt";
-			File file = new File(path);
-			file.createNewFile();
-			FileWriter writer = new FileWriter(path);
 			for (int i = 0; i < tasks.size(); i++) {
-				writer.write(String.format("%s,%s,%s\n", tasks.get(i).getTitle(), tasks.get(i).getDescription(),
-						tasks.get(i).getStatus()));
+				String text = String.format("%s,%s,%s\n", tasks.get(i).getTitle(), tasks.get(i).getDescription(),
+						tasks.get(i).getStatus());
+				fileManager.writeTextInFile(text, username + ".tasks.txt", true);
 			}
-			writer.close();
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+		} catch (IOException | IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	public static void createTaskFile(String username) {
+		try {
+			FileManager fileManager = new FileManager(Paths.get("").toAbsolutePath().toString() + "/src/Storage/TasksFiles/");
+			fileManager.createFile(username + ".tasks.txt");
+		} catch (IOException | IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 }
