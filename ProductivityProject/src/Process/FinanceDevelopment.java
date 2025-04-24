@@ -38,8 +38,7 @@ public class FinanceDevelopment {
                     FinanceDevelopment.showDebts(username,userMoney);
                 }
                 if(option==6){
-                    String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file1;
-                    FinanceFileWriter.fileWriter1(path, userMoney.getMoney(), userMoney.getDebtsList(), userMoney.getTitlesList(),userMoney.debtLength());
+                    FinanceFileWriter.fileWriter1(file1, userMoney.getMoney(), userMoney.getDebtsList(), userMoney.getTitlesList(),userMoney.debtLength());
                     return;
                 }
             }

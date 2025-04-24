@@ -2,12 +2,9 @@ package Helpers;
 
 import Repositories.Finance;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FinanceFileReader {
     
@@ -75,14 +72,16 @@ public class FinanceFileReader {
             File arch = new File(path);
             Scanner read2 = new Scanner(arch);
             read2.nextLine();
-            Scanner sepa = input;
+            Scanner sepa = null;
             while(read2.hasNextLine()){
                 String text=read2.nextLine();
                 sepa = new Scanner(text).useDelimiter(" ");
                 userMoney.loadDebt(Double.parseDouble(sepa.next()));
                 userMoney.loadTitle(sepa.next());
             }
-            sepa.close();
+			if (sepa != null) {
+				sepa.close();
+			}
             read2.close();
         }catch(IOException i){
             System.out.println("Error: "+i.getMessage());

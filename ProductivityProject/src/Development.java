@@ -1,6 +1,8 @@
 
 import java.io.IOException;
 import java.util.Scanner;
+
+import Helpers.ConsultMain;
 import Process.UsersMain;
 import Process.FinanceMain;
 import Process.HabitsMain;
@@ -26,7 +28,8 @@ public class Development {
                     if (option == 1) FinanceMain.main(username, input);
                     if (option == 2) HabitsMain.HabitsMain(username);
                     if (option == 3) TasksMain.main(username, input);
-                    if (option == 4) {
+					if (option == 4) ConsultMain.consultMenu(username, input);
+                    if (option == 5) {
                         System.out.println("");
 						Composables.UsersFileWriter.logout();
                         username = UsersMain.main(input);
