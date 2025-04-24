@@ -92,13 +92,23 @@ public class FileManager {
 		return directories.exists();
 	}
 
-	private boolean fileExist(String fileName) {
+	public boolean fileExist(String fileName) {
 		String fileRoute = getFileRouteByName(fileName);
 		File file = new File(fileRoute);
 		return file.isFile();
 	}
 
 	private String getFileRouteByName(String fileName) {
-		return this.directoryRoute + fileName + ".txt";
+		return this.directoryRoute + fileName;
+	}
+
+	public void emptyFile(String fileName) throws IOException {
+		if (fileName == null || fileName.trim().isEmpty()) {
+			throw new IllegalArgumentException("El nombre del archivo es inválido");
+		}
+		String fileRoute = getFileRouteByName(fileName);
+		try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(fileRoute, false))) {
+			fileWriter.newLine();
+		}
 	}
 }
