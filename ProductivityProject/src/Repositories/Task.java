@@ -47,4 +47,8 @@ public class Task {
 		if (!status.equals("No Hecha") && !status.equals("Hecha"))
 			throw new ObjectValidationException("estado de tarea incorrecto [" + status + "]");
 	}
+
+	public String toString() {
+		return this.title + ", " + this.description + ", " + this.status;
+	}
 }
