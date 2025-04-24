@@ -2,11 +2,33 @@ package Helpers;
 
 import Repositories.Finance;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FinanceFileReader {
+    
+    public static int cantReg(String file){
+        int num=0;
+        try {
+            String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;
+            File arch = new File(path);
+            Scanner read = new Scanner(arch);
+            read.nextLine();
+            while(read.hasNextLine()){
+                read.nextLine();
+                num++;
+            }
+            return num;
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return num;
+    }
+    
     public static boolean searchInFile(String text, String file){
         try{
         String path=Paths.get(".").toRealPath().toString()+"/src/Storage/FinancesFiles/"+file;

@@ -26,7 +26,22 @@ public class FinanceValidation {
         }
     }
     
-    
+    public static double valEntry(String text){
+        double amount;
+        Scanner enter =new Scanner(System.in);
+        while(true){
+            try{
+                System.out.println(text);
+                amount=enter.nextDouble();
+                amount=Math.abs(amount);
+                return amount;
+            }
+            catch(InputMismatchException ime){
+                System.out.println("Error: Por favor, ingrese un numero");
+                enter.nextLine();
+            }
+        }
+    }
     
     public static String valConcept(String text,String file,boolean flag){
         String concept;
