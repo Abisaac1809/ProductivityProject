@@ -28,7 +28,7 @@ public class Development {
                     if (option == 3) TasksMain.main(username, input);
                     if (option == 4) {
                         System.out.println("");
-                        Validation.logout();
+						Composables.UsersFileWriter.logout();
                         username = UsersMain.main(input);
                     }
                 }

@@ -56,17 +56,4 @@ public class FileManager {
         }
     }
     
-    public static void createSessionFile(String username) {
-        if (username != null) {
-            try {
-                String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/session.txt";
-                File file = new File(path);
-                FileWriter writer = new FileWriter(file,false);
-                writer.write(Encrypt.encrypt(username));
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-    }
 }
