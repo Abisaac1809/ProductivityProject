@@ -1,10 +1,10 @@
 package Validations;
 
+import Repositories.FileManager;
+import Repositories.MissingArgumentException;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import Repositories.FileManager;
-import Repositories.MissingArgumentException;
 
 public class TasksValidations {
     public static String title(Scanner input) {

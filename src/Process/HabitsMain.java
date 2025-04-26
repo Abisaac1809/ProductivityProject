@@ -23,9 +23,9 @@ public class HabitsMain {
             int[][][] habitTimeSpentDaily;
             
             
-            habitsUserRoute = "//src//Storage//HabitsFiles//Habits." + user + ".txt";
+            habitsUserRoute = "///src/Storage//HabitsFiles//Habits." + user + ".txt";
             habitsRoute = Paths.get("").toAbsolutePath().toString() + habitsUserRoute;
-            performanceUserRoute = "//src//Storage//HabitsFiles//Performance." + user + ".txt";
+            performanceUserRoute = "///src/Storage//HabitsFiles//Performance." + user + ".txt";
             performanceRoute = Paths.get("").toAbsolutePath().toString() + performanceUserRoute;
             
             // nuevo

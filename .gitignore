@@ -1,6 +1,8 @@
 # project's build folder
-/ProductivityProject/build/
-/ProductivityProject/dist/
+build/
+dist/
 
 # users file from the users module
-/ProductivityProject/src/Storage/**/*.txt
+src/Storage/**/*.txt
+
+src/**/*.class

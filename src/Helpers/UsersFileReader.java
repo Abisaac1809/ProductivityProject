@@ -11,7 +11,7 @@ public class UsersFileReader {
 	public static boolean userExists(String username) {
 		if (username != null) {
 			try {
-				String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/users.txt";
+				String path = Paths.get("").toRealPath().toString() + "/src//src/Storage/UsersFiles/users.txt";
 				System.out.println(path);
 				File file = new File(path);
 				file.createNewFile();
@@ -35,7 +35,7 @@ public class UsersFileReader {
 		if (username != null && input != null) {
 			while (true) {
 				try {
-					String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/users.txt";
+					String path = Paths.get("").toRealPath().toString() + "//src/Storage/UsersFiles/users.txt";
 					Scanner file = new Scanner(new File(path));
 					String p = "";
 					System.out.print("- Contraseña: ");
@@ -63,7 +63,7 @@ public class UsersFileReader {
 	public static String getUserEncrypted(String usernameEncrypted) {
 		String username = "";
 		try {
-			String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/users.txt";
+			String path = Paths.get("").toRealPath().toString() + "//src/Storage/UsersFiles/users.txt";
 			Scanner file = new Scanner(new File(path));
 			while (file.hasNextLine()) {
 				String user = file.next();
@@ -82,7 +82,7 @@ public class UsersFileReader {
 	public static String getSession() {
 		try {
 			FileManager fileManager = new FileManager(
-					Paths.get("").toAbsolutePath().toString() + "/src/Storage/UsersFiles/");
+					Paths.get("").toAbsolutePath().toString() + "//src/Storage/UsersFiles/");
 			Scanner file = fileManager.getFile("session.txt");
 			String username = "";
 			if (file.hasNext()) {
