@@ -12,10 +12,11 @@ public class UsersFileReader {
 		if (username != null) {
 			try {
 				String path = Paths.get("").toRealPath().toString() + "/src/Storage/UsersFiles/users.txt";
+				System.out.println(path);
 				File file = new File(path);
 				file.createNewFile();
 				Scanner fileScanner = new Scanner(file);
-				while (fileScanner.hasNextLine()) {
+				while (fileScanner.hasNext()) {
 					if (fileScanner.next().equals(username)) {
 						fileScanner.close();
 						return true;
@@ -24,7 +25,7 @@ public class UsersFileReader {
 				}
 				fileScanner.close();
 			} catch (IOException e) {
-				System.out.println("Error: " + e.getMessage());
+				System.out.println("Error eroieorg: " + e.getMessage());
 			}
 		}
 		return false;

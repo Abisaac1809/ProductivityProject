@@ -26,7 +26,7 @@ public class ConsultData {
 
 	public static void showStack(Stack<Finance> pila) throws IOException {
 		LocalDateTime actualDateTime = LocalDateTime.now();
-		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime
+		String path = Paths.get(".").toRealPath().toString() + "Storage/" + "datosusuario_" + actualDateTime
 				+ "_serial" + Math.random();
 		File file = new File(path);
 		FileWriter writer = new FileWriter(file, false);
