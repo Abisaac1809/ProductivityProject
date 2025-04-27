@@ -6,11 +6,10 @@ public class Queue<T> {
 	private Node<T> lastNode;
 	private int size = 0;
 
-	public void addNode(T data) {
-		if (data == null) {
+	public void addNode(Node<T> nodo) {
+		if (nodo == null) {
 			throw new IllegalArgumentException("- QueueError: el elemento a agregar no puede ser nulo");
 		}
-		Node<T> nodo = new Node<T>(data);
 		if (this.isEmpty()) {
 			firstNode = nodo;
 		} else {

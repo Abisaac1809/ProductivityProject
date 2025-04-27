@@ -19,15 +19,35 @@ public class Finance {
         return money;
     }
         
+    /**
+    * Obtiene el título en la posición especificada de la lista de títulos.
+    *
+    * @param i El índice del título que se desea obtener.
+    * @return El título en la posición especificada.
+    * @throws IndexOutOfBoundsException si el índice está fuera de los límites de la lista.
+    */
     public String getTitle(int i){
         return title.get(i);
     }
-        
-    public Double getDebt(int i){
+
+    /**
+     * Obtiene la deuda en la posición especificada de la lista de deudas.
+     *
+     * @param i El índice de la deuda que se desea obtener.
+     * @return La deuda en la posición especificada.
+     * @throws IndexOutOfBoundsException si el índice está fuera de los límites de la lista.
+     */
+    public Double getDebt(int i) {
         return debt.get(i);
     }
     
     //setters
+
+    /**
+     * Establece el título en la lista de títulos.
+     *
+     * @param text El texto del título que se desea establecer.
+     */
     public void setTitle(String text){
         String name = valConcept(text,true);
         title.add(name);
@@ -81,6 +101,10 @@ public class Finance {
     public List<String> getTitlesList(){
         return title;
     }
+
+    public String toStringContent() {
+		return "Concepto: "+getTitle(0) + ", Deuda: " + getDebt(0) + ", Saldo: " + this.money;
+	}
     
     //Utilitarias
     

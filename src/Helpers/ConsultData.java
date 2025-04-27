@@ -1,9 +1,12 @@
 package Helpers;
 
+import Repositories.DailyHabit;
 import Repositories.FileManager;
 import Repositories.Finance;
+import Repositories.Node;
 import Repositories.Queue;
 import Repositories.Stack;
+import Repositories.Task;
 import Validations.DataValidations;
 import Validations.FinanceValidation;
 import java.io.File;
@@ -16,30 +19,84 @@ import java.util.Scanner;
 
 public class ConsultData {
 
-	public static void stacking(Queue<Finance> cola, Stack<Finance> pila) {
-		int i = cola.getSize();
-		for (int j = 0; j < i; j++) {
-			pila.top(cola.getFront());
-			cola.cutNode();
+	public static void stacking(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3, Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3) throws IOException {
+		if(cola.getSize()!=0){
+			int i = cola.getSize();
+			for (int j = 0; j < i; i++) {
+				pila.top(cola.getFront());
+				cola.cutNode();
+			}
 		}
-	}
-
-	public static void showStack(Stack<Finance> pila) throws IOException {
+		if(cola2.getSize()!=0){
+			int i = cola2.getSize();
+			for (int j = 0; j < i; i++) {
+				pila2.top(cola2.getFront());
+				cola2.cutNode();
+			}
+		}
+		if(cola3.getSize()!=0){
+			int i = cola3.getSize();
+			for (int j = 0; j < i; i++) {
+				pila3.top(cola3.getFront());
+				cola3.cutNode();
+			}
+		}
 		LocalDateTime actualDateTime = LocalDateTime.now();
-		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime
-				+ "_serial" + Math.random();
+		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime + "_serial" + Math.random();
 		File file = new File(path);
 		FileWriter writer = new FileWriter(file, false);
-		int i = pila.getSize();
-		for (int j = 0; j < i; i++) {
-			String data = pila.getTop().toString();
-			System.out.println(data);
-			writer.write(data);
+		if(pila.getSize()!=0){
+			int i = pila.getSize();
+			for (int j = 0; j < i; j++) {
+				writer.write(pila.getTop().toStringContent());
+				pila.pop();
+			}
+		}
+		if(pila2.getSize()!=0){
+			int i = pila2.getSize();
+			for (int j = 0; j < i; j++) {
+				writer.write(pila2.getTop().toStringContent());
+				pila2.pop();
+			}
+		}
+		if(pila3.getSize()!=0){
+			int i = pila3.getSize();
+			for (int j = 0; j < i; j++) {
+				writer.write(pila3.getTop().toStringContent());
+				pila3.pop();
+			}
 		}
 		writer.close();
 	}
 
-	public static Finance financeSearchMenu(Scanner lectura, String username) {
+	public static void showQueue(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3){
+		if(cola.getSize()!=0){
+			int i = cola.getSize();
+			for (int j = 0; j < i; i++) {
+				String data = cola.getFront().toStringContent();
+				cola.cutNode();
+				System.out.println(data);
+			}
+		}
+		if(cola2.getSize()!=0){
+			int i = cola2.getSize();
+			for (int j = 0; j < i; i++) {
+				String data = cola2.getFront().toStringContent();
+				cola.cutNode();
+				System.out.println(data);
+			}
+		}
+		if(cola3.getSize()!=0){
+			int i = cola3.getSize();
+			for (int j = 0; j < i; i++) {
+				String data = cola3.getFront().toStringContent();
+				cola.cutNode();
+				System.out.println(data);
+			}
+		}
+	}
+
+	public static Node<Finance> financeSearchMenu(Scanner lectura, String username) {
 		try {
 			String file = username + "finances1.txt";
 			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/";
@@ -77,7 +134,7 @@ public class ConsultData {
 							userMoney.setTitle(getFinanceDebtsTitle(archive, files, lectura, concept));
 						}
 						if (option == 4) {
-							return userMoney;
+							return new Node<>(userMoney);
 						}
 					} while (option != 4 && username != "");
 				}

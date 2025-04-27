@@ -40,4 +40,8 @@ public class DailyHabit {
         if (habit.trim().isEmpty())
             throw new ObjectValidationException("el hábito debe contener al menos 1 carácter");
     }
+
+    public String toStringContent() {
+		return "Habitos: "+this.habit + ", " + "Tiempo: "+ this.minutes;
+	}
 }

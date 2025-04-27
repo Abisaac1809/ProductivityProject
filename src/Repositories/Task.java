@@ -48,7 +48,7 @@ public class Task {
 			throw new ObjectValidationException("estado de tarea incorrecto [" + status + "]");
 	}
 
-	public String toString() {
+	public String toStringContent() {
 		return this.title + ", " + this.description + ", " + this.status;
 	}
 }
