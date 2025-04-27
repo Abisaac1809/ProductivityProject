@@ -7,11 +7,11 @@ public class Task {
 
 	public Task(String title, String description, String status) {
 		if (title == null)
-			throw new MissingArgumentException("title");
+			throw new IllegalArgumentException("Error: falta titulo");
 		if (description == null)
-			throw new MissingArgumentException("description");
+			throw new IllegalArgumentException("Error: falta descripcion");
 		if (status == null)
-			throw new MissingArgumentException("status");
+			throw new IllegalArgumentException("Error: falta estado");
 		validateTitle(title);
 		validateDescription(description);
 		validateStatus(status);
@@ -35,17 +35,17 @@ public class Task {
 	private void validateTitle(String title) {
 		boolean isValid = title.length() > 0 && title.length() <= 20;
 		if (!isValid)
-			throw new ObjectValidationException("titulo debe contener entre 1 y 20 caracters");
+			throw new IllegalArgumentException("titulo debe contener entre 1 y 20 caracters");
 	}
 
 	private void validateDescription(String description) {
 		if (description.isEmpty())
-			throw new ObjectValidationException("la descripcion debe tener minimo 1 caracter");
+			throw new IllegalArgumentException("la descripcion debe tener minimo 1 caracter");
 	}
 
 	private void validateStatus(String status) {
 		if (!status.equals("No Hecha") && !status.equals("Hecha"))
-			throw new ObjectValidationException("estado de tarea incorrecto [" + status + "]");
+			throw new IllegalArgumentException("estado de tarea incorrecto [" + status + "]");
 	}
 
 	public String toStringContent() {

@@ -6,8 +6,8 @@ import Repositories.ArchiveUtil;
 import Repositories.List;
 
 public class TasksFileReader {
-    public static List<Task> getTasks(String username, ArchiveUtil archiveUtil) {
-		List<Task> tasks = new List<Task>();
+    public static List getTasks(String username, ArchiveUtil archiveUtil) {
+		List tasks = new List();
 		Scanner archivo = archiveUtil.getArchive(username + ".tasks.txt");
 		while (archivo.hasNextLine()) {
 			String[] fields = archivo.nextLine().split(",");
@@ -18,21 +18,23 @@ public class TasksFileReader {
         return tasks;
     }
 
-    public static List<Task> findTasksTitle(List<Task> tasks, String query, List<Task> finded, int i) {
+    public static List findTasksTitle(List tasks, String query, List finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
-        if (tasks.get(i).getTitle().equals(query)) {
+		Task task = (Task) tasks.get(i);
+        if (task.getTitle().equals(query)) {
             finded.add(tasks.get(i));
         }
         return findTasksTitle(tasks, query, finded, i + 1);
     }
     
-    public static List<Task> findTasksStatus(List<Task> tasks, String query, List<Task> finded, int i) {
+    public static List findTasksStatus(List tasks, String query, List finded, int i) {
         if (i == tasks.size()) {
             return finded;
         }
-        if (tasks.get(i).getStatus().equals(query)) {
+		Task task = (Task) tasks.get(i);
+        if (task.getStatus().equals(query)) {
             finded.add(tasks.get(i));
         }
         return findTasksStatus(tasks, query, finded, i + 1);

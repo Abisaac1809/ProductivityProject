@@ -1,13 +1,15 @@
 package Repositories;
-@SuppressWarnings("unchecked")
 
-public class List<T> {
-	private T[] elements = (T[]) new Object[0];
-	public T get(int index) {
+public class List {
+	private Object[] elements;
+	public List() {
+		this.elements = new Object[0];
+	}
+	public Object get(int index) {
 		return elements[index];
 	}
-	public void add(T element) {
-		T[] modifiedElements = (T[]) new Object[this.elements.length + 1];
+	public void add(Object element) {
+		Object[] modifiedElements = (Object[]) new Object[this.elements.length + 1];
 		for (int i = 0; i < elements.length; i++) {
 			modifiedElements[i] = this.elements[i];
 		}
@@ -20,7 +22,7 @@ public class List<T> {
 		return this.elements.length;
 	}
 	public void remove(int index) {
-		T[] modifiedElements = (T[]) new Object[this.elements.length - 1];
+		Object[] modifiedElements = (Object[]) new Object[this.elements.length - 1];
 		this.elements[index] = null;
                 int k=0;
 		for (int i = 0; i < elements.length; i++) {
@@ -33,6 +35,6 @@ public class List<T> {
 		modifiedElements = null;
 	}
 	public void removeAll() {
-		this.elements = (T[]) new Object[0];
+		this.elements = (Object[]) new Object[0];
 	}
 }

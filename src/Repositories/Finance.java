@@ -5,14 +5,14 @@ import java.util.Scanner;
 
 public class Finance {
     
-    private List<String> title;
-    private List<Double> debt;
+    private List title;
+    private List debt;
     private Double money;
     private String SpecifiedDebt;
     
     public Finance(){
-        title = new List<>();
-        debt = new List<>();
+        title = new List();
+        debt = new List();
     }
     
     //getters
@@ -34,7 +34,7 @@ public class Finance {
     * @throws IndexOutOfBoundsException si el índice está fuera de los límites de la lista.
     */
     public String getTitle(int i){
-        return title.get(i);
+        return (String) title.get(i);
     }
 
     /**
@@ -45,7 +45,7 @@ public class Finance {
      * @throws IndexOutOfBoundsException si el índice está fuera de los límites de la lista.
      */
     public Double getDebt(int i) {
-        return debt.get(i);
+        return (Double) debt.get(i);
     }
 
     /**
@@ -129,11 +129,11 @@ public class Finance {
         title.add(text);
     }
     
-    public List<Double> getDebtsList(){
+    public List getDebtsList(){
         return debt;
     }
     
-    public List<String> getTitlesList(){
+    public List getTitlesList(){
         return title;
     }
 

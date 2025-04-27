@@ -21,7 +21,7 @@ public class TasksFunctionalities {
 				System.out.print("\n- Ingrese su opción: ");
 				option = Validations.DataValidations.option(input, 1, 4);
 				FileManager.createFileIfNotExists(archiveUtil.getRouter() + username + ".tasks.txt");
-				List<Task> tasks = Helpers.TasksFileReader.getTasks(username, archiveUtil);
+				List tasks = Helpers.TasksFileReader.getTasks(username, archiveUtil);
 				if (option == 1)
 					createTask(input, username, tasks, archiveUtil);
 				if (option == 2)
@@ -30,7 +30,7 @@ public class TasksFunctionalities {
 		}
 	}
 
-	private static void createTask(Scanner input, String username, List<Task> tasks, ArchiveUtil archiveUtil) {
+	private static void createTask(Scanner input, String username, List tasks, ArchiveUtil archiveUtil) {
 		if (input != null && username != null && tasks != null) {
 			System.out.print("- Ingrese el titulo de la tarea: ");
 			String title = Validations.TasksValidations.title(input);
@@ -39,17 +39,18 @@ public class TasksFunctionalities {
 			Task task = new Task(title, description, "No Hecha");
 			tasks.add(task);
 			for (int i = 0; i < tasks.size(); i++) {
-				String text = String.format("%s,%s,%s\n", tasks.get(i).getTitle(), tasks.get(i).getDescription(),
-						tasks.get(i).getStatus());
+				Task currentTask = (Task) tasks.get(i);
+				String text = String.format("%s,%s,%s\n", currentTask.getTitle(), currentTask.getDescription(),
+						currentTask.getStatus());
 				archiveUtil.setCreateArchive(text, username + ".tasks", false);
 			}
 		}
 	}
 
-	private static void searchTask(Scanner input, String username, List<Task> tasks, ArchiveUtil archiveUtil) {
+	private static void searchTask(Scanner input, String username, List tasks, ArchiveUtil archiveUtil) {
 		if (input != null && username != null && tasks != null) {
 			int field = Validations.TasksValidations.getField(input);
-			List<Task> finded = new List<Task>();
+			List finded = new List();
 			if (field == 1) {
 				System.out.print("- Ingrese el titulo: ");
 				String query = Validations.TasksValidations.title(input);
@@ -62,8 +63,9 @@ public class TasksFunctionalities {
 			if (finded.size() > 0) {
 				System.out.println("TAREAS ENCONTRADAS:");
 				for (int i = 0; i < finded.size(); i++) {
-					System.out.printf("%2d.  %-20s  [%s]\n    %s\n", i + 1, finded.get(i).getTitle(),
-							finded.get(i).getStatus(), finded.get(i).getDescription());
+					Task task = (Task) finded.get(i);
+					System.out.printf("%2d.  %-20s  [%s]\n    %s\n", i + 1, task.getTitle(),
+							task.getStatus(), task.getDescription());
 				}
 			} else {
 				System.out.println("TAREAS NO ENCONTRADAS!");

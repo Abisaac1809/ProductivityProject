@@ -4,6 +4,11 @@ public class Stack<T> {
 	private Node<T> topNode;
 	private int size;
 
+	public Stack() {
+		topNode = null;
+		size = 0;
+	}
+
 	public void top(T data) {
 		Node<T> nodo = new Node<T>(data);
 		nodo.setNext(this.topNode);

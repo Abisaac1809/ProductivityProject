@@ -1,6 +1,5 @@
 package Validations;
 
-import Repositories.MissingArgumentException;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -33,7 +32,7 @@ public class UsersValidations {
 	public static void setUsersRouter(ArchiveUtil archiveUtil) {
 		try {
 			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/UsersFiles/");
-		} catch (FileNotFoundException | MissingArgumentException e) {
+		} catch (FileNotFoundException | IllegalArgumentException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
 	}

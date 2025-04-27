@@ -40,7 +40,7 @@ public class FileManager {
 
 	}
 
-	public static void fileWriter1(String file, double add, List<Double> debts, List<String> title, int i) {
+	public static void fileWriter1(String file, double add, List debts, List title, int i) {
 		try {
 			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/" + file;
 			File file1 = new File(path);
@@ -55,7 +55,7 @@ public class FileManager {
 		}
 	}
 
-	public static void fileWriter1(File file, List<Double> debts, List<String> title, int i, int j) {
+	public static void fileWriter1(File file, List debts, List title, int i, int j) {
 		try {
 			if (j == i) {
 				return;
