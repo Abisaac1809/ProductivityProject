@@ -139,12 +139,17 @@ public class Finance {
 
     public String toStringContent() {
         String text="";
-        /*if (this.title != null) {
-            text += "Concepto: "+this.getTitle(0);
+        if (title.size() != 0) {
+            text += "Concepto: "; 
+            for(int i=0;i<title.size();i++){
+                if(!title.get(i).equals("null")){
+                    text +=this.getTitle(i)+" ";
+                }  
+            }
         }
-        if(this.debt != null){
-            text+= ", Deuda: " +this.getDebt(0);
-        }*/
+        if(SpecifiedDebt!=null){
+            text += "Deuda: "+SpecifiedDebt+" ";
+        }
         if(money!=null){
             text+="Saldo: " +money;
         }
@@ -158,7 +163,6 @@ public class Finance {
         Scanner enter=new Scanner(System.in);
         while(true){
             try{
-                System.out.println(text);
                 amount=enter.nextDouble();
                 amount=Math.abs(amount);
                 return amount;
@@ -175,7 +179,6 @@ public class Finance {
         boolean check=true;
         while(true){
             try{
-                System.out.println(text);
                 concept=enter.nextLine().replace(" ", "_");
                 concept=concept.toLowerCase();
                 if(flag==true){

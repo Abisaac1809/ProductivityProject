@@ -36,6 +36,7 @@ public class ConsultData {
 		}
 		if(pila2.getSize()!=0){
 			int i = pila2.getSize();
+			writer.write("\n");
 			for (int j = 0; j < i; j++) {
 				writer.write(pila2.getTop().toStringContent());
 				pila2.pop();
@@ -43,6 +44,7 @@ public class ConsultData {
 		}
 		if(pila3.getSize()!=0){
 			int i = pila3.getSize();
+			writer.write("\n");
 			for (int j = 0; j < i; j++) {
 				writer.write(pila3.getTop().toStringContent());
 				pila3.pop();
@@ -52,6 +54,8 @@ public class ConsultData {
 	}
 
 	public static void showQueue(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3, Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3){
+		System.out.println("\n-----------------------");
+		System.out.println("Resultados de la busqueda\n");
 		if(cola.getSize()!=0){
 			int i = cola.getSize();
 			for (int j = 0; j < i; j++) {
@@ -109,7 +113,7 @@ public class ConsultData {
 							Double monto = FinanceValidation.valEntry(text);
 							String[] debts = getFinanceDebtsAmount(archive, file, lectura, monto);
 							for (int i = 0; i < debts.length; i++) {
-								userMoney.setTitle("" + debts[i]);
+								userMoney.loadTitle("" + debts[i]);
 							}
 						}
 						if (option == 3) {

@@ -20,7 +20,6 @@ public class ArchiveUtil {
     }
 
     public Scanner getArchive(String nameArchive) {
-
         try {
             if (nameArchive == null || nameArchive.trim().isEmpty()) {
                 throw new IllegalArgumentException(" EL nombre del archivo es requerido. ");
