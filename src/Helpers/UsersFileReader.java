@@ -1,22 +1,18 @@
 package Helpers;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import Process.Encrypt;
-import Repositories.FileManager;
+import Repositories.ArchiveUtil;
+import Composables.FileManager;
 
 public class UsersFileReader {
-	public static boolean userExists(String username) {
+	public static boolean userExists(String username, ArchiveUtil archiveUtil) {
 		if (username != null) {
 			try {
-				String path = Paths.get("").toRealPath().toString() + "/src//src/Storage/UsersFiles/users.txt";
-				System.out.println(path);
-				File file = new File(path);
-				file.createNewFile();
-				Scanner fileScanner = new Scanner(file);
-				while (fileScanner.hasNext()) {
+				String path = archiveUtil.getRouter();
+				FileManager.createFileIfNotExists(path + "users.txt");
+				Scanner fileScanner = archiveUtil.getArchive("users.txt");
+				while (fileScanner.hasNextLine()) {
 					if (fileScanner.next().equals(username)) {
 						fileScanner.close();
 						return true;
@@ -24,19 +20,17 @@ public class UsersFileReader {
 					fileScanner.nextLine();
 				}
 				fileScanner.close();
-			} catch (IOException e) {
-				System.out.println("Error eroieorg: " + e.getMessage());
+			} catch (Exception e) {
+				System.out.println("Error: " + e.getMessage());
 			}
 		}
 		return false;
 	}
-
-	public static void checkPassword(String username, Scanner input) {
+public static void checkPassword(String username, Scanner input, ArchiveUtil archiveUtil) {
 		if (username != null && input != null) {
 			while (true) {
 				try {
-					String path = Paths.get("").toRealPath().toString() + "//src/Storage/UsersFiles/users.txt";
-					Scanner file = new Scanner(new File(path));
+					Scanner file = archiveUtil.getArchive("users.txt");
 					String p = "";
 					System.out.print("- Contraseña: ");
 					String password = Encrypt.encrypt(input.next());
@@ -53,19 +47,20 @@ public class UsersFileReader {
 						System.out.println("Error: [Contraseña inválida]");
 					}
 					file.close();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					System.out.println("Error: " + e.getMessage());
 				}
 			}
 		}
 	}
 
-	public static String getUserEncrypted(String usernameEncrypted) {
+	public static String getUserEncrypted(String usernameEncrypted, ArchiveUtil archiveUtil) {
 		String username = "";
 		try {
-			String path = Paths.get("").toRealPath().toString() + "//src/Storage/UsersFiles/users.txt";
-			Scanner file = new Scanner(new File(path));
-			while (file.hasNextLine()) {
+			String path = archiveUtil.getRouter();
+			FileManager.createFileIfNotExists(path + "users.txt");
+			Scanner file = archiveUtil.getArchive("users.txt");
+			while (file.hasNext()) {
 				String user = file.next();
 				if (Encrypt.encrypt(user).equals(usernameEncrypted)) {
 					file.close();
@@ -79,19 +74,19 @@ public class UsersFileReader {
 		return username;
 	}
 
-	public static String getSession() {
+	public static String getSession(ArchiveUtil archiveUtil) {
 		try {
-			FileManager fileManager = new FileManager(
-					Paths.get("").toAbsolutePath().toString() + "//src/Storage/UsersFiles/");
-			Scanner file = fileManager.getFile("session.txt");
+			String path = archiveUtil.getRouter();
+			FileManager.createFileIfNotExists(path + "session.txt");
+			Scanner file = archiveUtil.getArchive("session.txt");
 			String username = "";
 			if (file.hasNext()) {
 				String userSession = file.next();
-				username = getUserEncrypted(userSession);
+				username = getUserEncrypted(userSession, archiveUtil);
 			}
 			file.close();
 			return username;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return "";
 		}
 	}

@@ -1,10 +1,12 @@
 package Process;
 
-import Process.TasksFunctionalities;
 import java.util.Scanner;
 
+import Repositories.ArchiveUtil;
+
 public class TasksMain {
-	public static void main(String username, Scanner input) {
-		TasksFunctionalities.menu(input, username);
+	public static void main(String username, Scanner input, ArchiveUtil archiveUtil) {
+		Validations.TasksValidations.setTasksRouter(archiveUtil);
+		TasksFunctionalities.menu(input, username, archiveUtil);
 	}
 }

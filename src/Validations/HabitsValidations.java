@@ -1,9 +1,13 @@
 package Validations;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Scanner;
+
+import Composables.FileManager;
+import Repositories.ArchiveUtil;
+import Repositories.MissingArgumentException;
 
 public class HabitsValidations {
     public static boolean habitNameExist(String[] dailyHabits,int index, String newName) {
@@ -18,18 +22,26 @@ public class HabitsValidations {
         }
     }
     
-    public static boolean userHasHabits(String habitsRoute, String performanceRoute) throws IOException  {
+    public static boolean userHasHabits(String habitsRoute, String performanceRoute, ArchiveUtil archiveUtil) throws IOException  {
         
         if (habitsRoute != null && performanceRoute != null) {
-            try (Scanner fileReader = new Scanner(new File(habitsRoute))) {
+            try (Scanner fileReader = archiveUtil.getArchive(habitsRoute + ".txt")) {
                 return fileReader.hasNext();
             }
-            catch (FileNotFoundException e) {
-                Validations.FileManager.createArchive(habitsRoute);
-                Validations.FileManager.createArchive(performanceRoute);
+            catch (Exception e) {
+				FileManager.createFileIfNotExists(archiveUtil.getRouter() + habitsRoute);
+				FileManager.createFileIfNotExists(archiveUtil.getRouter() + performanceRoute);
                 return true;
             }
         }
         return false;
     }    
+
+	public static void setHabitsRouter(ArchiveUtil archiveUtil) {
+		try {
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/HabitsFiles/");
+		} catch (FileNotFoundException | MissingArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
 }

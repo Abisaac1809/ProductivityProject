@@ -1,25 +1,20 @@
 package Helpers;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import Repositories.Task;
-import Repositories.FileManager;
+import Repositories.ArchiveUtil;
 import Repositories.List;
 
 public class TasksFileReader {
-    public static List<Task> getTasks(String username, FileManager fileManager) {
+    public static List<Task> getTasks(String username, ArchiveUtil archiveUtil) {
 		List<Task> tasks = new List<Task>();
-        try {
-            Scanner archivo = fileManager.getFile(username + ".tasks.txt");
-            while (archivo.hasNextLine()) {
-				String[] fields = archivo.nextLine().split(",");
-				Task task = new Task(fields[0], fields[1], fields[2]);
-                tasks.add(task);
-            }
-            archivo.close();
-        } catch (FileNotFoundException | IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+		Scanner archivo = archiveUtil.getArchive(username + ".tasks.txt");
+		while (archivo.hasNextLine()) {
+			String[] fields = archivo.nextLine().split(",");
+			Task task = new Task(fields[0], fields[1], fields[2]);
+			tasks.add(task);
+		}
+		archivo.close();
         return tasks;
     }
 

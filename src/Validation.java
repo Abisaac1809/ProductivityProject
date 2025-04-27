@@ -1,8 +1,12 @@
+import java.util.Scanner;
+
+import Repositories.ArchiveUtil;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Validation {
     static int option(Scanner input) {
@@ -11,7 +15,7 @@ public class Validation {
             try {
                 value = input.nextInt();
 
-                if (value >= 1 && value <= 5) {
+                if (value >= 1 && value <= 6) {
                     return value;
                 } else {
                     System.out.println("Error: [Opción no válida]");
@@ -33,4 +37,12 @@ public class Validation {
             System.out.println("Error: " + e.getMessage());
         }
     }
+	static ArchiveUtil getArchiveUtil(String route) {
+		try {
+			return new ArchiveUtil(route);
+		} catch (FileNotFoundException | IllegalArgumentException e) {
+			System.out.println("Error: " + e.getMessage());
+			return null;
+		}
+	}
 }
