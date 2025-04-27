@@ -8,6 +8,7 @@ public class Finance {
     private List<String> title;
     private List<Double> debt;
     private Double money;
+    private String SpecifiedDebt;
     
     public Finance(){
         title = new List<>();
@@ -15,6 +16,12 @@ public class Finance {
     }
     
     //getters
+    
+    /**
+     * Obtiene el saldo actual.
+     * 
+     * @return El saldo actual.
+     */
     public Double getMoney(){
         return money;
     }
@@ -40,6 +47,15 @@ public class Finance {
     public Double getDebt(int i) {
         return debt.get(i);
     }
+
+    /**
+     * Obtiene la deuda especificada.
+     * 
+     * @return La deuda especificada.
+     */
+    public String getSpeDebt(){
+        return SpecifiedDebt;
+    }
     
     //setters
 
@@ -53,13 +69,32 @@ public class Finance {
         title.add(name);
     }
 
+    /**
+     * Establece la deuda en la lista de deudas.
+     *
+     * @param text El monto de la deuda que se desea establecer.
+     */
     public void setDebt(String text){
         Double amount=valEntry(text);
         debt.add(amount);
     }
 
+    /**
+     * Establece el saldo actual.
+     * 
+     * @param text Un double con el saldo que se desea establecer.
+     */
     public void setMoney(Double munny){
         money=munny;
+    }
+
+    /**
+     * Establece la deuda especifica.
+     * 
+     * @param text Un String con la deuda especifica que se desea establecer.
+     */
+    public void setSpeDebt(String text){
+        SpecifiedDebt=text;
     }
     
     //methods
@@ -103,7 +138,17 @@ public class Finance {
     }
 
     public String toStringContent() {
-		return "Concepto: "+getTitle(0) + ", Deuda: " + getDebt(0) + ", Saldo: " + this.money;
+        String text="";
+        /*if (this.title != null) {
+            text += "Concepto: "+this.getTitle(0);
+        }
+        if(this.debt != null){
+            text+= ", Deuda: " +this.getDebt(0);
+        }*/
+        if(money!=null){
+            text+="Saldo: " +money;
+        }
+		return text;
 	}
     
     //Utilitarias

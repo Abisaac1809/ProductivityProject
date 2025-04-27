@@ -15,35 +15,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class ConsultData {
 
-	public static void stacking(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3, Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3) throws IOException {
-		if(cola.getSize()!=0){
-			int i = cola.getSize();
-			for (int j = 0; j < i; i++) {
-				pila.top(cola.getFront());
-				cola.cutNode();
-			}
-		}
-		if(cola2.getSize()!=0){
-			int i = cola2.getSize();
-			for (int j = 0; j < i; i++) {
-				pila2.top(cola2.getFront());
-				cola2.cutNode();
-			}
-		}
-		if(cola3.getSize()!=0){
-			int i = cola3.getSize();
-			for (int j = 0; j < i; i++) {
-				pila3.top(cola3.getFront());
-				cola3.cutNode();
-			}
-		}
+	public static void stacking(Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3) throws IOException {
 		LocalDateTime actualDateTime = LocalDateTime.now();
-		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime + "_serial" + Math.random();
+		System.out.println(actualDateTime);
+		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime + "_serial.txt";
 		File file = new File(path);
+		file.createNewFile();
 		FileWriter writer = new FileWriter(file, false);
 		if(pila.getSize()!=0){
 			int i = pila.getSize();
@@ -69,29 +51,32 @@ public class ConsultData {
 		writer.close();
 	}
 
-	public static void showQueue(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3){
+	public static void showQueue(Queue<Finance> cola, Queue<Task> cola2, Queue<DailyHabit> cola3, Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3){
 		if(cola.getSize()!=0){
 			int i = cola.getSize();
-			for (int j = 0; j < i; i++) {
+			for (int j = 0; j < i; j++) {
 				String data = cola.getFront().toStringContent();
-				cola.cutNode();
 				System.out.println(data);
+				pila.top(cola.getFront());
+				cola.cutNode();
 			}
 		}
 		if(cola2.getSize()!=0){
 			int i = cola2.getSize();
-			for (int j = 0; j < i; i++) {
+			for (int j = 0; j < i; j++) {
 				String data = cola2.getFront().toStringContent();
-				cola.cutNode();
 				System.out.println(data);
+				pila2.top(cola2.getFront());
+				cola2.cutNode();
 			}
 		}
 		if(cola3.getSize()!=0){
 			int i = cola3.getSize();
-			for (int j = 0; j < i; i++) {
+			for (int j = 0; j < i; j++) {
 				String data = cola3.getFront().toStringContent();
-				cola.cutNode();
 				System.out.println(data);
+				pila3.top(cola3.getFront());
+				cola3.cutNode();
 			}
 		}
 	}
@@ -100,7 +85,7 @@ public class ConsultData {
 		try {
 			String file = username + "finances1.txt";
 			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/";
-			FileManager archive = new FileManager(path + file);
+			FileManager archive = new FileManager(path);
 			Finance userMoney = new Finance();
 			int option = 0;
 			if (lectura != null) {
@@ -122,21 +107,21 @@ public class ConsultData {
 							String files = path + file;
 							String text = "Ingrese el monto por el cual va a buscar: ";
 							Double monto = FinanceValidation.valEntry(text);
-							Double[] debts = getFinanceDebtsAmount(archive, files, lectura, monto);
+							String[] debts = getFinanceDebtsAmount(archive, file, lectura, monto);
 							for (int i = 0; i < debts.length; i++) {
-								userMoney.setDebt("" + debts[i]);
+								userMoney.setTitle("" + debts[i]);
 							}
 						}
 						if (option == 3) {
 							String files = path + file;
 							String text = "Ingrese el concepto de la deuda a buscar";
 							String concept = FinanceValidation.valConcept(text, files, true);
-							userMoney.setTitle(getFinanceDebtsTitle(archive, files, lectura, concept));
+							userMoney.setSpeDebt(getFinanceDebtsTitle(archive, file, lectura, concept));
 						}
 						if (option == 4) {
 							return new Node<>(userMoney);
 						}
-					} while (option != 4 && username != "");
+					} while (option != 5 && username != "");
 				}
 			}
 		} catch (IOException ex) {
@@ -148,15 +133,15 @@ public class ConsultData {
 	public static double getFinanceBalance(FileManager archive, String file, Scanner lectura)
 			throws FileNotFoundException {
 		lectura = archive.getFile(file);
-		Double num = Double.parseDouble(lectura.next());
+		Double num = Double.valueOf(lectura.nextLine());
 		return num;
 	}
 
-	public static Double[] getFinanceDebtsAmount(FileManager archive, String file, Scanner lectura, Double amount)
+	public static String[] getFinanceDebtsAmount(FileManager archive, String file, Scanner lectura, Double amount)
 			throws FileNotFoundException {
 		lectura = archive.getFile(file);
 		String line;
-		Double[] content = new Double[FinanceFileReader.cantReg(file)];
+		String[] content = new String[FinanceFileReader.cantReg(file)];
 		Scanner sep = null;
 		int n = 0;
 		Double aux;
@@ -164,13 +149,12 @@ public class ConsultData {
 		while (lectura.hasNextLine()) {
 			line = lectura.nextLine();
 			sep = new Scanner(line).useDelimiter(" ");
-			aux = Double.parseDouble(sep.next());
-			if (aux == amount) {
-				content[n] = Double.parseDouble(sep.next());
+			aux = Double.valueOf(sep.next());
+			if (Objects.equals(aux, amount)) {
+				content[n] = sep.next();
 				n++;
 			}
 		}
-		sep.close();
 		return content;
 	}
 
@@ -179,18 +163,17 @@ public class ConsultData {
 			lectura = archive.getFile(file);
 			String line;
 			String aux;
-			Scanner sep = null;
+			Scanner sepa = null;
 			lectura.nextLine();
 			while (lectura.hasNextLine()) {
 				line = lectura.nextLine();
-				sep = new Scanner(line).useDelimiter(" ");
-				sep.next();
-				aux = sep.next();
+				sepa = new Scanner(line).useDelimiter(" ");
+				sepa.next();
+				aux = sepa.next();
 				if (aux.equals(title)) {
-					return aux;
+					return line;
 				}
 			}
-			sep.close();
 		} catch (IOException ex) {
 			System.out.println(ex.getMessage());
 		}

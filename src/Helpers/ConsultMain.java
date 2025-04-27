@@ -37,13 +37,17 @@ public class ConsultMain {
 						cola.addNode(ConsultData.financeSearchMenu(input, username));
 					}
 					if (option == 4) {
-						ConsultData.showQueue(cola, cola2, cola3);
-						ConsultData.stacking(cola, cola2, cola3, pila, pila2, pila3);
+						ConsultData.showQueue(cola, cola2, cola3, pila, pila2, pila3);
+						ConsultData.stacking(pila, pila2, pila3);
 					}
 				}
 			}
 			cola=null;
 			pila=null;
+			cola2=null;
+			pila2=null;
+			cola3=null;
+			pila3=null;
 		}
 	}
 }
