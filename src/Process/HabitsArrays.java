@@ -7,7 +7,7 @@ public class HabitsArrays {
         
         if (dailyHabits != null && dailyHabitMinutes != null && newDailyHabits != null &&
             newDailyHabitMinutes != null && newHabit != null && newMinutes > 0) {
-            
+
             for (int i = 0; i < (newDailyHabits.length - 1); i++) {
                 newDailyHabits[i] = dailyHabits[i];
                 newDailyHabitMinutes[i] = dailyHabitMinutes[i];

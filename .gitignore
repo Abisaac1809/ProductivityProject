@@ -1,8 +1,5 @@
 # project's build folder
-build/
-dist/
+/build/
 
 # users file from the users module
-src/Storage/**/*.txt
-
-src/**/*.class
+/src/Storage/**/*.txt

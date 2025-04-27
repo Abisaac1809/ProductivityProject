@@ -2,13 +2,13 @@ package Process;
 
 import java.util.Scanner;
 
-import Repositories.FileManager;
+import Composables.FileManager;
+import Repositories.ArchiveUtil;
 import Repositories.List;
 import Repositories.Task;
-import Validations.TasksValidations;
 
 public class TasksFunctionalities {
-	static void menu(Scanner input, String username) {
+	static void menu(Scanner input, String username, ArchiveUtil archiveUtil) {
 
 		if (input != null && username != null) {
 			int option = 0;
@@ -20,17 +20,17 @@ public class TasksFunctionalities {
 				System.out.println("4. Menu Principal");
 				System.out.print("\n- Ingrese su opción: ");
 				option = Validations.DataValidations.option(input, 1, 4);
-				FileManager fileManager = TasksValidations.getFileManager(username);
-				List<Task> tasks = Helpers.TasksFileReader.getTasks(username, fileManager);
+				FileManager.createFileIfNotExists(archiveUtil.getRouter() + username + ".tasks.txt");
+				List<Task> tasks = Helpers.TasksFileReader.getTasks(username, archiveUtil);
 				if (option == 1)
-					createTask(input, username, tasks, fileManager);
+					createTask(input, username, tasks, archiveUtil);
 				if (option == 2)
-					searchTask(input, username, tasks, fileManager);
+					searchTask(input, username, tasks, archiveUtil);
 			}
 		}
 	}
 
-	private static void createTask(Scanner input, String username, List<Task> tasks, FileManager fileManager) {
+	private static void createTask(Scanner input, String username, List<Task> tasks, ArchiveUtil archiveUtil) {
 		if (input != null && username != null && tasks != null) {
 			System.out.print("- Ingrese el titulo de la tarea: ");
 			String title = Validations.TasksValidations.title(input);
@@ -38,11 +38,15 @@ public class TasksFunctionalities {
 			String description = Validations.TasksValidations.description(input);
 			Task task = new Task(title, description, "No Hecha");
 			tasks.add(task);
-			Composables.TasksFileWriter.updateFile(tasks, username, fileManager);
+			for (int i = 0; i < tasks.size(); i++) {
+				String text = String.format("%s,%s,%s\n", tasks.get(i).getTitle(), tasks.get(i).getDescription(),
+						tasks.get(i).getStatus());
+				archiveUtil.setCreateArchive(text, username + ".tasks", false);
+			}
 		}
 	}
 
-	private static void searchTask(Scanner input, String username, List<Task> tasks, FileManager fileManager) {
+	private static void searchTask(Scanner input, String username, List<Task> tasks, ArchiveUtil archiveUtil) {
 		if (input != null && username != null && tasks != null) {
 			int field = Validations.TasksValidations.getField(input);
 			List<Task> finded = new List<Task>();

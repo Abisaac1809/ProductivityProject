@@ -1,10 +1,10 @@
 package Validations;
 
-import Repositories.FileManager;
 import Repositories.MissingArgumentException;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import Repositories.ArchiveUtil;
 
 public class TasksValidations {
     public static String title(Scanner input) {
@@ -53,14 +53,12 @@ public class TasksValidations {
             }
         }
     }    
-
-	public static FileManager getFileManager(String username) {
+	public static void setTasksRouter(ArchiveUtil archiveUtil) {
 		try {
-			FileManager fileManager = new FileManager(Paths.get("").toAbsolutePath().toString() + "/src/Storage/TasksFiles/");
-			return fileManager;
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/TasksFiles/");
 		} catch (FileNotFoundException | MissingArgumentException e) {
-			System.out.println(e.getMessage());
-			return null;
+			System.out.println("Error: " + e.getMessage());
 		}
 	}
+
 }
