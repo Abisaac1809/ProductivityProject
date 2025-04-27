@@ -1,25 +1,27 @@
 package Composables;
 
+import Repositories.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import Repositories.List;
-
 public class FileManager {
-	public static void createFileIfNotExists(String path) {
+	public static boolean createFileIfNotExists(String path) {
 		if (path != null) {
 			try {
 				File file = new File(path);
 				if (!file.exists()) {
 					file.createNewFile();
+					return false;
 				}
+				return true;
 			} catch (Exception e) {
 				System.out.println("Error: " + e.getMessage());
 			}
 		}
+		return false;
 	}
 
 	public static void emptyFile(String path) {
@@ -40,7 +42,7 @@ public class FileManager {
 
 	public static void fileWriter1(String file, double add, List<Double> debts, List<String> title, int i) {
 		try {
-			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/" + file;
+			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/" + file;
 			File file1 = new File(path);
 			file1.createNewFile();
 			FileWriter writer = new FileWriter(file1, false);

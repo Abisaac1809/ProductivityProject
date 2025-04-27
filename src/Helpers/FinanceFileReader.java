@@ -12,7 +12,7 @@ public class FinanceFileReader {
 	public static int cantReg(String file) {
 		int num = 0;
 		try {
-			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/" + file;
+			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/" + file;
 			File arch = new File(path);
 			Scanner read = new Scanner(arch);
 			read.nextLine();
@@ -30,7 +30,7 @@ public class FinanceFileReader {
 
 	public static boolean searchInFile(String text, String file) {
 		try {
-			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/" + file;
+			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/" + file;
 			File arch = new File(path);
 			Scanner read = new Scanner(arch);
 			read.nextLine();

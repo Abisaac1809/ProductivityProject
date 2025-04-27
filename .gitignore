@@ -3,3 +3,4 @@
 
 # users file from the users module
 /src/Storage/**/*.txt
+/src/**/*.class

@@ -1,12 +1,12 @@
 package Process;
 
+import Composables.FileManager;
+import Helpers.FinanceFileReader;
+import Repositories.ArchiveUtil;
+import Repositories.Finance;
 import Validations.FinanceValidation;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import Helpers.FinanceFileReader;
-import Composables.FileManager;
-import Repositories.ArchiveUtil;
-import Repositories.Finance;
 import java.util.Scanner;
 
 public class FinanceDevelopment {
@@ -39,7 +39,7 @@ public class FinanceDevelopment {
 					}
 					if (option == 6) {
 						FileManager.fileWriter1(file1 + ".txt", userMoney.getMoney(), userMoney.getDebtsList(),
-								userMoney.getTitlesList(), userMoney.debtLength());
+						userMoney.getTitlesList(), userMoney.debtLength());
 						return;
 					}
 				}
@@ -51,9 +51,10 @@ public class FinanceDevelopment {
 
 	public static void funDefault(String file1, ArchiveUtil archiveUtil) throws IOException {
 		if (file1 != null) {
-			FileManager.createFileIfNotExists(file1);
-			FileManager.emptyFile(archiveUtil.getRouter() + file1 + ".txt");
-			archiveUtil.setCreateArchive("0.00", file1, false);
+			if(!FileManager.createFileIfNotExists(file1)){
+				FileManager.emptyFile(archiveUtil.getRouter() + file1 + ".txt");
+				archiveUtil.setCreateArchive("0.00", file1, false);
+			}
 		}
 	}
 

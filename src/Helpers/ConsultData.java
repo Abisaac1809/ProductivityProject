@@ -1,7 +1,7 @@
 package Helpers;
 
+import Repositories.ArchiveUtil;
 import Repositories.DailyHabit;
-import Repositories.FileManager;
 import Repositories.Finance;
 import Repositories.Node;
 import Repositories.Queue;
@@ -22,8 +22,8 @@ public class ConsultData {
 
 	public static void stacking(Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3) throws IOException {
 		LocalDateTime actualDateTime = LocalDateTime.now();
-		System.out.println(actualDateTime);
-		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/" + "datosusuario_" + actualDateTime + "_serial.txt";
+		int rand = (int) (Math.random()*20000)+10000;
+		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/SearchResults/datosusuario_"+actualDateTime.toLocalDate().toString()+"_"+rand+".txt";
 		File file = new File(path);
 		file.createNewFile();
 		FileWriter writer = new FileWriter(file, false);
@@ -84,8 +84,8 @@ public class ConsultData {
 	public static Node<Finance> financeSearchMenu(Scanner lectura, String username) {
 		try {
 			String file = username + "finances1.txt";
-			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinancesFiles/";
-			FileManager archive = new FileManager(path);
+			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/";
+			ArchiveUtil archive = new ArchiveUtil(path);
 			Finance userMoney = new Finance();
 			int option = 0;
 			if (lectura != null) {
@@ -121,7 +121,7 @@ public class ConsultData {
 						if (option == 4) {
 							return new Node<>(userMoney);
 						}
-					} while (option != 5 && username != "");
+					} while (option != 5);
 				}
 			}
 		} catch (IOException ex) {
@@ -130,16 +130,16 @@ public class ConsultData {
 		return null;
 	}
 
-	public static double getFinanceBalance(FileManager archive, String file, Scanner lectura)
+	public static double getFinanceBalance(ArchiveUtil archive, String file, Scanner lectura)
 			throws FileNotFoundException {
-		lectura = archive.getFile(file);
+		lectura = archive.getArchive(file);
 		Double num = Double.valueOf(lectura.nextLine());
 		return num;
 	}
 
-	public static String[] getFinanceDebtsAmount(FileManager archive, String file, Scanner lectura, Double amount)
+	public static String[] getFinanceDebtsAmount(ArchiveUtil archive, String file, Scanner lectura, Double amount)
 			throws FileNotFoundException {
-		lectura = archive.getFile(file);
+		lectura = archive.getArchive(file);
 		String line;
 		String[] content = new String[FinanceFileReader.cantReg(file)];
 		Scanner sep = null;
@@ -158,9 +158,8 @@ public class ConsultData {
 		return content;
 	}
 
-	public static String getFinanceDebtsTitle(FileManager archive, String file, Scanner lectura, String title) {
-		try {
-			lectura = archive.getFile(file);
+	public static String getFinanceDebtsTitle(ArchiveUtil archive, String file, Scanner lectura, String title) {
+			lectura = archive.getArchive(file);
 			String line;
 			String aux;
 			Scanner sepa = null;
@@ -174,9 +173,6 @@ public class ConsultData {
 					return line;
 				}
 			}
-		} catch (IOException ex) {
-			System.out.println(ex.getMessage());
-		}
 		return "";
 	}
 

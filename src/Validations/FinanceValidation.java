@@ -2,10 +2,9 @@ package Validations;
 
 import Helpers.FinanceFileReader;
 import Repositories.ArchiveUtil;
-
-import java.util.Scanner;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class FinanceValidation {
 	public static double valEntry(double balance, String text) {
@@ -94,7 +93,7 @@ public class FinanceValidation {
 
 	public static void setFinanceRouter(ArchiveUtil archiveUtil) {
 		try {
-			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/FinancesFiles/");
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/FinanceFiles/");
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
 		}
