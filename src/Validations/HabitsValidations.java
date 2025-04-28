@@ -24,7 +24,7 @@ public class HabitsValidations {
     public static boolean userHasHabits(String habitsRoute, String performanceRoute, ArchiveUtil archiveUtil) throws IOException  {
         
         if (habitsRoute != null && performanceRoute != null) {
-            try (Scanner fileReader = archiveUtil.getArchive(habitsRoute + ".txt")) {
+            try (Scanner fileReader = archiveUtil.getArchive(habitsRoute)) {
                 return fileReader.hasNext();
             }
             catch (Exception e) {
@@ -38,7 +38,7 @@ public class HabitsValidations {
 
 	public static void setHabitsRouter(ArchiveUtil archiveUtil) {
 		try {
-			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/HabitsFiles/");
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/");
 		} catch (FileNotFoundException | IllegalArgumentException e) {
 			System.out.println("Error: " + e.getMessage());
 		}

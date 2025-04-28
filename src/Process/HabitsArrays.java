@@ -1,5 +1,7 @@
 package Process;
 
+import java.util.Arrays;
+
 public class HabitsArrays {
     public static void appendHabit(String[] dailyHabits, int[] dailyHabitMinutes,
                                     String[] newDailyHabits, int[] newDailyHabitMinutes,
@@ -100,5 +102,29 @@ public class HabitsArrays {
                 }
             }
         }
-    }    
+    }
+    
+    public static int[] countCompletedDays(int dailyHabitsMinutes[], int[][][] habitTimeSpentDaily) {
+        
+        if (dailyHabitsMinutes != null && habitTimeSpentDaily != null) {
+            
+            int[] completedDays;
+            completedDays = new int[dailyHabitsMinutes.length];
+            Initializer.initializeVector(completedDays);
+
+            for (int i = 0; i < habitTimeSpentDaily.length; i++) {
+                for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {
+                    for (int k = 0; k < habitTimeSpentDaily[i][j].length; k++) {
+                        if (habitTimeSpentDaily[i][j][k] >= dailyHabitsMinutes[k]) {
+                            completedDays[k] += 1;
+                        }
+                    }
+                }
+            }
+            return completedDays;
+        }
+        return null;
+    }
+
+
 }

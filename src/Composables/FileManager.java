@@ -1,8 +1,11 @@
 package Composables;
 
+import Repositories.ArchiveUtil;
 import Repositories.List;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -104,5 +107,48 @@ public class FileManager {
             }
         }
         return 0;
+    }    
+
+    public static void saveHabits(ArchiveUtil archiveUtil, String route, String[] dailyHabits, int[] dailyHabitMinutes) throws IOException {
+        
+        if (route != null && dailyHabits != null && dailyHabitMinutes != null) {
+			String fileRoute = archiveUtil.getRouter() + route;
+            String line = "";
+            try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(fileRoute))) {
+                for (int i = 0; i < dailyHabits.length; i++) {
+                    line = String.format("%s#%d", dailyHabits[i], dailyHabitMinutes[i]);
+                    fileWriter.write(line);
+                    if (i != (dailyHabits.length - 1)) {
+                        fileWriter.newLine();
+                    }
+                }
+            }
+            catch(FileNotFoundException e) {  
+                System.out.println("¡Lo sentimos!, ha ocurrido un error");
+                System.out.println("Error: [No se ha encontrado el archivo]");
+            }
+        }  
+    }
+    
+    public static void savePerformance(ArchiveUtil archiveUtil, String route, int[][][] habitTimeSpentDaily) throws IOException {
+        
+        if (route != null && habitTimeSpentDaily != null) {
+            String fileRoute = archiveUtil.getRouter() + route;
+            try(BufferedWriter fileWriter = new BufferedWriter(new FileWriter(fileRoute))) {
+                for (int i = 0; i < habitTimeSpentDaily.length; i++) {
+                    for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {
+                        for (int k = 0; k < habitTimeSpentDaily[i][j].length; k++) {
+                            fileWriter.write(String.format("%s ", habitTimeSpentDaily[i][j][k]));
+                        }
+                        fileWriter.newLine();
+                    }
+                    fileWriter.newLine();
+                }
+            }
+            catch(FileNotFoundException e) {
+                System.out.println("¡Lo sentimos!, ha ocurrido un error");
+                System.out.println("Error: [No se ha encontrado el archivo]");    
+            }
+        }
     }    
 }

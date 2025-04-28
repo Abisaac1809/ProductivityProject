@@ -13,7 +13,7 @@ public class HabitsFileReader {
 
 			String line = "";
 			int i = 0;
-			try (Scanner fileReader = archiveUtil.getArchive(route + ".txt")) {
+			try (Scanner fileReader = archiveUtil.getArchive(route)) {
 				while (fileReader.hasNextLine() && i < dailyHabits.length) {
 
 					line = fileReader.nextLine();
@@ -38,7 +38,7 @@ public class HabitsFileReader {
 
 		if (route != null && habitTimeSpentDaily != null) {
 
-			try (Scanner fileReader = archiveUtil.getArchive(route + ".txt")) {
+			try (Scanner fileReader = archiveUtil.getArchive(route)) {
 				while (fileReader.hasNextLine()) {
 					for (int i = 0; i < habitTimeSpentDaily.length; i++) {
 						for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {

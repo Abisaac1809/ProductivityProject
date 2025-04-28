@@ -73,20 +73,8 @@ public class HabitsFunctionalities {
 					newMinutes);
 			HabitsArrays.appendHabitInPerformance(habitTimeSpentDaily, newHabitTimeSpentDaily);
 
-			for (int i = 0; i < newDailyHabits.length; i++) {
-				String line = String.format("%s#%d", newDailyHabits[i], newDailyHabitMinutes[i]);
-				archiveUtil.setCreateArchive(line, routes[0], i != (newDailyHabits.length - 1));
-			}
-			for (int i = 0; i < newHabitTimeSpentDaily.length; i++) {
-				for (int j = 0; j < newHabitTimeSpentDaily[i].length; j++) {
-					for (int k = 0; k < newHabitTimeSpentDaily[i][j].length; k++) {
-						archiveUtil.setCreateArchive(String.format("%s ", newHabitTimeSpentDaily[i][j][k]), routes[1],
-								false);
-					}
-					FileManager.addNewLine(archiveUtil.getRouter() + routes[1] + ".txt");
-				}
-				FileManager.addNewLine(archiveUtil.getRouter() + routes[1] + ".txt");
-			}
+			Composables.FileManager.saveHabits(archiveUtil, routes[0], newDailyHabits, newDailyHabitMinutes);
+			Composables.FileManager.savePerformance(archiveUtil, routes[1], newHabitTimeSpentDaily);
 
 			newDailyHabits = null;
 			newDailyHabitMinutes = null;
@@ -120,21 +108,8 @@ public class HabitsFunctionalities {
 			HabitsArrays.popHabit(habitPosition, dailyHabits, dailyHabitMinutes, newHabitsVector, newMinutesVector);
 			HabitsArrays.popHabitInPerformance(habitPosition, dailyHabits, habitTimeSpentDaily, newHabitTimeSpentDaily);
 
-			System.out.println(newHabitsVector.length);
-			for (int i = 0; i < newHabitsVector.length; i++) {
-				String line = String.format("%s#%d", newHabitsVector[i], newMinutesVector[i]);
-				archiveUtil.setCreateArchive(line, routes[0], i != (newHabitsVector.length - 1));
-			}
-			for (int i = 0; i < newHabitTimeSpentDaily.length; i++) {
-				for (int j = 0; j < newHabitTimeSpentDaily[i].length; j++) {
-					for (int k = 0; k < newHabitTimeSpentDaily[i][j].length; k++) {
-						archiveUtil.setCreateArchive(String.format("%s ", newHabitTimeSpentDaily[i][j][k]), routes[1],
-								false);
-					}
-					FileManager.addNewLine(archiveUtil.getRouter() + routes[1] + ".txt");
-				}
-				FileManager.addNewLine(archiveUtil.getRouter() + routes[1] + ".txt");
-			}
+			Composables.FileManager.saveHabits(archiveUtil, routes[0], newHabitsVector, newMinutesVector);
+			Composables.FileManager.savePerformance(archiveUtil, routes[1], newHabitTimeSpentDaily);
 
 			newHabitsVector = null;
 			newMinutesVector = null;
@@ -164,16 +139,8 @@ public class HabitsFunctionalities {
 
 			habitTimeSpentDaily[month][day][habitPosition] += minutes;
 			// Composables.HabitsFileWriter.savePerformance(route + ".txt", habitTimeSpentDaily, archiveUtil);
-			for (int i = 0; i < habitTimeSpentDaily.length; i++) {
-				for (int j = 0; j < habitTimeSpentDaily[i].length; j++) {
-					for (int k = 0; k < habitTimeSpentDaily[i][j].length; k++) {
-						archiveUtil.setCreateArchive(String.format("%s ", habitTimeSpentDaily[i][j][k]), route,
-								false);
-					}
-					FileManager.addNewLine(archiveUtil.getRouter() + route + ".txt");
-				}
-				FileManager.addNewLine(archiveUtil.getRouter() + route + ".txt");
-			}
+			Composables.FileManager.savePerformance(archiveUtil, route, habitTimeSpentDaily);
+
 			System.out.println("Se ha registrado tu progreso");
 
 			date = null;

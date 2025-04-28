@@ -36,6 +36,9 @@ public class ConsultMain {
 					if (option == 1) {
 						cola.addNode(ConsultData.financeSearchMenu(input, username));
 					}
+					if (option == 2) {
+						cola3.addNode(HabitSearchMenu.habitSearchMenu(user));
+					}
 					if (option == 4) {
 						ConsultData.showQueue(cola, cola2, cola3, pila, pila2, pila3);
 						ConsultData.stacking(pila, pila2, pila3);

@@ -22,14 +22,14 @@ public class HabitsMain {
 			int[] dailyHabitMinutes;
 			int[][][] habitTimeSpentDaily;
 
-			habitsRoute = "Habits." + user;
-			performanceUserRoute = "Performance." + user;
-			FileManager.createFileIfNotExists(archiveUtil.getRouter() + habitsRoute + ".txt");
-			FileManager.createFileIfNotExists(archiveUtil.getRouter() + performanceUserRoute + ".txt");
+			habitsRoute = "Habits." + user + ".txt";
+			performanceUserRoute = "Performance." + user + ".txt";
 
-			// nuevo
+			FileManager.createFileIfNotExists(archiveUtil.getRouter() + habitsRoute);
+			FileManager.createFileIfNotExists(archiveUtil.getRouter() + performanceUserRoute);
+
 			rows = (Validations.HabitsValidations.userHasHabits(habitsRoute, performanceUserRoute, archiveUtil))
-					? (FileManager.determineRows(archiveUtil.getRouter() + habitsRoute + ".txt"))
+					? (FileManager.determineRows(archiveUtil.getRouter() + habitsRoute))
 					: 0;
 
 			dailyHabits = new String[rows];
