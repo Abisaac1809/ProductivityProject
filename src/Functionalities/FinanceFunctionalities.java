@@ -88,7 +88,7 @@ public class FinanceFunctionalities {
         DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
-        System.out.println("\nSaldo disponible- " + numd);
+        System.out.println("\nSaldo disponible: " + numd);
         userMoney.addMoney(text);
     }
 
@@ -98,14 +98,14 @@ public class FinanceFunctionalities {
         DecimalFormat df = new DecimalFormat("#0.00");
         String numd = df.format(num);
         System.out.println("-----------------------");
-        System.out.println("\nSaldo disponible- " + numd);
+        System.out.println("\nSaldo disponible: " + numd);
         userMoney.subtractMoney(text);
     }
 
     public static void addDebt(Finance userMoney) {
         String text = "Ingrese el monto de la deuda: ";
         userMoney.setDebt(text);
-        text = "ingrese el concepto de la deuda";
+        text = "ingrese el concepto de la deuda: ";
         userMoney.setTitle(text);
 
     }

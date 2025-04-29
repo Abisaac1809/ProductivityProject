@@ -280,12 +280,11 @@ public class Finance {
                 if(flag==false){
                     for(int i=0;i<debtLength();i++){
                         if(concept.equals(getTitle(i))){
-                            deleteDebt(i);
                             check=false;
-                            return "hecho";
+                            return getTitle(i);
                         }
                     }
-                    if(check){
+                    if(check==true){
                     }else{
                         System.out.println("Error: Concepto no encontrado");
                     }
@@ -306,11 +305,10 @@ public class Finance {
     public double debtSearching(String text) {
         Double c = this.getMoney();
         Double d;
-            for(int i=0;i<this.debtLength()-1;i++){
+            for(int i=0;i<this.debtLength();i++){
                 d = this.getDebt(i);
                 if(this.getTitle(i).equals(text)){
                     if(d<=c){
-                        System.out.println(this.getDebt(i));
                         this.deleteDebt(i);
                         return c-d;
                     }else{
