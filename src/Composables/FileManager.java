@@ -152,6 +152,7 @@ public class FileManager {
             }
         }
     }  
+	
     public static void createHabitsFile(String username) {
         if (username != null) {
             try {
