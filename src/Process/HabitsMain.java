@@ -50,9 +50,6 @@ public class HabitsMain {
 			routes[0] = habitsRoute;
 			routes[1] = performanceUserRoute;
 
-			System.out.println("Rutas: "+routes[0]);
-			System.out.println("Rutas: "+routes[1]);
-
 			Helpers.HabitsFileReader.getDailyHabits(habitsRoute, archiveUtil, dailyHabits, dailyHabitMinutes);
 			Helpers.HabitsFileReader.getHabitTimeSpentDaily(performanceUserRoute, archiveUtil, habitTimeSpentDaily);
 

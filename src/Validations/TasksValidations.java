@@ -15,7 +15,7 @@ public class TasksValidations {
                 return value;
             } else {
                 System.out.println("Error: [Titulo excede los 20 caracteres permitidos]");
-                System.out.print("- Ingrese el valor correcto- ");
+                System.out.print("- Ingrese el valor correcto: ");
             }
         }
     }

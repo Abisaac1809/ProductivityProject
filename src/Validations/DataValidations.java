@@ -38,11 +38,11 @@ public class DataValidations {
                     return value;
                 } else {
                     System.out.println("Error: [Opción no válida]");
-                    System.out.print("- Ingrese el valor correcto- ");
+                    System.out.print("- Ingrese el valor correcto: ");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error: [Solo se admiten valores numericos enteros]");
-                System.out.print("- Ingrese el valor correcto- ");
+                System.out.print("- Ingrese el valor correcto: ");
                 input.nextLine();
             }
         }
@@ -97,7 +97,7 @@ public class DataValidations {
     }
     
     private static boolean checkChar(String text, char x, int index) {
-        String unsupported = "1234567890.,?1234567890/-;'!@#$%^&*()[]{}\\|=-+_~";
+        String unsupported = "1234567890.,?1234567890/:;'!@#$%^&*()[]{}\\|=-+_~";
         for (int i = 0; i < unsupported.length(); i++) {
             if (unsupported.charAt(i)== x) {
                 return false;
@@ -112,11 +112,11 @@ public class DataValidations {
             
             int position = 0;
         
-            System.out.println("\nOpciones-\n");
+            System.out.println("\nOpciones:\n");
             for (int i = 0; i < options.length; i++) {
                 System.out.printf("%d. %s\n", (i+1), options[i]);
             }
-            position = validateInt("Elige una opción- ", 1, options.length + 1);
+            position = validateInt("Elige una opción: ", 1, options.length + 1);
         
             return (position - 1);
         }    

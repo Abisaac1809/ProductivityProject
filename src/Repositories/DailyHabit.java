@@ -115,7 +115,7 @@ public class DailyHabit {
      * @return String formateado con la información del hábito
      */
     public String toStringContent() {
-        return String.format("Hábito- %s\nMinutos realizados- %d\nDías completados- %d/365\n", 
+        return String.format("Hábito: %s\nMinutos realizados: %d\nDías completados: %d/365\n", 
                 this.habit, this.minutes, this.completedDays);
     }
 }

@@ -1,9 +1,8 @@
 package Repositories;
 
+import Structures.List;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import Structures.List;
 
 /**
  * Maneja las finanzas personales incluyendo saldo, deudas y conceptos asociados.
@@ -202,12 +201,12 @@ public class Finance {
     /**
      * Genera una representación en String del estado financiero.
      * 
-     * @return String con formato "Concepto- [títulos] Deuda- [deuda especifica] Saldo- [saldo]"
+     * @return String con formato "Concepto: [títulos] Deuda: [deuda especifica] Saldo: [saldo]"
      */
     public String toStringContent() {
         String text="";
         if (title.size() != 0) {
-            text += "Concepto- "; 
+            text += "Concepto: "; 
             for(int i=0;i<title.size();i++){
                 if(!title.get(i).equals("null")){
                     text +=this.getTitle(i)+" ";
@@ -215,10 +214,10 @@ public class Finance {
             }
         }
         if(SpecifiedDebt!=null){
-            text += "Deuda- "+SpecifiedDebt+" ";
+            text += "Deuda: "+SpecifiedDebt+" ";
         }
         if(money!=null){
-            text+="Saldo- " +money;
+            text+="Saldo: " +money;
         }
         return text;
     }
