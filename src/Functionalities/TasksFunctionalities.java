@@ -4,7 +4,7 @@ import Composables.FileManager;
 import Repositories.ArchiveUtil;
 import Repositories.Task;
 import Structures.List;
-
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class TasksFunctionalities {
@@ -12,6 +12,10 @@ public class TasksFunctionalities {
 
 		if (input != null && username != null) {
 			int option = 0;
+			LocalDateTime actualDateTime = LocalDateTime.now();
+            int rand = (int) (Math.random() * 20000) + 10000;
+            String file1 = username + "task_" + actualDateTime.now().toString().replace(':', '-') +"_"+rand;
+			file1=FileManager.getToFile(file1, archiveUtil.getRouter());
 			while (option != 4) {
 				System.out.println("\n-----TAREAS-----\n");
 				System.out.println("1. Crear Tarea");
@@ -20,17 +24,17 @@ public class TasksFunctionalities {
 				System.out.println("4. Menu Principal");
 				System.out.print("\n- Ingrese su opción: ");
 				option = Validations.DataValidations.option(input, 1, 4);
-				FileManager.createFileIfNotExists(archiveUtil.getRouter() + username + ".tasks.txt");
-				List tasks = Helpers.TasksFileReader.getTasks(username, archiveUtil);
+				FileManager.createFileIfNotExists(archiveUtil.getRouter() + file1+".txt");
+				List tasks = Helpers.TasksFileReader.getTasks(file1+".txt", archiveUtil);
 				if (option == 1)
-					createTask(input, username, tasks, archiveUtil);
+					createTask(input, username, tasks, archiveUtil, file1);
 				if (option == 2)
 					searchTask(input, username, tasks);
 			}
 		}
 	}
 
-	private static void createTask(Scanner input, String username, List tasks, ArchiveUtil archiveUtil) {
+	private static void createTask(Scanner input, String username, List tasks, ArchiveUtil archiveUtil, String file1) {
 		if (input != null && username != null && tasks != null) {
 			System.out.print("- Ingrese el titulo de la tarea: ");
 			String title = Validations.TasksValidations.title(input);
@@ -41,7 +45,7 @@ public class TasksFunctionalities {
 			Task currentTask = (Task) tasks.get(tasks.size()-1);
 			String text = String.format("%s,%s,%s\n", currentTask.getTitle(), currentTask.getDescription(),
 			currentTask.getStatus());
-			archiveUtil.setCreateArchive(text, username + ".tasks", false);
+			archiveUtil.setCreateArchive(text, file1, false);
 			task=null;
 		}
 	}
@@ -60,7 +64,7 @@ public class TasksFunctionalities {
 				finded = Helpers.TasksFileReader.findTasksStatus(tasks, query, finded, 0);
 			}
 			if (finded.size() > 0) {
-				System.out.println("TAREAS ENCONTRADAS:");
+				System.out.println("TAREAS ENCONTRADAS-");
 				for (int i = 0; i < finded.size(); i++) {
 					Task task = (Task) finded.get(i);
 					System.out.printf("%2d.  %-20s  [%s]\n    %s\n", i + 1, task.getTitle(),

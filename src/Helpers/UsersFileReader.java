@@ -1,10 +1,9 @@
 package Helpers;
 
-import java.util.Scanner;
-
-import Repositories.ArchiveUtil;
 import Composables.FileManager;
 import Functionalities.UsersFunctionalities;
+import Repositories.ArchiveUtil;
+import java.util.Scanner;
 
 public class UsersFileReader {
 	public static boolean userExists(String username, ArchiveUtil archiveUtil) {

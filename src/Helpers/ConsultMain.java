@@ -21,6 +21,7 @@ public class ConsultMain {
 			Stack<Task> pila2 = new Stack<>();
 			Queue<DailyHabit> cola3 = new Queue<>();
 			Stack<DailyHabit> pila3 = new Stack<>();
+			String[] serials = new String[3];
 			if (username != "") {
 				while (option <= 6 && username != "") {
 					System.out.printf("\n-----------------------\n\n");
@@ -34,17 +35,17 @@ public class ConsultMain {
 					System.out.print("\n- Ingrese su opción: ");
 					option = DataValidations.option(input);
 					if (option == 1) {
-						cola.addNode(ConsultData.financeSearchMenu(input, username));
+						cola.addNode(ConsultData.financeSearchMenu(input, username, serials));
 					}
 					if (option == 2) {
-						cola3.addNode(HabitSearchMenu.habitSearchMenu(user));
+						cola3.addNode(HabitSearchMenu.habitSearchMenu(user, serials));
 					}
 					if(option == 3){
-						cola2=ConsultData.taskSearchMenu(input, username, cola2);
+						cola2=ConsultData.taskSearchMenu(input, username, cola2, serials);
 					}
 					if (option == 4) {
 						ConsultData.showQueueAndStacking(cola, cola2, cola3, pila, pila2, pila3);
-						ConsultData.saving(pila, pila2, pila3);
+						ConsultData.saving(pila, pila2, pila3, serials);
 					}
 					if(option==5){
 						return;

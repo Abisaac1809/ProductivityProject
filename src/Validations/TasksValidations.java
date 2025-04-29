@@ -1,9 +1,9 @@
 package Validations;
 
+import Repositories.ArchiveUtil;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import Repositories.ArchiveUtil;
 
 public class TasksValidations {
     public static String title(Scanner input) {
@@ -15,7 +15,7 @@ public class TasksValidations {
                 return value;
             } else {
                 System.out.println("Error: [Titulo excede los 20 caracteres permitidos]");
-                System.out.print("- Ingrese el valor correcto: ");
+                System.out.print("- Ingrese el valor correcto- ");
             }
         }
     }
@@ -54,7 +54,7 @@ public class TasksValidations {
     }    
 	public static void setTasksRouter(ArchiveUtil archiveUtil) {
 		try {
-			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/TasksFiles/");
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/TaskFiles/");
 		} catch (FileNotFoundException | IllegalArgumentException e) {
 			System.out.println("Error: " + e.getMessage());
 		}

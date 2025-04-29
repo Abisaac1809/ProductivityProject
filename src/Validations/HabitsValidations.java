@@ -1,12 +1,11 @@
 package Validations;
 
+import Composables.FileManager;
+import Repositories.ArchiveUtil;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
-import Composables.FileManager;
-import Repositories.ArchiveUtil;
 
 public class HabitsValidations {
     public static boolean habitNameExist(String[] dailyHabits,int index, String newName) {
@@ -38,7 +37,7 @@ public class HabitsValidations {
 
 	public static void setHabitsRouter(ArchiveUtil archiveUtil) {
 		try {
-			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/");
+			archiveUtil.setRouter(Paths.get("").toAbsolutePath().toString() + "/src/Storage/HabitsFiles/");
 		} catch (FileNotFoundException | IllegalArgumentException e) {
 			System.out.println("Error: " + e.getMessage());
 		}

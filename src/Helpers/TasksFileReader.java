@@ -3,13 +3,12 @@ package Helpers;
 import Repositories.ArchiveUtil;
 import Repositories.Task;
 import Structures.List;
-
 import java.util.Scanner;
 
 public class TasksFileReader {
-    public static List getTasks(String username, ArchiveUtil archiveUtil) {
+    public static List getTasks(String file1, ArchiveUtil archiveUtil) {
 		List tasks = new List();
-		Scanner archivo = archiveUtil.getArchive(username + ".tasks.txt");
+		Scanner archivo = archiveUtil.getArchive(file1);
 		while (archivo.hasNextLine()) {
 			String[] fields = archivo.nextLine().split(",");
 			Task task = new Task(fields[0], fields[1], fields[2]);

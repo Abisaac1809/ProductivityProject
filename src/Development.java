@@ -1,15 +1,14 @@
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 import Composables.FileManager;
 import Helpers.ConsultMain;
-import Process.UsersMain;
-import Repositories.ArchiveUtil;
 import Process.FinanceMain;
 import Process.HabitsMain;
 import Process.TasksMain;
+import Process.UsersMain;
+import Repositories.ArchiveUtil;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 public class Development {
     static void mainMenu(Scanner input, ArchiveUtil archiveUtil) throws IOException {

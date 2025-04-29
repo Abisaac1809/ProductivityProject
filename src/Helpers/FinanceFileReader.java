@@ -59,7 +59,7 @@ public class FinanceFileReader {
 	public static double fileHeadReading(String file, ArchiveUtil archiveUtil) {
 		double num = 0.00;
 		try {
-			Scanner read = archiveUtil.getArchive(file + ".txt");
+			Scanner read = archiveUtil.getArchive(file);
 			num = Double.parseDouble(read.next());
 			read.close();
 		} catch (Exception i) {
@@ -71,7 +71,7 @@ public class FinanceFileReader {
 	public static void fileBodyReading(Scanner input, String file, Finance userMoney, ArchiveUtil archiveUtil) {
 		if (file != null) {
 			try {
-				Scanner read2 = archiveUtil.getArchive(file + ".txt");
+				Scanner read2 = archiveUtil.getArchive(file);
 				read2.nextLine();
 				Scanner sepa = null;
 				while (read2.hasNextLine()) {

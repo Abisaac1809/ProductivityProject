@@ -1,10 +1,10 @@
 package Process;
 
-import Repositories.ArchiveUtil;
-import java.io.IOException;
-
 import Composables.FileManager;
 import Functionalities.HabitsFunctionalities;
+import Repositories.ArchiveUtil;
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class HabitsMain {
 
@@ -14,8 +14,11 @@ public class HabitsMain {
 
 			String habitsRoute = "";
 			String performanceUserRoute = "";
-
+			LocalDateTime actualDateTime = LocalDateTime.now();
+            int rand = (int) (Math.random() * 20000) + 10000;
+            String file1 = user + "habits_" + actualDateTime.now().toString().replace(':', '-') +"_"+rand+".txt";
 			Validations.HabitsValidations.setHabitsRouter(archiveUtil);
+			file1=FileManager.getToFile(file1, archiveUtil.getRouter());
 
 			int rows = 0;
 			String[] dailyHabits;
@@ -23,8 +26,10 @@ public class HabitsMain {
 			int[] dailyHabitMinutes;
 			int[][][] habitTimeSpentDaily;
 
-			habitsRoute = "Habits." + user + ".txt";
-			performanceUserRoute = "Performance." + user + ".txt";
+			habitsRoute = file1;
+			file1 = user + "performance_" + actualDateTime.now().toString().replace(':', '_') +"_"+rand+".txt";
+			file1=FileManager.getToFile(file1, archiveUtil.getRouter());
+			performanceUserRoute = file1;
 
 			FileManager.createFileIfNotExists(archiveUtil.getRouter() + habitsRoute);
 			FileManager.createFileIfNotExists(archiveUtil.getRouter() + performanceUserRoute);
@@ -44,6 +49,9 @@ public class HabitsMain {
 			Initializer.initializeArray(habitTimeSpentDaily);
 			routes[0] = habitsRoute;
 			routes[1] = performanceUserRoute;
+
+			System.out.println("Rutas: "+routes[0]);
+			System.out.println("Rutas: "+routes[1]);
 
 			Helpers.HabitsFileReader.getDailyHabits(habitsRoute, archiveUtil, dailyHabits, dailyHabitMinutes);
 			Helpers.HabitsFileReader.getHabitTimeSpentDaily(performanceUserRoute, archiveUtil, habitTimeSpentDaily);

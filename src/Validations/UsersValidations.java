@@ -1,10 +1,9 @@
 package Validations;
 
+import Repositories.ArchiveUtil;
 import java.io.FileNotFoundException;
 import java.nio.file.Paths;
 import java.util.Scanner;
-
-import Repositories.ArchiveUtil;
 
 public class UsersValidations {
 	public static String username(boolean isLogin, Scanner input, ArchiveUtil archiveUtil) {

@@ -2,13 +2,13 @@ package Composables;
 
 import Repositories.ArchiveUtil;
 import Structures.List;
-
-import java.io.File;
-import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class FileManager {
@@ -155,8 +155,12 @@ public class FileManager {
     public static void createHabitsFile(String username) {
         if (username != null) {
             try {
-                String path1 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/Habits." + username + ".txt";
-                String path2 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/Performance." + username + ".txt";
+				LocalDateTime actualDateTime = LocalDateTime.now();
+        		int rand = (int) (Math.random() * 20000) + 10000;
+				String file = username + "habits_" + actualDateTime.toLocalDate().toString() + "-" + actualDateTime.toLocalTime().toString() +"_"+rand;
+                String path1 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/" + file;
+				file = username + "perfomance_" + actualDateTime.toLocalDate().toString() + "-" + actualDateTime.toLocalTime().toString() +"_"+rand;
+                String path2 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/" + file;
                 File file1 = new File(path1);
                 file1.createNewFile();
                 File file2 = new File(path2);
@@ -166,4 +170,29 @@ public class FileManager {
             }
         }
     }  
+
+	public static String getToFile(String file, String path) {
+		Scanner separ = new Scanner(file).useDelimiter("_");
+		String line = separ.next();
+		File fileTo = new File(path);
+		String[] directories = fileTo.list();
+		for(int i=0;i<directories.length;i++){
+			separ = new Scanner(directories[i]).useDelimiter("_");
+			String line2 = separ.next();
+			if(line2.equals(line)){
+				separ.close();
+				return directories[i];
+			}
+		}
+		separ.close();
+		return file;
+	}
+
+	public static String getFileSerial(String file){
+		Scanner separ = new Scanner(file).useDelimiter("_");
+		separ.next();
+		separ.next();
+		String line = separ.next();
+		return line;
+	}
 }

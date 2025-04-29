@@ -1,5 +1,6 @@
 package Helpers;
 
+import Composables.FileManager;
 import Repositories.ArchiveUtil;
 import Repositories.DailyHabit;
 import Repositories.Finance;
@@ -21,10 +22,19 @@ import java.util.Scanner;
 
 public class ConsultData {
 
-	public static void saving(Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3) throws IOException {
+	public static void saving(Stack<Finance> pila, Stack<Task> pila2, Stack<DailyHabit> pila3, String[] serials) throws IOException {
 		LocalDateTime actualDateTime = LocalDateTime.now();
 		int rand = (int) (Math.random()*20000)+10000;
-		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/SearchResults/datosusuario_"+actualDateTime.toLocalDate().toString()+"_"+rand+".txt";
+		String text="";
+		Scanner se = null;
+		for(int i=0;i<serials.length;i++){
+			if(serials[i]!=null){
+				 se = new Scanner(serials[i]).useDelimiter(".txt");
+				text+=se.next();
+			}	
+		}
+		se.close();
+		String path = Paths.get(".").toRealPath().toString() + "/src/Storage/SearchResults/"+text+"_"+actualDateTime.toLocalDate().toString()+"_"+rand+".txt";
 		File file = new File(path);
 		file.createNewFile();
 		FileWriter writer = new FileWriter(file, false);
@@ -86,10 +96,14 @@ public class ConsultData {
 		}
 	}
 
-	public static Node<Finance> financeSearchMenu(Scanner lectura, String username) {
+	public static Node<Finance> financeSearchMenu(Scanner lectura, String username, String[] serials) {
 		try {
-			String file = username + "finances1.txt";
+			LocalDateTime actualDateTime = LocalDateTime.now();
+            int rand = (int) (Math.random() * 20000) + 10000;
+            String file = username + "finances_" + actualDateTime.now().toString().replace(':', '-') +"_"+rand;
 			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/FinanceFiles/";
+			file = FileManager.getToFile(file, path);
+			serials[0] = FileManager.getFileSerial(file);
 			ArchiveUtil archive = new ArchiveUtil(path);
 			Finance userMoney = new Finance();
 			int option = 0;
@@ -111,7 +125,7 @@ public class ConsultData {
 						}
 						if (option == 2) {
 							String files = path + file;
-							String text = "Ingrese el monto de la deuda: ";
+							String text = "Ingrese el monto de la deuda- ";
 							Double monto = FinanceValidation.valEntry(text);
 							String[] debts = getFinanceDebtsAmount(archive, file, lectura, monto);
 							for (int i = 0; i < debts.length; i++) {
@@ -127,6 +141,7 @@ public class ConsultData {
 							System.out.println("\n Hecho!");
 						}
 						if (option == 4) {
+							archive = null;
 							return new Node<>(userMoney);
 						}
 					} while (option != 5);
@@ -194,10 +209,15 @@ public class ConsultData {
 		return "";
 	}
 
-	public static Queue taskSearchMenu(Scanner lectura, String username, Queue<Task> cola2) throws IOException {
+	public static Queue taskSearchMenu(Scanner lectura, String username, Queue<Task> cola2, String[] serials) throws IOException {
+			LocalDateTime actualDateTime = LocalDateTime.now();
+            int rand = (int) (Math.random() * 20000) + 10000;
+			String file = username + "task_" + actualDateTime.now().toString().replace(':', '-') +"_"+rand;
 			String path = Paths.get(".").toRealPath().toString() + "/src/Storage/TaskFiles/";
+			file = FileManager.getToFile(file, path);
+			serials[2] = FileManager.getFileSerial(file);
 			ArchiveUtil archive = new ArchiveUtil(path);
-			List tasks = Helpers.TasksFileReader.getTasks(username, archive);
+			List tasks = Helpers.TasksFileReader.getTasks(file, archive);
 			List finded = new List();
 			int option = 0;
 			if (lectura != null) {

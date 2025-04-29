@@ -1,12 +1,10 @@
-import java.util.Scanner;
-
 import Repositories.ArchiveUtil;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Validation {
     static int option(Scanner input) {

@@ -17,7 +17,7 @@ public class HabitsArrays {
         
         newDailyHabits[newDailyHabits.length - 1] = newHabit;
         newDailyHabitMinutes[newDailyHabitMinutes.length - 1] = newMinutes; 
-        System.out.printf("\nSe ha fijado el hábito: %s\n", newHabit);
+        System.out.printf("\nSe ha fijado el hábito- %s\n", newHabit);
         }
     }
         

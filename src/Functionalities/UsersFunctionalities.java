@@ -1,10 +1,10 @@
 package Functionalities;
 
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 import Composables.FileManager;
 import Repositories.ArchiveUtil;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Scanner;
 
 public class UsersFunctionalities {
 	public static int loginMenu(Scanner input) {
@@ -19,6 +19,8 @@ public class UsersFunctionalities {
 	}
 
 	public static String signup(Scanner input, ArchiveUtil archiveUtil) {
+        LocalDateTime actualDateTime = LocalDateTime.now();
+        int rand = (int) (Math.random() * 20000) + 10000;
 		System.out.print("- Nombre de usuario: ");
 		String username = Validations.UsersValidations.username(false, input, archiveUtil);
 		System.out.print("- Contraseña: ");
@@ -27,8 +29,10 @@ public class UsersFunctionalities {
 		archiveUtil.setCreateArchive(text, "users", false);
 		System.out.println("Usuario Creado!");
 		Composables.FileManager.createHabitsFile(username);
+        String file1 = username + "finances_" + actualDateTime.now().toString().replace(':', '_') +"_"+rand;
+        file1=FileManager.getToFile(file1, archiveUtil.getRouter());
 		FileManager.createFileIfNotExists(
-				Paths.get("").toAbsolutePath().toString() + "/src/Storage/TasksFiles/" + username + ".tasks.txt");
+				Paths.get("").toAbsolutePath().toString() + "/src/Storage/FinanceFiles/" + file1);
 		text = String.format("%s\n", encrypt(username));
 		archiveUtil.setCreateArchive(text, "session", false);
 		return username;
@@ -62,7 +66,7 @@ public class UsersFunctionalities {
     public static String encrypt(String word) {
         String encryp = "";
         if (word != null) {
-            String symb[] = {".",",","*","!","@","#", "?", "/", ";", ":", "$", "%", "&", "(", ")", "[", "]", "{", "}", "'", "\"", "=", "+", "-", "_" };
+            String symb[] = {".",",","*","!","@","#", "?", "/", ";", "-", "$", "%", "&", "(", ")", "[", "]", "{", "}", "'", "\"", "=", "+", "-", "_" };
             String num[] = {"1","2","3","4","5","6","7","8","9","0"};
             String lower[] = {"a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
             String upper[] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
