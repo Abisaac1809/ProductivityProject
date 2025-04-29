@@ -38,7 +38,7 @@ public class ConsultMain {
 						cola.addNode(ConsultData.financeSearchMenu(input, username, serials));
 					}
 					if (option == 2) {
-						cola3.addNode(HabitSearchMenu.habitSearchMenu(user, serials));
+						cola3.addNode(ConsultData.habitSearchMenu(user, serials));
 					}
 					if(option == 3){
 						cola2=ConsultData.taskSearchMenu(input, username, cola2, serials);
