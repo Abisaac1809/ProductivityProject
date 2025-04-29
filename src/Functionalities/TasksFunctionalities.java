@@ -1,13 +1,14 @@
-package Process;
+package Functionalities;
 
 import Composables.FileManager;
 import Repositories.ArchiveUtil;
-import Repositories.List;
 import Repositories.Task;
+import Structures.List;
+
 import java.util.Scanner;
 
 public class TasksFunctionalities {
-	static void menu(Scanner input, String username, ArchiveUtil archiveUtil) {
+	public static void menu(Scanner input, String username, ArchiveUtil archiveUtil) {
 
 		if (input != null && username != null) {
 			int option = 0;

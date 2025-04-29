@@ -1,4 +1,4 @@
-package Repositories;
+package Structures;
 
 public class List {
 	private Object[] elements;

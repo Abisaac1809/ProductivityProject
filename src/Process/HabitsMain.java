@@ -4,6 +4,7 @@ import Repositories.ArchiveUtil;
 import java.io.IOException;
 
 import Composables.FileManager;
+import Functionalities.HabitsFunctionalities;
 
 public class HabitsMain {
 

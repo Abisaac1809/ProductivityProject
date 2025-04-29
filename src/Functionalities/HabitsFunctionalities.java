@@ -1,8 +1,11 @@
-package Process;
+package Functionalities;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
-import Composables.FileManager;
+import Process.Initializer;
 import Repositories.ArchiveUtil;
 
 public class HabitsFunctionalities {
@@ -25,7 +28,7 @@ public class HabitsFunctionalities {
 			opcion = Validations.DataValidations.validateInt("Ingrese la opción: ", 1, 6);
 
 			if (opcion == 1)
-				Helpers.HabitsDisplay.showHabits(dailyHabits, dailyHabitMinutes);
+				showHabits(dailyHabits, dailyHabitMinutes);
 			if (opcion == 2)
 				addHabit(routes, dailyHabits, dailyHabitMinutes, habitTimeSpentDaily, archiveUtil);
 			if (opcion == 3)
@@ -130,7 +133,7 @@ public class HabitsFunctionalities {
 			int month = 0;
 			int habitPosition = 0;
 			int minutes = 0;
-			int[] date = Dates.getDate();
+			int[] date = getDate();
 
 			day = date[0] - 1;
 			month = date[1] - 1;
@@ -162,7 +165,7 @@ public class HabitsFunctionalities {
 			String[] months = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto",
 					"Septiembre", "Octubre", "Noviembre", "Diciembre" };
 
-			monthsDays = Dates.getMonthsDays();
+			monthsDays = getMonthsDays();
 			monthPosition = Validations.DataValidations.chosePosition(months);
 			month = months[monthPosition];
 			monthLastDay = monthsDays[monthPosition];
@@ -172,7 +175,7 @@ public class HabitsFunctionalities {
 			HabitsArrays.getCompletedDays(monthPosition, monthLastDay, dailyHabitsMinutes, habitTimeSpentDaily,
 					completedDays);
 
-			Helpers.HabitsDisplay.showMonthlyHabitTracker(month, dailyHabits, completedDays);
+			showMonthlyHabitTracker(month, dailyHabits, completedDays);
 
 			completedDays = null;
 			monthsDays = null;
@@ -182,4 +185,103 @@ public class HabitsFunctionalities {
 			System.out.println("Vuelva a intentarlo más tarde\n");
 		}
 	}
+
+    public static void showHabits(String[] dailyHabits, int[] dailyHabitMinutes) {
+        
+        if (dailyHabits != null && dailyHabitMinutes != null) {
+            
+            if (dailyHabits.length == 0) {
+                
+                System.out.println("\nTodavía no has fijado ningún hábito\n");
+            }
+            else {
+                
+                System.out.printf("%30s\n\n", "HÁBITOS FIJADOS");
+                System.out.printf("%-40s %-40s\n", "HÁBITO", "MINUTOS");
+        
+                for (int i = 0; i < dailyHabits.length; i++) {
+                    System.out.printf("%-40s %-40d\n", dailyHabits[i], dailyHabitMinutes[i]);
+                }     
+            }  
+        }
+        else {
+            System.out.println("\n¡Lo sentimos!. Esta función no está disponible en estos momentos");
+            System.out.println("Vuelva a intentarlo más tarde\n");
+        }
+    }
+    
+    public static void showMonthlyHabitTracker(String month, String[] dailyHabits, int [][]completedDays) {
+        
+        if (month != null && dailyHabits != null && completedDays != null) {
+            String mark;
+        
+            System.out.printf("\nRENDIMIENTO DE %s\n", month.toUpperCase());
+            printLine(43 + (3 * completedDays.length));
+            System.out.printf("%-40s|  ", "HÁBITO");
+        
+            for (int i = 0; i < completedDays.length; i++){
+                System.out.printf("%-3d", (i+1));
+            }
+            System.out.println("|");
+        
+            printLine(43 + (3 * completedDays.length));
+        
+            for (int i = 0; i < dailyHabits.length; i++) {
+                System.out.printf("%-40s|  ", dailyHabits[i]);
+                for (int j = 0; j < completedDays.length; j++) {
+                    mark = (completedDays[j][i] == 1) ? "X" : "-"; 
+                    System.out.printf("%-3s", mark);
+                }
+                System.out.println("|");
+            }
+            printLine(43 + (3 * completedDays.length));    
+        }   
+    }
+    
+    private static void printLine (int numberOfCharacters) {
+        
+        if (numberOfCharacters > 0) {
+            for (int i = 0; i < numberOfCharacters; i++) {
+                System.out.print("-");
+            }
+            System.out.println("|");
+        }
+    }
+	
+    public static int[] getDate(){
+        String stringDate = "";
+        int[] date;
+        date = new int[3];
+        Initializer.initializeVector(date);
+        LocalDateTime localTime = LocalDateTime.now();
+        DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        
+        stringDate = localTime.format(formater);
+        Scanner scanner = new Scanner(stringDate);
+        scanner.useDelimiter("-");
+        date[0] = scanner.nextInt();
+        date[1] = scanner.nextInt();
+        date[2] = scanner.nextInt();
+        
+        localTime = null;
+        formater = null;
+        scanner.close();
+        
+        return date;
+    }
+    
+    public static int[] getMonthsDays() {
+        int year = 0;
+        int[] date = getDate();
+        int[] normalYear = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        int[] leapYear = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        year = date[2];        
+        
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+            return leapYear;
+        }
+        else {
+            return normalYear;
+        }
+    }    
 }

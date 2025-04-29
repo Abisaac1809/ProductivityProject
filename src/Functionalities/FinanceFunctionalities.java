@@ -1,4 +1,4 @@
-package Process;
+package Functionalities;
 
 import Composables.FileManager;
 import Helpers.FinanceFileReader;
@@ -9,33 +9,33 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-public class FinanceDevelopment {
+public class FinanceFunctionalities {
 
 	public static void menu(String username, Finance userMoney, Scanner input, ArchiveUtil archiveUtil) {
 		try {
 			double option = 0;
 			if (username != null) {
 				String file1 = username + "finances1";
-				FinanceDevelopment.funDefault(file1, archiveUtil);
+				FinanceFunctionalities.funDefault(file1, archiveUtil);
 				userMoney.setMoney(FinanceFileReader.fileHeadReading(file1, archiveUtil));
 				FinanceFileReader.fileBodyReading(input, file1, userMoney, archiveUtil);
 				System.out.println("\n");
 				while (option >= 0 && option <= 6) {
-					option = FinanceDevelopment.menuFinance(userMoney, input);
+					option = FinanceFunctionalities.menuFinance(userMoney, input);
 					if (option == 1) {
-						FinanceDevelopment.addAmount(userMoney);
+						FinanceFunctionalities.addAmount(userMoney);
 					}
 					if (option == 2) {
-						FinanceDevelopment.subtractAmount(userMoney);
+						FinanceFunctionalities.subtractAmount(userMoney);
 					}
 					if (option == 3) {
-						FinanceDevelopment.addDebt(userMoney);
+						FinanceFunctionalities.addDebt(userMoney);
 					}
 					if (option == 4) {
-						FinanceDevelopment.subtractDebt(userMoney);
+						FinanceFunctionalities.subtractDebt(userMoney);
 					}
 					if (option == 5) {
-						FinanceDevelopment.showDebts(username, userMoney);
+						FinanceFunctionalities.showDebts(username, userMoney);
 					}
 					if (option == 6) {
 						FileManager.fileWriter1(file1 + ".txt", userMoney.getMoney(), userMoney.getDebtsList(),

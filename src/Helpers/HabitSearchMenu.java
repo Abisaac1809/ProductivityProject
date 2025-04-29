@@ -1,12 +1,13 @@
 package Helpers;
 
 import Composables.FileManager;
-import Process.HabitsArrays;
+import Functionalities.HabitsArrays;
 import Validations.DataValidations;
 import Process.Initializer;
 import Repositories.DailyHabit;
+import Structures.Node;
 import Repositories.ArchiveUtil;
-import Repositories.Node;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;

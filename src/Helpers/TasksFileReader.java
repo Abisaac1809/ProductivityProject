@@ -1,8 +1,9 @@
 package Helpers;
 
 import Repositories.ArchiveUtil;
-import Repositories.List;
 import Repositories.Task;
+import Structures.List;
+
 import java.util.Scanner;
 
 public class TasksFileReader {

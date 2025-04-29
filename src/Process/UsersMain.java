@@ -2,6 +2,7 @@ package Process;
 
 import java.util.Scanner;
 
+import Functionalities.UsersFunctionalities;
 import Repositories.ArchiveUtil;
 
 public class UsersMain {

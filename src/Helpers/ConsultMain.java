@@ -2,9 +2,9 @@ package Helpers;
 
 import Repositories.DailyHabit;
 import Repositories.Finance;
-import Repositories.Queue;
-import Repositories.Stack;
 import Repositories.Task;
+import Structures.Queue;
+import Structures.Stack;
 import Validations.DataValidations;
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,6 +1,6 @@
-package Process;
+package Functionalities;
 
-import java.util.Arrays;
+import Process.Initializer;
 
 public class HabitsArrays {
     public static void appendHabit(String[] dailyHabits, int[] dailyHabitMinutes,
@@ -37,7 +37,7 @@ public class HabitsArrays {
     
         
     public static void popHabit(int habitPosition, String[] dailyHabits, int[] dailyHabitMinutes,
-                                 String[] newDailyHabits, int[] newDailyHabitMinutes) {
+                                String[] newDailyHabits, int[] newDailyHabitMinutes) {
         
         if (habitPosition >= 0 && dailyHabits != null && dailyHabitMinutes != null
             && newDailyHabits != null && newDailyHabitMinutes!= null) {

@@ -3,6 +3,8 @@ package Repositories;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import Structures.List;
+
 /**
  * Maneja las finanzas personales incluyendo saldo, deudas y conceptos asociados.
  * 

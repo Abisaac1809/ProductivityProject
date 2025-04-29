@@ -1,9 +1,10 @@
 package Helpers;
 
 import java.util.Scanner;
-import Process.Encrypt;
+
 import Repositories.ArchiveUtil;
 import Composables.FileManager;
+import Functionalities.UsersFunctionalities;
 
 public class UsersFileReader {
 	public static boolean userExists(String username, ArchiveUtil archiveUtil) {
@@ -33,7 +34,7 @@ public static void checkPassword(String username, Scanner input, ArchiveUtil arc
 					Scanner file = archiveUtil.getArchive("users.txt");
 					String p = "";
 					System.out.print("- Contraseña: ");
-					String password = Encrypt.encrypt(input.next());
+					String password = UsersFunctionalities.encrypt(input.next());
 					while (file.hasNextLine()) {
 						if (file.next().equals(username)) {
 							p = file.next();
@@ -62,7 +63,7 @@ public static void checkPassword(String username, Scanner input, ArchiveUtil arc
 			Scanner file = archiveUtil.getArchive("users.txt");
 			while (file.hasNext()) {
 				String user = file.next();
-				if (Encrypt.encrypt(user).equals(usernameEncrypted)) {
+				if (UsersFunctionalities.encrypt(user).equals(usernameEncrypted)) {
 					file.close();
 					return user;
 				}

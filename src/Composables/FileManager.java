@@ -1,7 +1,8 @@
 package Composables;
 
 import Repositories.ArchiveUtil;
-import Repositories.List;
+import Structures.List;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -150,5 +151,19 @@ public class FileManager {
                 System.out.println("Error: [No se ha encontrado el archivo]");    
             }
         }
-    }    
+    }  
+    public static void createHabitsFile(String username) {
+        if (username != null) {
+            try {
+                String path1 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/Habits." + username + ".txt";
+                String path2 = Paths.get(".").toRealPath().toString() + "/src/Storage/HabitsFiles/Performance." + username + ".txt";
+                File file1 = new File(path1);
+                file1.createNewFile();
+                File file2 = new File(path2);
+                file2.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+    }  
 }
