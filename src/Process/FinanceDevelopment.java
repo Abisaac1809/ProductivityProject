@@ -98,9 +98,9 @@ public class FinanceDevelopment {
 	}
 
 	public static void addDebt(Finance userMoney) {
-		String text = "Ingrese el monto de su deuda: ";
+		String text = "Ingrese el monto de la deuda: ";
 		userMoney.setDebt(text);
-		text = "ingrese el concepto de esta deuda";
+		text = "ingrese el concepto de la deuda";
 		userMoney.setTitle(text);
 
 	}

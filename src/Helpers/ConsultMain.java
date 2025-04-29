@@ -15,14 +15,14 @@ public class ConsultMain {
 		int option = 0;
 		if (input != null) {
 			String username = user;
-			Queue<Finance> cola = new Queue<Finance>();
-			Stack<Finance> pila = new Stack<Finance>();
+			Queue<Finance> cola = new Queue<>();
+			Stack<Finance> pila = new Stack<>();
 			Queue<Task> cola2 = new Queue<>();
 			Stack<Task> pila2 = new Stack<>();
 			Queue<DailyHabit> cola3 = new Queue<>();
 			Stack<DailyHabit> pila3 = new Stack<>();
 			if (username != "") {
-				while (option != 6 && username != "") {
+				while (option <= 6 && username != "") {
 					System.out.printf("\n-----------------------\n\n");
 					System.out.println("Que tipo de información  desea buscar");
 					System.out.println("1. Finanzas");
@@ -39,9 +39,15 @@ public class ConsultMain {
 					if (option == 2) {
 						cola3.addNode(HabitSearchMenu.habitSearchMenu(user));
 					}
+					if(option == 3){
+						cola2=ConsultData.taskSearchMenu(input, username, cola2);
+					}
 					if (option == 4) {
-						ConsultData.showQueue(cola, cola2, cola3, pila, pila2, pila3);
-						ConsultData.stacking(pila, pila2, pila3);
+						ConsultData.showQueueAndStacking(cola, cola2, cola3, pila, pila2, pila3);
+						ConsultData.saving(pila, pila2, pila3);
+					}
+					if(option==5){
+						return;
 					}
 				}
 			}

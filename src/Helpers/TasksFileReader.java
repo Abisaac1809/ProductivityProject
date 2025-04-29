@@ -1,9 +1,9 @@
 package Helpers;
 
-import java.util.Scanner;
-import Repositories.Task;
 import Repositories.ArchiveUtil;
 import Repositories.List;
+import Repositories.Task;
+import java.util.Scanner;
 
 public class TasksFileReader {
     public static List getTasks(String username, ArchiveUtil archiveUtil) {

@@ -163,6 +163,7 @@ public class Finance {
         Scanner enter=new Scanner(System.in);
         while(true){
             try{
+                System.out.println(text);
                 amount=enter.nextDouble();
                 amount=Math.abs(amount);
                 return amount;
@@ -179,6 +180,7 @@ public class Finance {
         boolean check=true;
         while(true){
             try{
+                System.out.println(text);
                 concept=enter.nextLine().replace(" ", "_");
                 concept=concept.toLowerCase();
                 if(flag==true){

@@ -34,7 +34,7 @@ public class DataValidations {
             try {
                 value = input.nextInt();
 
-                if (value >= 1 && value <= 4) {
+                if (value >= 1 && value <= 5) {
                     return value;
                 } else {
                     System.out.println("Error: [Opción no válida]");

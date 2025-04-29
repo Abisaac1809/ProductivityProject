@@ -1,11 +1,10 @@
 package Process;
 
-import java.util.Scanner;
-
 import Composables.FileManager;
 import Repositories.ArchiveUtil;
 import Repositories.List;
 import Repositories.Task;
+import java.util.Scanner;
 
 public class TasksFunctionalities {
 	static void menu(Scanner input, String username, ArchiveUtil archiveUtil) {
@@ -25,7 +24,7 @@ public class TasksFunctionalities {
 				if (option == 1)
 					createTask(input, username, tasks, archiveUtil);
 				if (option == 2)
-					searchTask(input, username, tasks, archiveUtil);
+					searchTask(input, username, tasks);
 			}
 		}
 	}
@@ -38,16 +37,15 @@ public class TasksFunctionalities {
 			String description = Validations.TasksValidations.description(input);
 			Task task = new Task(title, description, "No Hecha");
 			tasks.add(task);
-			for (int i = 0; i < tasks.size(); i++) {
-				Task currentTask = (Task) tasks.get(i);
-				String text = String.format("%s,%s,%s\n", currentTask.getTitle(), currentTask.getDescription(),
-						currentTask.getStatus());
-				archiveUtil.setCreateArchive(text, username + ".tasks", false);
-			}
+			Task currentTask = (Task) tasks.get(tasks.size()-1);
+			String text = String.format("%s,%s,%s\n", currentTask.getTitle(), currentTask.getDescription(),
+			currentTask.getStatus());
+			archiveUtil.setCreateArchive(text, username + ".tasks", false);
+			task=null;
 		}
 	}
 
-	private static void searchTask(Scanner input, String username, List tasks, ArchiveUtil archiveUtil) {
+	private static void searchTask(Scanner input, String username, List tasks) {
 		if (input != null && username != null && tasks != null) {
 			int field = Validations.TasksValidations.getField(input);
 			List finded = new List();
